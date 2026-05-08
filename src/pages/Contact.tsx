@@ -38,59 +38,64 @@ export default function Contact({ onNavigate }: ContactProps) {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!form.name || !form.email || !form.subject || !form.message) return;
+    if (!form.name || !form.email || !form.subject || !form.message) {
+      return;
+    }
 
-  try {
-    setStatus('loading');
+    try {
+      setStatus('loading');
 
+      // Save the contact request in Supabase.
+      // This matches your existing table: public.contact_messages
       const { error: dbError } = await supabase
         .from('contact_messages')
         .insert([
           {
-            name: form.name,
-            company: form.company || null,
-            email: form.email,
-            phone: form.phone || null,
-            subject: form.subject,
-            message: form.message,
+            full_name: form.name.trim(),
+            company_name: form.company.trim() || null,
+            email: form.email.trim(),
+            phone: form.phone.trim() || null,
+            subject: form.subject.trim(),
+            message: form.message.trim(),
           },
         ]);
 
-    if (dbError) {
-      console.error('Database Error:', dbError);
-      setStatus('error');
-      return;
-    }
-
-    const { error: functionError } = await supabase.functions.invoke(
-      'send-contact-email',
-      {
-        body: {
-          full_name: form.name,
-          company_name: form.company,
-          email: form.email,
-          phone: form.phone,
-          subject: form.subject,
-          message: form.message,
-        },
+      if (dbError) {
+        console.error('Contact database insert failed:', dbError);
+        setStatus('error');
+        return;
       }
-    );
 
-    if (functionError) {
-      console.error('Email Function Error:', functionError);
+      // Send notification email using your Supabase Edge Function.
+      const { error: functionError } = await supabase.functions.invoke(
+        'send-contact-email',
+        {
+          body: {
+            full_name: form.name.trim(),
+            company_name: form.company.trim() || '',
+            email: form.email.trim(),
+            phone: form.phone.trim() || '',
+            subject: form.subject.trim(),
+            message: form.message.trim(),
+          },
+        }
+      );
+
+      if (functionError) {
+        console.error('Contact email function failed:', functionError);
+        setStatus('error');
+        return;
+      }
+
+      setStatus('success');
+      setForm(initialForm);
+    } catch (err) {
+      console.error('Unexpected contact form error:', err);
       setStatus('error');
-      return;
     }
-
-    setStatus('success');
-    setForm(initialForm);
-  } catch (err) {
-    console.error('Unexpected Error:', err);
-    setStatus('error');
-  }
-};
+  };
 
   return (
     <div className="bg-[#030d1f] min-h-screen flex flex-col">

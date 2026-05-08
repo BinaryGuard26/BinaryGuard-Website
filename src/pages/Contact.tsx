@@ -8,7 +8,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   try {
     setStatus('loading');
 
-    // Save to database
+    // Save to Supabase database
     const { error: dbError } = await supabase
       .from('contact_submissions')
       .insert([
@@ -23,12 +23,12 @@ const handleSubmit = async (e: React.FormEvent) => {
       ]);
 
     if (dbError) {
-      console.error(dbError);
+      console.error('Database Error:', dbError);
       setStatus('error');
       return;
     }
 
-    // Send email using edge function
+    // Send email using Supabase Edge Function
     const { error: functionError } = await supabase.functions.invoke(
       'send-contact-email',
       {
@@ -44,7 +44,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     );
 
     if (functionError) {
-      console.error(functionError);
+      console.error('Function Error:', functionError);
       setStatus('error');
       return;
     }
@@ -53,7 +53,7 @@ const handleSubmit = async (e: React.FormEvent) => {
     setForm(initialForm);
 
   } catch (err) {
-    console.error(err);
+    console.error('Unexpected Error:', err);
     setStatus('error');
   }
 };

@@ -38,14 +38,12 @@ export default function Contact({ onNavigate }: ContactProps) {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!form.name || !form.email || !form.subject || !form.message) {
-      return;
-    }
+  if (!form.name || !form.email || !form.subject || !form.message) return;
 
-    try {
-      setStatus('loading');
+  try {
+    setStatus('loading');
 
       const { error: dbError } = await supabase
         .from('contact_messages')
@@ -60,39 +58,39 @@ export default function Contact({ onNavigate }: ContactProps) {
           },
         ]);
 
-      if (dbError) {
-        console.error('Database Error:', dbError);
-        setStatus('error');
-        return;
-      }
-
-      const { error: functionError } = await supabase.functions.invoke(
-        'send-contact-email',
-        {
-          body: {
-            full_name: form.name,
-            company_name: form.company,
-            email: form.email,
-            phone: form.phone,
-            subject: form.subject,
-            message: form.message,
-          },
-        }
-      );
-
-      if (functionError) {
-        console.error('Function Error:', functionError);
-        setStatus('error');
-        return;
-      }
-
-      setStatus('success');
-      setForm(initialForm);
-    } catch (err) {
-      console.error('Unexpected Error:', err);
+    if (dbError) {
+      console.error('Database Error:', dbError);
       setStatus('error');
+      return;
     }
-  };
+
+    const { error: functionError } = await supabase.functions.invoke(
+      'send-contact-email',
+      {
+        body: {
+          full_name: form.name,
+          company_name: form.company,
+          email: form.email,
+          phone: form.phone,
+          subject: form.subject,
+          message: form.message,
+        },
+      }
+    );
+
+    if (functionError) {
+      console.error('Email Function Error:', functionError);
+      setStatus('error');
+      return;
+    }
+
+    setStatus('success');
+    setForm(initialForm);
+  } catch (err) {
+    console.error('Unexpected Error:', err);
+    setStatus('error');
+  }
+};
 
   return (
     <div className="bg-[#030d1f] min-h-screen flex flex-col">

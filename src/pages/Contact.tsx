@@ -48,7 +48,7 @@ export default function Contact({ onNavigate }: ContactProps) {
       setStatus('loading');
 
       const { error: dbError } = await supabase
-        .from('contact_submissions')
+        .from('contact_messages')
         .insert([
           {
             name: form.name,

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Send, CheckCircle, AlertCircle, Phone, Mail, Clock } from 'lucide-react';
 import Footer from '../components/Footer';
-import { supabase } from '../lib/supabase';
 
 type Page = 'home' | 'about' | 'services' | 'products' | 'contact' | 'solutions';
 
@@ -47,46 +46,33 @@ export default function Contact({ onNavigate }: ContactProps) {
     try {
       setStatus('loading');
 
-      // Save the contact request in Supabase.
-      // This matches your existing table: public.contact_messages
-      const { error: dbError } = await supabase
-        .from('contact_messages')
-        .insert([
-          {
-            full_name: form.name.trim(),
-            company_name: form.company.trim() || null,
-            email: form.email.trim(),
-            phone: form.phone.trim() || null,
-            subject: form.subject.trim(),
-            message: form.message.trim(),
-          },
-        ]);
+      const apiUrl = import.meta.env.VITE_CONTACT_API_URL || 'http://localhost:3001/api/contact';
 
-      if (dbError) {
-        console.error('Contact database insert failed:', dbError);
-        setStatus('error');
-        return;
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          company: form.company.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          subject: form.subject.trim(),
+          message: form.message.trim(),
+        }),
+      });
+
+      let data: { success?: boolean; message?: string } = {};
+
+      try {
+        data = await response.json();
+      } catch {
+        data = {};
       }
 
-      // Send notification email using your Supabase Edge Function.
-      const { error: functionError } = await supabase.functions.invoke(
-        'send-contact-email',
-        {
-          body: {
-            full_name: form.name.trim(),
-            company_name: form.company.trim() || '',
-            email: form.email.trim(),
-            phone: form.phone.trim() || '',
-            subject: form.subject.trim(),
-            message: form.message.trim(),
-          },
-        }
-      );
-
-      if (functionError) {
-        console.error('Contact email function failed:', functionError);
-        setStatus('error');
-        return;
+      if (!response.ok || data.success === false) {
+        throw new Error(data.message || 'Email failed');
       }
 
       setStatus('success');

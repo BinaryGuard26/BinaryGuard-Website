@@ -29,14 +29,14 @@ async function getAccessToken() {
   return result?.accessToken;
 }
 
-app.get("/health", (req, res) => {
+app.get("/api/health", (_req, res) => {
   res.json({
     success: true,
     message: "SMTP API healthy",
   });
 });
 
-app.post("/contact", async (req, res) => {
+app.post("/api/contact", async (req, res) => {
   try {
     const {
       name,

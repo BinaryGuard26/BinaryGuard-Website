@@ -1,7 +1,8 @@
 import express from "express";
-import nodemailer from "nodemailer";
 import cors from "cors";
 import dotenv from "dotenv";
+import nodemailer from "nodemailer";
+import { ConfidentialClientApplication } from "@azure/msal-node";
 
 dotenv.config();
 
@@ -10,72 +11,83 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (_req, res) => {
-  res.send("BinaryGuard SMTP API is running");
-});
+const msalConfig = {
+  auth: {
+    clientId: process.env.AZURE_CLIENT_ID!,
+    authority: `https://login.microsoftonline.com/${process.env.AZURE_TENANT_ID}`,
+    clientSecret: process.env.AZURE_CLIENT_SECRET!,
+  },
+};
 
-app.get("/api/health", (_req, res) => {
+const cca = new ConfidentialClientApplication(msalConfig);
+
+async function getAccessToken() {
+  const result = await cca.acquireTokenByClientCredential({
+    scopes: ["https://outlook.office365.com/.default"],
+  });
+
+  return result?.accessToken;
+}
+
+app.get("/health", (req, res) => {
   res.json({
     success: true,
     message: "SMTP API healthy",
   });
 });
 
-app.post("/api/contact", async (req, res) => {
+app.post("/contact", async (req, res) => {
   try {
-    const { name, company, email, phone, subject, message } = req.body;
+    const {
+      name,
+      company,
+      email,
+      phone,
+      subject,
+      message,
+    } = req.body;
 
-    if (!name || !email || !subject || !message) {
-      return res.status(400).json({
-        success: false,
-        message: "Required fields are missing",
-      });
-    }
+    const accessToken = await getAccessToken();
 
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp.office365.com",
-      port: Number(process.env.SMTP_PORT || 587),
+      host: "smtp.office365.com",
+      port: 587,
       secure: false,
       auth: {
+        type: "OAuth2",
         user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        accessToken,
       },
-      requireTLS: true,
     });
 
     await transporter.sendMail({
-      from: `"BinaryGuard Website" <${process.env.SMTP_FROM}>`,
-      to: process.env.CONTACT_RECEIVER_EMAIL,
-      replyTo: email,
+      from: process.env.SMTP_USER,
+      to: process.env.SMTP_USER,
       subject: `Website Contact: ${subject}`,
       html: `
         <h2>New Contact Request</h2>
 
         <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Company:</strong> ${company || "N/A"}</p>
+        <p><strong>Company:</strong> ${company}</p>
         <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone || "N/A"}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
-
-        <hr />
+        <p><strong>Phone:</strong> ${phone}</p>
 
         <p><strong>Message:</strong></p>
         <p>${message}</p>
       `,
     });
 
-    return res.status(200).json({
+    res.json({
       success: true,
-      message: "Email sent successfully",
+      message: "Message sent successfully",
     });
 
   } catch (error) {
-    console.error("SMTP ERROR:", error);
+    console.error(error);
 
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
-      message: "Email failed",
-      error,
+      message: "Failed to send message",
     });
   }
 });

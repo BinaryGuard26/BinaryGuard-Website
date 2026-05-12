@@ -10,25 +10,37 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (_req, res) => {
+  res.send("BinaryGuard SMTP API is running");
+});
+
+app.get("/api/health", (_req, res) => {
+  res.json({
+    success: true,
+    message: "SMTP API healthy",
+  });
+});
+
 app.post("/api/contact", async (req, res) => {
   try {
-    const { name, email, subject, message, phone, company } = req.body;
+    const { name, company, email, phone, subject, message } = req.body;
 
     if (!name || !email || !subject || !message) {
       return res.status(400).json({
         success: false,
-        message: "Required fields missing",
+        message: "Required fields are missing",
       });
     }
 
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
+      host: process.env.SMTP_HOST || "smtp.office365.com",
       port: Number(process.env.SMTP_PORT || 587),
       secure: false,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      requireTLS: true,
     });
 
     await transporter.sendMail({
@@ -40,12 +52,14 @@ app.post("/api/contact", async (req, res) => {
         <h2>New Contact Request</h2>
 
         <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Company:</strong> ${company || "N/A"}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone || "N/A"}</p>
-        <p><strong>Company:</strong> ${company || "N/A"}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
 
         <hr />
 
+        <p><strong>Message:</strong></p>
         <p>${message}</p>
       `,
     });
@@ -61,6 +75,7 @@ app.post("/api/contact", async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Email failed",
+      error,
     });
   }
 });

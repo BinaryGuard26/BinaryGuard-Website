@@ -240,7 +240,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 </span>
               </h1>
 
-            <p className="text-lg text-gray-200/95 leading-8 max-w-2xl mb-8">
+            <p className="max-w-3xl text-base md:text-lg text-gray-300 leading-8 mb-8">
               BinaryGuard delivers integrated physical security and IT solutions that improve
               visibility, resilience, and operational control—designed for businesses that need
               dependable systems and a professional long-term partner.

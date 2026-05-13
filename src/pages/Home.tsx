@@ -227,8 +227,8 @@ export default function Home({ onNavigate }: HomeProps) {
             </span>
 
             <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.05] mb-4">
-              Enterprise-Grade Physical
-              <span className="block text-cyan-400">Security & IT Solutions</span>
+              Enterprise-Grade
+              <span className="block text-cyan-400">Physical Security &<br>IT Solutions</span>
             </h1>
 
             <p className="text-lg text-gray-200/95 leading-8 max-w-2xl mb-8">

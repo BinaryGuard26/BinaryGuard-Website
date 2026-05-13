@@ -116,10 +116,19 @@ export default function Footer({ onNavigate }: FooterProps) {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 border border-white/20 rounded-full p-3 text-white/70 bg-[#061327]/85 backdrop-blur-md shadow-lg hover:text-white hover:border-cyan-400/50 hover:bg-[#0a1830]/90 transition-all"
+          className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50
+                     flex h-14 w-14 items-center justify-center rounded-full
+                     border border-cyan-400/45
+                     bg-[#071224]/85 text-cyan-300
+                     shadow-[0_0_26px_rgba(34,211,238,0.38)]
+                     backdrop-blur-md
+                     transition-all duration-300
+                     hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-400
+                     hover:text-[#071224] hover:shadow-[0_0_38px_rgba(34,211,238,0.62)]
+                     focus:outline-none focus:ring-2 focus:ring-cyan-300/70 focus:ring-offset-2 focus:ring-offset-[#030d1f]"
           aria-label="Scroll to top"
         >
-          <ChevronUp size={20} />
+          <ChevronUp size={24} strokeWidth={2.6} />
         </button>
       )}
     </footer>

@@ -226,7 +226,7 @@ export default function Home({ onNavigate }: HomeProps) {
               MODERN SECURITY & IT PARTNER
             </span>
 
-              <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.02] mb-4">
+              <h1 className="max-w-4xl text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.05] mb-4">
                 <span className="block">
                   Enterprise Security
                 </span>
@@ -235,7 +235,7 @@ export default function Home({ onNavigate }: HomeProps) {
                   for Growing Businesses
                 </span>
 
-                <span className="block text-cyan-400 mt-3 whitespace-nowrap">
+                <span className="block text-cyan-400 mt-3 text-3xl md:text-5xl lg:text-[58px] whitespace-nowrap">
                   IT &amp; Infrastructure Solutions
                 </span>
               </h1>

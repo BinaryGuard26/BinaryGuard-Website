@@ -215,7 +215,7 @@ export default function Home({ onNavigate }: HomeProps) {
           >
             <source src="/home-hero-background.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-[#020816]/30" />
+          <div className="absolute inset-0 bg-[#020816]/40" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#020816]/95 via-[#020816]/82 to-[#020816]/45" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.12),transparent_28%)]" />
         </div>

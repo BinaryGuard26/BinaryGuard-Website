@@ -227,7 +227,7 @@ export default function Home({ onNavigate }: HomeProps) {
             </span>
 
             <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.02] mb-4">
-              <span className="block text-[0.58em] md:text-[0.54em] font-extrabold tracking-[0.04em] text-white mb-2">
+              <span className="block text-[0.75em] md:text-[0.71em] font-extrabold tracking-[0.04em] text-white mb-2">
                 Enterprise-Grade Physical
               </span>
 

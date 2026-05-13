@@ -226,15 +226,10 @@ export default function Home({ onNavigate }: HomeProps) {
               MODERN SECURITY & IT PARTNER
             </span>
 
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.02] mb-4">
-              <span className="block text-[0.80em] md:text-[0.76em] font-extrabold tracking-[0.04em] text-white mb-2">
-                Enterprise-Grade Physical
-              </span>
-
-              <span className="block text-cyan-400 whitespace-nowrap">
-                Security &amp; IT Solutions
-              </span>
-            </h1>
+              <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.04] mb-5">
+                Enterprise-Grade Physical Security
+                <span className="block text-cyan-400">& IT Solutions</span>
+              </h1>
 
             <p className="text-lg text-gray-200/95 leading-8 max-w-2xl mb-8">
               BinaryGuard delivers integrated physical security and IT solutions that improve

@@ -236,7 +236,9 @@ export default function Home({ onNavigate }: HomeProps) {
                 </span>
 
                 <span className="block text-cyan-400 mt-3 text-3xl md:text-5xl lg:text-[58px] whitespace-nowrap">
-                  IT &amp; Infrastructure Solutions
+                  IT &amp; Infrastructure
+                  <br />
+                  Solutions
                 </span>
               </h1>
 

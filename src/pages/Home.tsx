@@ -226,8 +226,8 @@ export default function Home({ onNavigate }: HomeProps) {
               MODERN SECURITY & IT PARTNER
             </span>
 
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.05] mb-4">
-              <span className="block text-[0.72em] md:text-[0.62em] font-semibold tracking-wide text-white/95 mb-2">
+            <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.02] mb-4">
+              <span className="block text-[0.52em] md:text-[0.48em] font-extrabold tracking-wide text-white mb-2">
                 Enterprise-Grade Physical
               </span>
 

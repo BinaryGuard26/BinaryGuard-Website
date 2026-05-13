@@ -226,9 +226,18 @@ export default function Home({ onNavigate }: HomeProps) {
               MODERN SECURITY & IT PARTNER
             </span>
 
-              <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.04] mb-5">
-                Enterprise-Grade Physical Security
-                <span className="block text-cyan-400">& IT Solutions</span>
+              <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-[1.02] mb-4">
+                <span className="block">
+                  Enterprise Security
+                </span>
+
+                <span className="block">
+                  for Growing Businesses
+                </span>
+
+                <span className="block text-cyan-400 mt-3 whitespace-nowrap">
+                  IT &amp; Infrastructure Solutions
+                </span>
               </h1>
 
             <p className="text-lg text-gray-200/95 leading-8 max-w-2xl mb-8">

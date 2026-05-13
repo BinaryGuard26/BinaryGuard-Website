@@ -228,11 +228,11 @@ export default function Home({ onNavigate }: HomeProps) {
 
               <h1 className="max-w-4xl text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.05] mb-4">
                 <span className="block">
-                  Enterprise Security
+                  Enterprise-Grade
                 </span>
 
                 <span className="block">
-                  for Growing Businesses
+                  Physical Security
                 </span>
 
                 <span className="block text-cyan-400 mt-3 text-3xl md:text-5xl lg:text-[58px] whitespace-nowrap">

@@ -33,6 +33,7 @@ const pathwayCards = [
     accent: 'text-cyan-400',
     hover: 'hover:border-cyan-400/60',
     button: 'View Security Solutions',
+    image: '/security-card.jpg',
     items: ['Access Control Systems', 'CCTV & Video Surveillance', 'Alarm & Intrusion Detection', 'Monitoring & Response Planning'],
   },
   {
@@ -43,6 +44,7 @@ const pathwayCards = [
     accent: 'text-orange-400',
     hover: 'hover:border-orange-400/60',
     button: 'View IT Solutions',
+    image: '/it-card.jpg',
     items: ['Network Setup & Optimization', 'Cloud & Backup Solutions', 'Managed IT Support', 'Cybersecurity Readiness'],
   },
 ];
@@ -164,13 +166,35 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
               return (
                 <div
                   key={card.title}
-                  className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br ${
+                  className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#020817] ${
                     isSecurity
-                      ? 'from-[#071b2f] via-[#061426] to-[#020817] hover:border-cyan-400/60 hover:shadow-cyan-400/20'
-                      : 'from-[#1f1206] via-[#101725] to-[#020817] hover:border-orange-400/60 hover:shadow-orange-400/20'
+                      ? 'hover:border-cyan-400/70 hover:shadow-cyan-400/20'
+                      : 'hover:border-orange-400/70 hover:shadow-orange-400/20'
                   } p-8 md:p-12 xl:p-16 shadow-2xl transition-all duration-700 hover:-translate-y-2`}
                 >
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:44px_44px] opacity-30" />
+                  <div className="absolute inset-0 overflow-hidden rounded-[2rem]">
+                    <img
+                      src={card.image}
+                      alt={card.title}
+                      className="h-full w-full object-cover opacity-30 scale-105 transition-all duration-700 group-hover:scale-110 group-hover:opacity-40"
+                    />
+                    <div
+                      className={`absolute inset-0 ${
+                        isSecurity
+                          ? 'bg-gradient-to-br from-[#020817]/35 via-[#020817]/78 to-[#020817]'
+                          : 'bg-gradient-to-br from-[#020817]/35 via-[#020817]/76 to-[#020817]'
+                      }`}
+                    />
+                    <div
+                      className={`absolute inset-0 ${
+                        isSecurity
+                          ? 'bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.30),transparent_38%)]'
+                          : 'bg-[radial-gradient(circle_at_top_right,rgba(251,146,60,0.32),transparent_38%)]'
+                      }`}
+                    />
+                  </div>
+
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:44px_44px] opacity-20" />
 
                   <div
                     className={`absolute -top-40 ${
@@ -182,6 +206,14 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
                     className={`absolute bottom-0 ${
                       isSecurity ? 'right-0 bg-cyan-400/10' : 'left-0 bg-orange-400/10'
                     } h-72 w-72 rounded-full blur-3xl`}
+                  />
+
+                  <div
+                    className={`absolute inset-x-0 bottom-0 h-1 ${
+                      isSecurity
+                        ? 'bg-gradient-to-r from-cyan-400/70 via-cyan-300/30 to-transparent'
+                        : 'bg-gradient-to-r from-orange-400/70 via-yellow-300/30 to-transparent'
+                    } opacity-70`}
                   />
 
                   <div className="relative z-10 flex min-h-full flex-col justify-between">

@@ -9,7 +9,7 @@ interface SolutionsProps {
 
 const pathwayCards = [
   {
-    label: 'PATHWAY 01',
+    label: 'ENTERPRISE SECURITY',
     title: 'Physical Security Solutions',
     description: 'Protect your people, property, and operations with connected physical security systems built for modern business environments.',
     icon: Shield,
@@ -19,7 +19,7 @@ const pathwayCards = [
     items: ['Access Control Systems', 'CCTV & Video Surveillance', 'Alarm & Intrusion Detection', 'Monitoring & Response Planning'],
   },
   {
-    label: 'PATHWAY 02',
+    label: 'IT INFRASTRUCTURE',
     title: 'IT Infrastructure Solutions',
     description: 'Build reliable technology foundations that support daily operations, cloud adoption, cybersecurity, and business growth.',
     icon: Cpu,
@@ -82,7 +82,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
           </span>
 
           <h1 className="mt-8 text-4xl md:text-6xl font-extrabold leading-tight max-w-5xl mx-auto">
-            Your Security & IT <span className="text-cyan-400">Solution Pathway</span>
+            Your Security & IT <span className="text-cyan-400">Solution</span>
           </h1>
 
           <p className="mt-6 max-w-3xl mx-auto text-gray-300 text-base md:text-lg leading-relaxed">

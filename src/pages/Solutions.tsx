@@ -154,43 +154,153 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
         </div>
       </section>
 
-      <section className="relative z-10 -mt-16 pb-20 px-6">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {pathwayCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <div key={card.title} className={`group relative overflow-hidden min-h-[620px] rounded-[2rem] bg-gradient-to-br from-white/10 via-white/[0.04] to-white/[0.02] border border-white/10 p-10 md:p-12 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${card.hover}`}>
-                <div className="absolute -top-24 -right-24 w-72 h-72 bg-cyan-400/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-orange-400/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-                <div className="relative z-10 flex items-center justify-between gap-4 mb-10">
-                  <p className={`${card.accent} font-bold text-sm tracking-widest`}>{card.label}</p>
-                  <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center shadow-lg">
-                    <Icon className={card.accent} size={30} />
-                  </div>
+      <section className="relative overflow-hidden py-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(249,115,22,0.12),transparent_35%)]" />
+
+        <div className="relative z-10 max-w-screen-2xl mx-auto px-6">
+          <div className="grid lg:grid-cols-[1.4fr_0.8fr] gap-8">
+
+            {/* LARGE FEATURE PANEL */}
+            <div className="relative rounded-[2rem] overflow-hidden border border-cyan-400/20 min-h-[720px] shadow-2xl shadow-cyan-400/10">
+
+              {/* Background Video */}
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source src="/security-video.mp4" type="video/mp4" />
+              </video>
+
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#020b1a]/95 via-[#020b1a]/75 to-[#020b1a]/95" />
+
+              {/* Content */}
+              <div className="relative z-10 p-8 md:p-14 flex flex-col justify-end min-h-[720px]">
+
+                <div className="inline-flex items-center gap-2 mb-6">
+                  <Shield className="text-cyan-400" size={20} />
+                  <span className="text-cyan-400 tracking-[0.25em] text-sm font-bold uppercase">
+                    Enterprise Security
+                  </span>
                 </div>
 
-                <h2 className="relative z-10 text-3xl md:text-4xl font-black leading-tight mb-6">{card.title}</h2>
-                <p className="relative z-10 text-gray-300 text-lg leading-relaxed mb-9">{card.description}</p>
+                <h2 className="text-4xl md:text-6xl font-black leading-[1.05] mb-8">
+                  Intelligent
+                  <br />
+                  Physical Security
+                </h2>
 
-                <ul className="relative z-10 space-y-4 text-gray-200 text-lg">
-                  {card.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <CheckCircle className={`${card.accent} mt-0.5 shrink-0`} size={18} />
-                      <span>{item}</span>
-                    </li>
+                <p className="max-w-2xl text-lg md:text-xl text-gray-300 leading-relaxed mb-10">
+                  AI-powered surveillance, access control, intrusion detection,
+                  and centralized monitoring built for modern organizations.
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-5 mb-12">
+                  {securitySolutions.slice(0, 4).map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-2xl bg-white/5 border border-white/10 p-5 backdrop-blur-sm hover:border-cyan-400/40 transition-all"
+                    >
+                      <h4 className="font-bold mb-2">{item.title}</h4>
+                      <p className="text-sm text-gray-400 leading-relaxed">
+                        {item.points[0]}
+                      </p>
+                    </div>
                   ))}
-                </ul>
+                </div>
 
                 <button
                   onClick={() => onNavigate('contact')}
-                  className={`relative z-10 mt-10 inline-flex items-center gap-2 ${card.accent} text-lg font-bold hover:gap-3 transition-all`}
+                  className="w-fit inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-cyan-400 text-slate-950 font-bold hover:bg-cyan-300 transition-all"
                 >
-                  {card.button} <ArrowRight size={18} />
+                  Explore Security Solutions
+                  <ArrowRight size={18} />
                 </button>
               </div>
-            );
-          })}
+            </div>
+
+            {/* RIGHT SIDE STACK */}
+            <div className="grid gap-8">
+
+              {/* IT PANEL */}
+              <div className="relative rounded-[2rem] overflow-hidden border border-orange-400/20 min-h-[340px] bg-gradient-to-br from-[#0b1220] to-[#020817] p-8 md:p-10 shadow-2xl shadow-orange-400/10">
+                <div className="absolute -top-24 -right-24 w-72 h-72 bg-orange-400/10 blur-3xl rounded-full" />
+
+                <div className="relative z-10">
+                  <Cpu className="text-orange-400 mb-6" size={34} />
+
+                  <p className="text-orange-400 text-sm font-bold tracking-[0.25em] uppercase mb-4">
+                    IT Infrastructure
+                  </p>
+
+                  <h2 className="text-3xl md:text-4xl font-black mb-5 leading-tight">
+                    Scalable IT
+                    <br />
+                    Infrastructure
+                  </h2>
+
+                  <p className="text-gray-300 leading-relaxed mb-8">
+                    Cloud, networking, Microsoft 365, managed IT,
+                    and cybersecurity readiness.
+                  </p>
+
+                  <button
+                    onClick={() => onNavigate('contact')}
+                    className="inline-flex items-center gap-2 text-orange-400 font-bold hover:gap-3 transition-all"
+                  >
+                    View IT Solutions
+                    <ArrowRight size={18} />
+                  </button>
+                </div>
+              </div>
+
+              {/* CTA PANEL */}
+              <div className="relative rounded-[2rem] overflow-hidden border border-white/10 bg-gradient-to-br from-[#071428] to-[#020b1a] p-8 md:p-10 min-h-[340px]">
+                <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-400/10 blur-3xl rounded-full" />
+
+                <div className="relative z-10">
+                  <p className="text-cyan-400 text-sm font-bold tracking-[0.25em] uppercase mb-4">
+                    Why BinaryGuard
+                  </p>
+
+                  <h2 className="text-3xl md:text-4xl font-black mb-6">
+                    One Partner for Security & IT
+                  </h2>
+
+                  <div className="space-y-4 text-gray-300 mb-10">
+                    <div className="flex gap-3">
+                      <CheckCircle className="text-cyan-400 shrink-0 mt-0.5" size={18} />
+                      <span>Enterprise-grade deployments</span>
+                    </div>
+                    <div className="flex gap-3">
+                      <CheckCircle className="text-cyan-400 shrink-0 mt-0.5" size={18} />
+                      <span>Integrated physical & digital security</span>
+                    </div>
+                    <div className="flex gap-3">
+                      <CheckCircle className="text-cyan-400 shrink-0 mt-0.5" size={18} />
+                      <span>Cloud & on-prem infrastructure</span>
+                    </div>
+                    <div className="flex gap-3">
+                      <CheckCircle className="text-cyan-400 shrink-0 mt-0.5" size={18} />
+                      <span>Scalable business technology solutions</span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => onNavigate('contact')}
+                    className="inline-flex items-center gap-3 px-7 py-4 rounded-2xl border border-cyan-400/30 text-cyan-400 font-bold hover:bg-cyan-400/10 transition-all"
+                  >
+                    Contact Our Team
+                    <ArrowRight size={18} />
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
       </section>
 

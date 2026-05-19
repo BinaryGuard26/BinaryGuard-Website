@@ -208,8 +208,8 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
-            <div className="rounded-3xl bg-white/5 border border-white/10 p-7">
+          <div className="flex flex-col gap-10">
+            <div className="rounded-3xl bg-white/5 border border-white/10 p-8">
               
 <div className="mb-10">
   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 backdrop-blur-sm mb-4">
@@ -230,14 +230,14 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 </div>
 
 
-              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+              <div className="grid md:grid-cols-2 gap-8">
                 {securitySolutions.map((item) => {
                   const Icon = item.icon;
 
                   return (
                     <div
                       key={item.title}
-                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-8 min-h-[480px] transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-cyan-400/10"
+                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-10 min-h-[620px] transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-cyan-400/10"
                     >
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
                         <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyan-400/10 blur-3xl rounded-full" />
@@ -249,11 +249,11 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
                         <Icon className="text-cyan-400" size={30} />
                       </div>
 
-                      <h4 className="relative z-10 text-2xl font-black leading-tight mb-5 tracking-tight">
+                      <h4 className="relative z-10 text-[28px] font-black leading-tight mb-7 tracking-tight">
                         {item.title}
                       </h4>
 
-                      <ul className="relative z-10 space-y-4">
+                      <ul className="relative z-10 space-y-6">
                         {item.points.map((point) => (
                           <li
                             key={point}
@@ -272,7 +272,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
               </div>
             </div>
 
-            <div className="sticky top-28">
+            <div className="mt-2">
               <div className="relative rounded-3xl overflow-hidden border border-cyan-400/30 bg-black shadow-2xl shadow-cyan-400/10">
                 <video
                   src="/security-video.mp4"
@@ -280,12 +280,12 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
                   muted
                   loop
                   playsInline
-                  className="w-full h-[760px] object-cover opacity-75"
+                  className="w-full h-[500px] object-cover opacity-80"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#020b1a] via-[#020b1a]/40 to-transparent" />
 
-                <div className="absolute bottom-0 left-0 right-0 p-8">
+                <div className="absolute bottom-0 left-0 right-0 p-10">
                   <p className="text-cyan-400 font-bold tracking-widest text-sm mb-3">
                     ENTERPRISE SECURITY
                   </p>
@@ -307,8 +307,8 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 
       <section className="py-24 bg-[#020b1a]">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-start">
-            <div className="sticky top-28 order-2 lg:order-1">
+          <div className="flex flex-col gap-10">
+            <div className="mt-2 order-2">
               <div className="relative rounded-3xl overflow-hidden border border-orange-400/30 bg-black shadow-2xl shadow-orange-400/10">
                 <video
                   src="/it-video.mp4"
@@ -316,12 +316,12 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
                   muted
                   loop
                   playsInline
-                  className="w-full h-[760px] object-cover opacity-75"
+                  className="w-full h-[500px] object-cover opacity-80"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-[#020b1a] via-[#020b1a]/40 to-transparent" />
 
-                <div className="absolute bottom-0 left-0 right-0 p-8">
+                <div className="absolute bottom-0 left-0 right-0 p-10">
                   <p className="text-orange-400 font-bold tracking-widest text-sm mb-3">
                     IT INFRASTRUCTURE
                   </p>
@@ -338,7 +338,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
               </div>
             </div>
 
-            <div className="rounded-3xl bg-white/5 border border-white/10 p-7 order-1 lg:order-2">
+            <div className="rounded-3xl bg-white/5 border border-white/10 p-7 order-1">
               
 <div className="mb-10">
   <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-400/20 bg-orange-400/10 backdrop-blur-sm mb-4">
@@ -359,14 +359,14 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 </div>
 
 
-              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+              <div className="grid md:grid-cols-2 gap-8">
                 {itSolutions.map((item) => {
                   const Icon = item.icon;
 
                   return (
                     <div
                       key={item.title}
-                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-8 min-h-[480px] transition-all duration-500 hover:-translate-y-2 hover:border-orange-400/50 hover:shadow-2xl hover:shadow-orange-400/10"
+                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-10 min-h-[620px] transition-all duration-500 hover:-translate-y-2 hover:border-orange-400/50 hover:shadow-2xl hover:shadow-orange-400/10"
                     >
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
                         <div className="absolute -top-20 -right-20 w-40 h-40 bg-orange-400/10 blur-3xl rounded-full" />
@@ -378,11 +378,11 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
                         <Icon className="text-orange-400" size={30} />
                       </div>
 
-                      <h4 className="relative z-10 text-2xl font-black leading-tight mb-5 tracking-tight">
+                      <h4 className="relative z-10 text-[28px] font-black leading-tight mb-7 tracking-tight">
                         {item.title}
                       </h4>
 
-                      <ul className="relative z-10 space-y-4">
+                      <ul className="relative z-10 space-y-6">
                         {item.points.map((point) => (
                           <li
                             key={point}

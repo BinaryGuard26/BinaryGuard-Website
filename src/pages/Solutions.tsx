@@ -34,65 +34,65 @@ const securitySolutions = [
   {
     icon: Camera,
     title: 'Video Surveillance Systems',
-    points: ['AI-powered surveillance and recording.', 'Multi-location monitoring and secure storage.', 'Rapid retrieval of security footage.'],
+    points: ['AI-powered surveillance with real-time monitoring and recording.', 'Multi-location surveillance management and cloud storage.', 'Audit logs and visitor management integration.'],
   },
   {
     icon: Lock,
     title: 'Access Control Systems',
-    points: ['Card, biometric, and mobile-based access.', 'Centralized entry-point management.', 'Audit logs and visitor management integration.'],
+    points: ['Secure entry management with key-card, biometric, and mobile-based authentication.', 'Centralized access management across all entry points.', 'Audit logs and visitor management integration.'],
   },
   {
     icon: Shield,
     title: 'Alarm & Intrusion Detection',
-    points: ['Instant alerts for security breaches.', 'Smart sensors with 24/7 monitoring.', 'Integration with response workflows.'],
+    points: ['Instant alerts and detection to prevent security breaches.', 'Smart sensors with 24/7 monitoring capabilities.', 'Seamless integration with emergency response systems.'],
   },
     {
-    icon: Camera,
-    title: 'Video Surveillance Systems',
-    points: ['AI-powered surveillance and recording.', 'Multi-location monitoring and secure storage.', 'Rapid retrieval of security footage.'],
+    icon: Video,
+    title: 'Intercom & Video Door Systems',
+    points: ['Smart communication and visitor verification for enhanced entry security.', 'Two-way audio and HD video for remote visitor management.', 'Mobile app integration for remote door access.'],
   },
   {
-    icon: Lock,
-    title: 'Access Control Systems',
-    points: ['Card, biometric, and mobile-based access.', 'Centralized entry-point management.', 'Audit logs and visitor management integration.'],
+    icon: Monitor,
+    title: 'Centralized Monitoring',
+    points: ['Unified platforms to monitor all security systems from a single dashboard.', 'Real-time alerts and notifications across all entry points.', 'Integrated management for seamless security control.'],
   },
   {
-    icon: Shield,
-    title: 'Alarm & Intrusion Detection',
-    points: ['Instant alerts for security breaches.', 'Smart sensors with 24/7 monitoring.', 'Integration with response workflows.'],
+    icon: Layers,
+    title: 'Security System Integration',
+    points: ['Seamless integration of multiple security technologies into one ecosystem.', 'Unified monitoring, control, and automated response capabilities.', 'Scalable infrastructure for growing security needs.'],
   },
 ];
 
 const itSolutions = [
   {
+    icon: BrainCircuit,
+    title: 'AI & Modern Technology Solutions',
+    points: ['End-to-end AI deployment, automation, and machine learning implementation.', 'Advanced data analytics, reporting, and business intelligence platform.', 'AI-driven decision making and predictive insights for business efficiency.'],
+  },
+  {
     icon: Network,
-    title: 'Network Infrastructure',
-    points: ['Secure wired and wireless networks.', 'VPN, multi-site, and point-to-point connectivity.', 'Reliable infrastructure for daily operations.'],
+    title: 'Network Infrastructure Solutions',
+    points: ['Secure wired and wireless networks designed for enterprise reliability.', 'Point-to-Point connectivity, multi-site integration, and VPN solutions.', 'Private cellular networks and complex network infrastructure deployment.'],
   },
   {
     icon: Cloud,
-    title: 'Cloud & Microsoft 365',
-    points: ['Microsoft 365 setup and support.', 'Cloud migration and backup planning.', 'SharePoint, Teams, and collaboration tools.'],
-  },
-  {
-    icon: Headphones,
-    title: 'Managed IT Support',
-    points: ['Proactive monitoring and maintenance.', 'Help desk and incident support.', 'System optimization and security guidance.'],
+    title: 'Microsoft 365 & Cloud Solutions',
+    points: ['Microsoft 365 setup, collaboration, and enterprise integration.', 'SharePoint, Teams, and Microsoft 365 apps customization.', 'Secure cloud migration and managed cloud services.'],
   },
     {
-    icon: Network,
-    title: 'Network Infrastructure',
-    points: ['Secure wired and wireless networks.', 'VPN, multi-site, and point-to-point connectivity.', 'Reliable infrastructure for daily operations.'],
-  },
-  {
-    icon: Cloud,
-    title: 'Cloud & Microsoft 365',
-    points: ['Microsoft 365 setup and support.', 'Cloud migration and backup planning.', 'SharePoint, Teams, and collaboration tools.'],
+    icon: Server,
+    title: 'Private & Hybrid Cloud Solutions',
+    points: ['We build secure, scalable cloud environments with flexible and tailored infrastructure.', 'Private and hybrid deployment models for maximum control and security.', 'Cloud-native architecture and containerized workload management.'],
   },
   {
     icon: Headphones,
-    title: 'Managed IT Support',
-    points: ['Proactive monitoring and maintenance.', 'Help desk and incident support.', 'System optimization and security guidance.'],
+    title: 'Managed IT Services (MSS)',
+    points: ['We ensure proactive monitoring, maintenance, and timely updates.', 'Comprehensive IT support and incident management.', 'Help desk support, system performance optimization, and continuous improvement.'],
+  },
+  {
+    icon: Briefcase,
+    title: 'IT Consulting & Support',
+    points: ['We provide expert guidance for strategic IT planning and decision-making.', 'Troubleshooting, optimization, and continuous system improvement.', 'IT governance, compliance, and security posture enhancement.'],
   },
 ];
 

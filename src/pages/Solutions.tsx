@@ -1,4 +1,21 @@
-import { ArrowRight, Shield, Cpu, CheckCircle, PhoneCall, Network, Camera, Lock, Cloud, Headphones, Zap } from 'lucide-react';
+import {
+  ArrowRight,
+  Shield,
+  Cpu,
+  CheckCircle,
+  PhoneCall,
+  Network,
+  Camera,
+  Lock,
+  Cloud,
+  Headphones,
+  Video,
+  Monitor,
+  Layers,
+  BrainCircuit,
+  Server,
+  Briefcase,
+} from 'lucide-react';
 import Footer from '../components/Footer';
 
 type Page = 'home' | 'about' | 'services' | 'products' | 'contact' | 'solutions';
@@ -112,7 +129,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
           </span>
 
           <h1 className="mt-8 text-4xl md:text-6xl font-extrabold leading-tight max-w-5xl mx-auto">
-            Your Security & IT <span className="text-cyan-400">Solution Pathway</span>
+            Your Security & IT <span className="text-cyan-400">Solutions</span>
           </h1>
 
           <p className="mt-6 max-w-3xl mx-auto text-gray-300 text-base md:text-lg leading-relaxed">
@@ -242,7 +259,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
             </div>
             <h2 className="text-3xl md:text-4xl font-extrabold">Not sure where to start?</h2>
             <p className="mt-4 text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              Tell us your business needs and we’ll recommend the right security and IT solution pathway.
+              Tell us your business needs and we’ll recommend the right security and IT solution.
             </p>
             <button
               onClick={() => onNavigate('contact')}

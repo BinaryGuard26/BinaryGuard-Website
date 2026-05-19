@@ -46,10 +46,40 @@ const securitySolutions = [
     title: 'Alarm & Intrusion Detection',
     points: ['Instant alerts for security breaches.', 'Smart sensors with 24/7 monitoring.', 'Integration with response workflows.'],
   },
+    {
+    icon: Camera,
+    title: 'Video Surveillance Systems',
+    points: ['AI-powered surveillance and recording.', 'Multi-location monitoring and secure storage.', 'Rapid retrieval of security footage.'],
+  },
+  {
+    icon: Lock,
+    title: 'Access Control Systems',
+    points: ['Card, biometric, and mobile-based access.', 'Centralized entry-point management.', 'Audit logs and visitor management integration.'],
+  },
+  {
+    icon: Shield,
+    title: 'Alarm & Intrusion Detection',
+    points: ['Instant alerts for security breaches.', 'Smart sensors with 24/7 monitoring.', 'Integration with response workflows.'],
+  },
 ];
 
 const itSolutions = [
   {
+    icon: Network,
+    title: 'Network Infrastructure',
+    points: ['Secure wired and wireless networks.', 'VPN, multi-site, and point-to-point connectivity.', 'Reliable infrastructure for daily operations.'],
+  },
+  {
+    icon: Cloud,
+    title: 'Cloud & Microsoft 365',
+    points: ['Microsoft 365 setup and support.', 'Cloud migration and backup planning.', 'SharePoint, Teams, and collaboration tools.'],
+  },
+  {
+    icon: Headphones,
+    title: 'Managed IT Support',
+    points: ['Proactive monitoring and maintenance.', 'Help desk and incident support.', 'System optimization and security guidance.'],
+  },
+    {
     icon: Network,
     title: 'Network Infrastructure',
     points: ['Secure wired and wireless networks.', 'VPN, multi-site, and point-to-point connectivity.', 'Reliable infrastructure for daily operations.'],

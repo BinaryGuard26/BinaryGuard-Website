@@ -123,7 +123,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.20),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(249,115,22,0.14),transparent_30%)]" />
         </div>
 
-        <div className="relative z-10 max-w-screen-2xl mx-auto px-6 text-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <span className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-cyan-400/40 bg-cyan-400/10 text-cyan-400 text-sm font-bold tracking-widest">
             SOLUTIONS
           </span>
@@ -154,23 +154,26 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
         </div>
       </section>
 
-      <section className="relative z-10 -mt-20 pb-16">
+      <section className="relative z-10 -mt-16 pb-20 px-6">
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {pathwayCards.map((card) => {
             const Icon = card.icon;
             return (
-              <div key={card.title} className={`rounded-3xl bg-white/5 border border-white/10 p-6 md:p-8 backdrop-blur-md transition-all ${card.hover}`}>
-                <div className="flex items-center justify-between gap-4 mb-6">
+              <div key={card.title} className={`group relative overflow-hidden min-h-[620px] rounded-[2rem] bg-gradient-to-br from-white/10 via-white/[0.04] to-white/[0.02] border border-white/10 p-10 md:p-12 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${card.hover}`}>
+                <div className="absolute -top-24 -right-24 w-72 h-72 bg-cyan-400/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-orange-400/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+                <div className="relative z-10 flex items-center justify-between gap-4 mb-10">
                   <p className={`${card.accent} font-bold text-sm tracking-widest`}>{card.label}</p>
-                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center shadow-lg">
                     <Icon className={card.accent} size={30} />
                   </div>
                 </div>
 
-                <h2 className="text-2xl md:text-3xl font-extrabold mb-4">{card.title}</h2>
-                <p className="text-gray-300 leading-relaxed mb-7">{card.description}</p>
+                <h2 className="relative z-10 text-3xl md:text-4xl font-black leading-tight mb-6">{card.title}</h2>
+                <p className="relative z-10 text-gray-300 text-lg leading-relaxed mb-9">{card.description}</p>
 
-                <ul className="space-y-3 text-gray-200">
+                <ul className="relative z-10 space-y-4 text-gray-200 text-lg">
                   {card.items.map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <CheckCircle className={`${card.accent} mt-0.5 shrink-0`} size={18} />
@@ -181,7 +184,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 
                 <button
                   onClick={() => onNavigate('contact')}
-                  className={`mt-8 inline-flex items-center gap-2 ${card.accent} font-bold hover:gap-3 transition-all`}
+                  className={`relative z-10 mt-10 inline-flex items-center gap-2 ${card.accent} text-lg font-bold hover:gap-3 transition-all`}
                 >
                   {card.button} <ArrowRight size={18} />
                 </button>
@@ -192,7 +195,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
       </section>
 
       <section className="py-24 bg-[#030d1f] border-y border-white/10">
-        <div className="max-w-screen-2xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-14">
             <p className="text-cyan-400 font-bold tracking-widest text-sm mb-3">
               WHAT WE DELIVER
@@ -306,7 +309,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
       </section>
 
       <section className="py-24 bg-[#020b1a]">
-        <div className="max-w-[1800px] mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col gap-10">
             <div className="mt-2 order-2">
               <div className="relative rounded-3xl overflow-hidden border border-orange-400/30 bg-black shadow-2xl shadow-orange-400/10">

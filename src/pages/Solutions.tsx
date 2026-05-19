@@ -210,10 +210,25 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
             <div className="rounded-3xl bg-white/5 border border-white/10 p-7">
-              <div className="flex items-center gap-3 mb-7">
-                <Shield className="text-cyan-400" size={28} />
-                <h3 className="text-2xl font-extrabold">Physical Security</h3>
-              </div>
+              
+<div className="mb-10">
+  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 backdrop-blur-sm mb-4">
+    <Shield className="text-cyan-400" size={16} />
+    <span className="text-cyan-400 text-xs font-bold tracking-[0.25em] uppercase">
+      Enterprise Security
+    </span>
+  </div>
+
+  <h3 className="text-4xl md:text-5xl font-black leading-none tracking-tight">
+    Physical{" "}
+    <span className="bg-gradient-to-r from-cyan-300 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
+      Security
+    </span>
+  </h3>
+
+  <div className="mt-4 w-24 h-[3px] bg-gradient-to-r from-cyan-400 to-transparent rounded-full" />
+</div>
+
 
               <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {securitySolutions.map((item) => {
@@ -313,10 +328,25 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
             </div>
 
             <div className="rounded-3xl bg-white/5 border border-white/10 p-7 order-1 lg:order-2">
-              <div className="flex items-center gap-3 mb-7">
-                <Cpu className="text-orange-400" size={28} />
-                <h3 className="text-2xl font-extrabold">IT Infrastructure</h3>
-              </div>
+              
+<div className="mb-10">
+  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-400/20 bg-orange-400/10 backdrop-blur-sm mb-4">
+    <Cpu className="text-orange-400" size={16} />
+    <span className="text-orange-400 text-xs font-bold tracking-[0.25em] uppercase">
+      IT Infrastructure
+    </span>
+  </div>
+
+  <h3 className="text-4xl md:text-5xl font-black leading-none tracking-tight">
+    Digital{" "}
+    <span className="bg-gradient-to-r from-orange-300 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
+      Infrastructure
+    </span>
+  </h3>
+
+  <div className="mt-4 w-24 h-[3px] bg-gradient-to-r from-orange-400 to-transparent rounded-full" />
+</div>
+
 
               <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {itSolutions.map((item) => {

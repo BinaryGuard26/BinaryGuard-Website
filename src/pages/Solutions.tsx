@@ -154,12 +154,12 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
         </div>
       </section>
 
-      <section className="relative z-10 -mt-8 pb-20">
+      <section className="relative z-10 -mt-20 pb-16">
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {pathwayCards.map((card) => {
             const Icon = card.icon;
             return (
-              <div key={card.title} className={`rounded-3xl bg-white/5 border border-white/10 p-8 backdrop-blur-md transition-all ${card.hover}`}>
+              <div key={card.title} className={`rounded-3xl bg-white/5 border border-white/10 p-6 md:p-8 backdrop-blur-md transition-all ${card.hover}`}>
                 <div className="flex items-center justify-between gap-4 mb-6">
                   <p className={`${card.accent} font-bold text-sm tracking-widest`}>{card.label}</p>
                   <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
@@ -167,7 +167,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
                   </div>
                 </div>
 
-                <h2 className="text-2xl font-extrabold mb-4">{card.title}</h2>
+                <h2 className="text-2xl md:text-3xl font-extrabold mb-4">{card.title}</h2>
                 <p className="text-gray-300 leading-relaxed mb-7">{card.description}</p>
 
                 <ul className="space-y-3 text-gray-200">

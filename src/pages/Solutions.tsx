@@ -191,60 +191,128 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
         </div>
       </section>
 
-      <section className="py-20 bg-[#030d1f] border-y border-white/10">
+      <section className="py-24 bg-[#030d1f] border-y border-white/10">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-14">
-            <p className="text-cyan-400 font-bold tracking-widest text-sm mb-3">WHAT WE DELIVER</p>
-            <h2 className="text-3xl md:text-5xl font-extrabold">Protection, Connectivity, and Support</h2>
+            <p className="text-cyan-400 font-bold tracking-widest text-sm mb-3">
+              WHAT WE DELIVER
+            </p>
+
+            <h2 className="text-3xl md:text-5xl font-extrabold">
+              Protection, Connectivity, and Support
+            </h2>
+
             <p className="mt-5 max-w-3xl mx-auto text-gray-300 leading-relaxed">
-              Choose the pathway that fits your business today, then scale with a partner who understands both physical security and IT infrastructure.
+              Explore integrated security and IT solutions built to protect your business,
+              improve operations, and support future growth.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-8">
-            <div className="rounded-3xl bg-white/5 border border-white/10 p-7">
-              <div className="flex items-center gap-3 mb-7">
-                <Shield className="text-cyan-400" size={28} />
-                <h3 className="text-2xl font-extrabold">Physical Security</h3>
+          <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 items-start">
+            <div className="space-y-8">
+              <div className="rounded-3xl bg-white/5 border border-white/10 p-7">
+                <div className="flex items-center gap-3 mb-7">
+                  <Shield className="text-cyan-400" size={28} />
+                  <h3 className="text-2xl font-extrabold">Physical Security</h3>
+                </div>
+
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {securitySolutions.map((item) => {
+                    const Icon = item.icon;
+
+                    return (
+                      <div
+                        key={item.title}
+                        className="rounded-2xl bg-[#020b1a] border border-white/10 p-5 hover:border-cyan-400/50 transition-all"
+                      >
+                        <Icon className="text-cyan-400 mb-4" size={24} />
+
+                        <h4 className="font-bold mb-3 leading-snug">
+                          {item.title}
+                        </h4>
+
+                        <ul className="space-y-2">
+                          {item.points.map((point) => (
+                            <li
+                              key={point}
+                              className="text-gray-400 text-xs leading-relaxed"
+                            >
+                              • {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-              <div className="grid sm:grid-cols-3 gap-4">
-                {securitySolutions.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={item.title} className="rounded-2xl bg-[#020b1a] border border-white/10 p-5 hover:border-cyan-400/50 transition-all">
-                      <Icon className="text-cyan-400 mb-4" size={24} />
-                      <h4 className="font-bold mb-3">{item.title}</h4>
-                      <ul className="space-y-2">
-                        {item.points.map((point) => (
-                          <li key={point} className="text-gray-400 text-xs leading-relaxed">• {point}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  );
-                })}
+
+              <div className="rounded-3xl bg-white/5 border border-white/10 p-7">
+                <div className="flex items-center gap-3 mb-7">
+                  <Cpu className="text-orange-400" size={28} />
+                  <h3 className="text-2xl font-extrabold">IT Infrastructure</h3>
+                </div>
+
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+                  {itSolutions.map((item) => {
+                    const Icon = item.icon;
+
+                    return (
+                      <div
+                        key={item.title}
+                        className="rounded-2xl bg-[#020b1a] border border-white/10 p-5 hover:border-orange-400/50 transition-all"
+                      >
+                        <Icon className="text-orange-400 mb-4" size={24} />
+
+                        <h4 className="font-bold mb-3 leading-snug">
+                          {item.title}
+                        </h4>
+
+                        <ul className="space-y-2">
+                          {item.points.map((point) => (
+                            <li
+                              key={point}
+                              className="text-gray-400 text-xs leading-relaxed"
+                            >
+                              • {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
-            <div className="rounded-3xl bg-white/5 border border-white/10 p-7">
-              <div className="flex items-center gap-3 mb-7">
-                <Cpu className="text-orange-400" size={28} />
-                <h3 className="text-2xl font-extrabold">IT Infrastructure</h3>
-              </div>
-              <div className="grid sm:grid-cols-3 gap-4">
-                {itSolutions.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <div key={item.title} className="rounded-2xl bg-[#020b1a] border border-white/10 p-5 hover:border-orange-400/50 transition-all">
-                      <Icon className="text-orange-400 mb-4" size={24} />
-                      <h4 className="font-bold mb-3">{item.title}</h4>
-                      <ul className="space-y-2">
-                        {item.points.map((point) => (
-                          <li key={point} className="text-gray-400 text-xs leading-relaxed">• {point}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  );
-                })}
+            <div className="sticky top-28">
+              <div className="relative rounded-3xl overflow-hidden border border-cyan-400/30 bg-white/5 shadow-2xl shadow-cyan-400/10">
+                <video
+                  src="/solutions-video.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-[950px] object-cover opacity-80"
+                />
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020b1a] via-[#020b1a]/40 to-transparent" />
+
+                <div className="absolute bottom-0 left-0 right-0 p-8">
+                  <p className="text-cyan-400 font-bold tracking-widest text-sm mb-3">
+                    BINARYGUARD SOLUTIONS
+                  </p>
+
+                  <h3 className="text-3xl font-extrabold mb-4">
+                    One Partner for Security & IT
+                  </h3>
+
+                  <p className="text-gray-300 leading-relaxed">
+                    From surveillance and access control to cloud, networking,
+                    and managed IT support — we help organizations build secure,
+                    connected, and scalable environments.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

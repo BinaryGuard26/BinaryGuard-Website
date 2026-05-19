@@ -123,7 +123,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.20),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(249,115,22,0.14),transparent_30%)]" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
+        <div className="relative z-10 max-w-screen-2xl mx-auto px-6 text-center">
           <span className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-cyan-400/40 bg-cyan-400/10 text-cyan-400 text-sm font-bold tracking-widest">
             SOLUTIONS
           </span>
@@ -192,7 +192,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
       </section>
 
       <section className="py-24 bg-[#030d1f] border-y border-white/10">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-screen-2xl mx-auto px-6">
           <div className="text-center mb-14">
             <p className="text-cyan-400 font-bold tracking-widest text-sm mb-3">
               WHAT WE DELIVER
@@ -306,7 +306,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
       </section>
 
       <section className="py-24 bg-[#020b1a]">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-[1800px] mx-auto px-6">
           <div className="flex flex-col gap-10">
             <div className="mt-2 order-2">
               <div className="relative rounded-3xl overflow-hidden border border-orange-400/30 bg-black shadow-2xl shadow-orange-400/10">

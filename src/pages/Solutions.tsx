@@ -34,17 +34,56 @@ const securitySolutions = [
   {
     icon: Camera,
     title: 'Video Surveillance Systems',
-    points: ['AI-powered surveillance and recording.', 'Multi-location monitoring and secure storage.', 'Rapid retrieval of security footage.'],
+    points: [
+      'AI-powered surveillance with real-time monitoring and recording.',
+      'Multi-location surveillance management and cloud storage.',
+      'Secure storage and rapid retrieval of security footage.',
+    ],
   },
   {
     icon: Lock,
     title: 'Access Control Systems',
-    points: ['Card, biometric, and mobile-based access.', 'Centralized entry-point management.', 'Audit logs and visitor management integration.'],
+    points: [
+      'Secure entry management with key-card, biometric, and mobile-based authentication.',
+      'Centralized access management across all entry points.',
+      'Audit logs and visitor management integration.',
+    ],
   },
   {
-    icon: Shield,
+    icon: ShieldAlert,
     title: 'Alarm & Intrusion Detection',
-    points: ['Instant alerts for security breaches.', 'Smart sensors with 24/7 monitoring.', 'Integration with response workflows.'],
+    points: [
+      'Instant alerts and detection to prevent security breaches.',
+      'Smart sensors with 24/7 monitoring capabilities.',
+      'Seamless integration with emergency response systems.',
+    ],
+  },
+  {
+    icon: Video,
+    title: 'Intercom & Video Door Systems',
+    points: [
+      'Smart communication and visitor verification for enhanced entry security.',
+      'Two-way audio and HD video for remote visitor management.',
+      'Mobile app integration for remote door access.',
+    ],
+  },
+  {
+    icon: Monitor,
+    title: 'Centralized Monitoring',
+    points: [
+      'Unified platforms to monitor all security systems from a single dashboard.',
+      'Real-time alerts and notifications across all entry points.',
+      'Integrated management for seamless security control.',
+    ],
+  },
+  {
+    icon: Layers,
+    title: 'Security System Integration',
+    points: [
+      'Seamless integration of multiple security technologies into one ecosystem.',
+      'Unified monitoring, control, and automated response capabilities.',
+      'Scalable infrastructure for growing security needs.',
+    ],
   },
 ];
 

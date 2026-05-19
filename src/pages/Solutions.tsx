@@ -163,7 +163,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
                 <div className="flex items-center justify-between gap-4 mb-6">
                   <p className={`${card.accent} font-bold text-sm tracking-widest`}>{card.label}</p>
                   <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-                    <Icon className={card.accent} size={26} />
+                    <Icon className={card.accent} size={30} />
                   </div>
                 </div>
 
@@ -230,14 +230,14 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 </div>
 
 
-              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
                 {securitySolutions.map((item) => {
                   const Icon = item.icon;
 
                   return (
                     <div
                       key={item.title}
-                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-6 min-h-[360px] transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-cyan-400/10"
+                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-8 min-h-[480px] transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-cyan-400/10"
                     >
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
                         <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyan-400/10 blur-3xl rounded-full" />
@@ -245,11 +245,11 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 
                       <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent opacity-70" />
 
-                      <div className="relative z-10 w-14 h-14 rounded-2xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-500">
-                        <Icon className="text-cyan-400" size={26} />
+                      <div className="relative z-10 w-16 h-16 rounded-2xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-500">
+                        <Icon className="text-cyan-400" size={30} />
                       </div>
 
-                      <h4 className="relative z-10 text-xl font-black leading-tight mb-5 tracking-tight">
+                      <h4 className="relative z-10 text-2xl font-black leading-tight mb-5 tracking-tight">
                         {item.title}
                       </h4>
 
@@ -257,7 +257,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
                         {item.points.map((point) => (
                           <li
                             key={point}
-                            className="flex gap-3 text-gray-300 text-sm leading-relaxed"
+                            className="flex gap-3 text-gray-300 text-base leading-relaxed"
                           >
                             <span className="text-cyan-400 mt-1 shrink-0">•</span>
                             <span>{point}</span>
@@ -359,14 +359,14 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 </div>
 
 
-              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
                 {itSolutions.map((item) => {
                   const Icon = item.icon;
 
                   return (
                     <div
                       key={item.title}
-                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-6 min-h-[360px] transition-all duration-500 hover:-translate-y-2 hover:border-orange-400/50 hover:shadow-2xl hover:shadow-orange-400/10"
+                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-8 min-h-[480px] transition-all duration-500 hover:-translate-y-2 hover:border-orange-400/50 hover:shadow-2xl hover:shadow-orange-400/10"
                     >
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
                         <div className="absolute -top-20 -right-20 w-40 h-40 bg-orange-400/10 blur-3xl rounded-full" />
@@ -374,11 +374,11 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 
                       <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-orange-400 via-yellow-500 to-transparent opacity-70" />
 
-                      <div className="relative z-10 w-14 h-14 rounded-2xl bg-orange-400/10 border border-orange-400/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-500">
-                        <Icon className="text-orange-400" size={26} />
+                      <div className="relative z-10 w-16 h-16 rounded-2xl bg-orange-400/10 border border-orange-400/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-500">
+                        <Icon className="text-orange-400" size={30} />
                       </div>
 
-                      <h4 className="relative z-10 text-xl font-black leading-tight mb-5 tracking-tight">
+                      <h4 className="relative z-10 text-2xl font-black leading-tight mb-5 tracking-tight">
                         {item.title}
                       </h4>
 
@@ -386,7 +386,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
                         {item.points.map((point) => (
                           <li
                             key={point}
-                            className="flex gap-3 text-gray-300 text-sm leading-relaxed"
+                            className="flex gap-3 text-gray-300 text-base leading-relaxed"
                           >
                             <span className="text-orange-400 mt-1 shrink-0">•</span>
                             <span>{point}</span>

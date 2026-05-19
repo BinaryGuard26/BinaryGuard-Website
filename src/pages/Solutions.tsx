@@ -154,40 +154,85 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
         </div>
       </section>
 
-      <section className="relative z-10 -mt-20 pb-16">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {pathwayCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <div key={card.title} className={`rounded-3xl bg-white/5 border border-white/10 p-6 md:p-8 backdrop-blur-md transition-all ${card.hover}`}>
-                <div className="flex items-center justify-between gap-4 mb-6">
-                  <p className={`${card.accent} font-bold text-sm tracking-widest`}>{card.label}</p>
-                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
-                    <Icon className={card.accent} size={30} />
+      <section className="relative z-10 -mt-20 pb-20">
+        <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-[760px]">
+            {pathwayCards.map((card, index) => {
+              const Icon = card.icon;
+              const isSecurity = index === 0;
+
+              return (
+                <div
+                  key={card.title}
+                  className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br ${
+                    isSecurity
+                      ? 'from-[#071b2f] via-[#061426] to-[#020817] hover:border-cyan-400/60 hover:shadow-cyan-400/20'
+                      : 'from-[#1f1206] via-[#101725] to-[#020817] hover:border-orange-400/60 hover:shadow-orange-400/20'
+                  } p-8 md:p-12 xl:p-16 shadow-2xl transition-all duration-700 hover:-translate-y-2`}
+                >
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:44px_44px] opacity-30" />
+
+                  <div
+                    className={`absolute -top-40 ${
+                      isSecurity ? '-left-32 bg-cyan-400/25' : '-right-32 bg-orange-400/25'
+                    } h-[420px] w-[420px] rounded-full blur-3xl transition-all duration-700 group-hover:scale-125`}
+                  />
+
+                  <div
+                    className={`absolute bottom-0 ${
+                      isSecurity ? 'right-0 bg-cyan-400/10' : 'left-0 bg-orange-400/10'
+                    } h-72 w-72 rounded-full blur-3xl`}
+                  />
+
+                  <div className="relative z-10 flex min-h-full flex-col justify-between">
+                    <div>
+                      <div className="mb-10 flex items-center justify-between gap-6">
+                        <p className={`${card.accent} text-sm font-black tracking-[0.28em]`}>
+                          {card.label}
+                        </p>
+
+                        <div className="flex h-20 w-20 items-center justify-center rounded-3xl border border-white/10 bg-white/[0.06] shadow-xl backdrop-blur-md transition-all duration-500 group-hover:scale-110">
+                          <Icon className={card.accent} size={40} />
+                        </div>
+                      </div>
+
+                      <h2 className="max-w-xl text-4xl font-black leading-[1.02] tracking-tight md:text-5xl xl:text-6xl">
+                        {card.title}
+                      </h2>
+
+                      <p className="mt-8 max-w-xl text-lg leading-relaxed text-gray-300">
+                        {card.description}
+                      </p>
+
+                      <ul className="mt-10 grid gap-4">
+                        {card.items.map((item) => (
+                          <li
+                            key={item}
+                            className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 text-gray-100 backdrop-blur-sm transition-all duration-300 group-hover:border-white/20"
+                          >
+                            <CheckCircle className={`${card.accent} shrink-0`} size={21} />
+                            <span className="text-base font-semibold">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <button
+                      onClick={() => onNavigate('contact')}
+                      className={`mt-12 inline-flex w-fit items-center gap-3 rounded-2xl px-7 py-4 font-black transition-all duration-300 ${
+                        isSecurity
+                          ? 'bg-cyan-400 text-slate-950 hover:bg-cyan-300 shadow-lg shadow-cyan-400/20'
+                          : 'bg-orange-400 text-slate-950 hover:bg-orange-300 shadow-lg shadow-orange-400/20'
+                      }`}
+                    >
+                      {card.button}
+                      <ArrowRight size={20} />
+                    </button>
                   </div>
                 </div>
-
-                <h2 className="text-2xl md:text-3xl font-extrabold mb-4">{card.title}</h2>
-                <p className="text-gray-300 leading-relaxed mb-7">{card.description}</p>
-
-                <ul className="space-y-3 text-gray-200">
-                  {card.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <CheckCircle className={`${card.accent} mt-0.5 shrink-0`} size={18} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  onClick={() => onNavigate('contact')}
-                  className={`mt-8 inline-flex items-center gap-2 ${card.accent} font-bold hover:gap-3 transition-all`}
-                >
-                  {card.button} <ArrowRight size={18} />
-                </button>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </section>
 

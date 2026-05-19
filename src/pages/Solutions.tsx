@@ -155,7 +155,7 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
       </section>
 
       <section className="relative z-10 -mt-8 pb-20">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8">
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 xl:grid-cols-3 gap-8">
           {pathwayCards.map((card) => {
             const Icon = card.icon;
             return (
@@ -230,14 +230,14 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 </div>
 
 
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
                 {securitySolutions.map((item) => {
                   const Icon = item.icon;
 
                   return (
                     <div
                       key={item.title}
-                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-10 min-h-[620px] transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-cyan-400/10"
+                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-10 min-h-[520px] transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-cyan-400/10"
                     >
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
                         <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyan-400/10 blur-3xl rounded-full" />
@@ -359,14 +359,14 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 </div>
 
 
-              <div className="grid md:grid-cols-2 gap-8">
+              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
                 {itSolutions.map((item) => {
                   const Icon = item.icon;
 
                   return (
                     <div
                       key={item.title}
-                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-10 min-h-[620px] transition-all duration-500 hover:-translate-y-2 hover:border-orange-400/50 hover:shadow-2xl hover:shadow-orange-400/10"
+                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-10 min-h-[520px] transition-all duration-500 hover:-translate-y-2 hover:border-orange-400/50 hover:shadow-2xl hover:shadow-orange-400/10"
                     >
                       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
                         <div className="absolute -top-20 -right-20 w-40 h-40 bg-orange-400/10 blur-3xl rounded-full" />

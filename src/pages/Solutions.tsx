@@ -2,7 +2,6 @@ import {
   ArrowRight,
   Shield,
   Cpu,
-  CheckCircle,
   PhoneCall,
   Network,
   Camera,
@@ -23,31 +22,6 @@ type Page = 'home' | 'about' | 'services' | 'products' | 'contact' | 'solutions'
 interface SolutionsProps {
   onNavigate: (page: Page) => void;
 }
-
-const pathwayCards = [
-  {
-    label: 'ENTERPRISE SECURITY',
-    title: 'Physical Security Solutions',
-    description: 'Protect your people, property, and operations with connected physical security systems built for modern business environments.',
-    icon: Shield,
-    accent: 'text-cyan-400',
-    hover: 'hover:border-cyan-400/60',
-    button: 'View Security Solutions',
-    image: '/security-card.jpg',
-    items: ['Access Control Systems', 'CCTV & Video Surveillance', 'Alarm & Intrusion Detection', 'Monitoring & Response Planning'],
-  },
-  {
-    label: 'IT INFRASTRUCTURE',
-    title: 'IT Infrastructure Solutions',
-    description: 'Build reliable technology foundations that support daily operations, cloud adoption, cybersecurity, and business growth.',
-    icon: Cpu,
-    accent: 'text-orange-400',
-    hover: 'hover:border-orange-400/60',
-    button: 'View IT Solutions',
-    image: '/it-card.jpg',
-    items: ['Network Setup & Optimization', 'Cloud & Backup Solutions', 'Managed IT Support', 'Cybersecurity Readiness'],
-  },
-];
 
 const securitySolutions = [
   {
@@ -156,114 +130,105 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
         </div>
       </section>
 
-      <section className="relative z-10 -mt-20 pb-20">
+      <section className="relative z-10 -mt-12 pb-24">
         <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-[760px]">
-            {pathwayCards.map((card, index) => {
-              const Icon = card.icon;
-              const isSecurity = index === 0;
+          <div className="relative overflow-hidden rounded-[2.25rem] border border-white/10 bg-[#020817] min-h-[720px] shadow-2xl shadow-black/40">
+            <img
+              src="/solutions-split-bg.jpg"
+              alt="Security and IT infrastructure background"
+              className="absolute inset-0 h-full w-full object-cover opacity-25 scale-105"
+            />
 
-              return (
-                <div
-                  key={card.title}
-                  className={`group relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#020817] ${
-                    isSecurity
-                      ? 'hover:border-cyan-400/70 hover:shadow-cyan-400/20'
-                      : 'hover:border-orange-400/70 hover:shadow-orange-400/20'
-                  } p-8 md:p-12 xl:p-16 shadow-2xl transition-all duration-700 hover:-translate-y-2`}
-                >
-                  <div className="absolute inset-0 overflow-hidden rounded-[2rem]">
-                    <img
-                      src={card.image}
-                      alt={card.title}
-                      className="h-full w-full object-cover opacity-30 scale-105 transition-all duration-700 group-hover:scale-110 group-hover:opacity-40"
-                    />
-                    <div
-                      className={`absolute inset-0 ${
-                        isSecurity
-                          ? 'bg-gradient-to-br from-[#020817]/35 via-[#020817]/78 to-[#020817]'
-                          : 'bg-gradient-to-br from-[#020817]/35 via-[#020817]/76 to-[#020817]'
-                      }`}
-                    />
-                    <div
-                      className={`absolute inset-0 ${
-                        isSecurity
-                          ? 'bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.30),transparent_38%)]'
-                          : 'bg-[radial-gradient(circle_at_top_right,rgba(251,146,60,0.32),transparent_38%)]'
-                      }`}
-                    />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#020817] via-[#020817]/90 to-[#020817]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_30%,rgba(34,211,238,0.28),transparent_35%),radial-gradient(circle_at_75%_40%,rgba(251,146,60,0.24),transparent_35%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:48px_48px] opacity-20" />
+
+            <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-white/20 to-transparent lg:block" />
+            <div className="absolute left-1/2 top-1/2 hidden h-[120%] w-[2px] -translate-x-1/2 -translate-y-1/2 rotate-12 bg-gradient-to-b from-transparent via-cyan-400/25 to-orange-400/25 lg:block" />
+
+            <div className="relative z-10 grid min-h-[720px] grid-cols-1 lg:grid-cols-2">
+              <div className="group relative flex flex-col justify-center overflow-hidden p-8 md:p-14 xl:p-20">
+                <div className="absolute -left-32 top-10 h-96 w-96 rounded-full bg-cyan-400/20 blur-3xl transition-all duration-700 group-hover:scale-125" />
+
+                <div className="relative z-10">
+                  <div className="mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl border border-cyan-400/25 bg-cyan-400/10 shadow-xl shadow-cyan-400/10 backdrop-blur-md">
+                    <Shield className="text-cyan-400" size={30} />
                   </div>
 
-                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:44px_44px] opacity-20" />
+                  <p className="mb-6 text-sm font-black tracking-[0.3em] text-cyan-400">
+                    ENTERPRISE SECURITY
+                  </p>
 
-                  <div
-                    className={`absolute -top-40 ${
-                      isSecurity ? '-left-32 bg-cyan-400/25' : '-right-32 bg-orange-400/25'
-                    } h-[420px] w-[420px] rounded-full blur-3xl transition-all duration-700 group-hover:scale-125`}
-                  />
+                  <h2 className="max-w-2xl text-4xl font-black leading-[1.05] tracking-tight md:text-5xl xl:text-6xl">
+                    Secure every entry, asset, and operation.
+                  </h2>
 
-                  <div
-                    className={`absolute bottom-0 ${
-                      isSecurity ? 'right-0 bg-cyan-400/10' : 'left-0 bg-orange-400/10'
-                    } h-72 w-72 rounded-full blur-3xl`}
-                  />
+                  <p className="mt-7 max-w-xl text-base leading-relaxed text-gray-300 md:text-lg">
+                    Integrated access control, CCTV, alarms, and monitoring systems designed for modern business protection.
+                  </p>
 
-                  <div
-                    className={`absolute inset-x-0 bottom-0 h-1 ${
-                      isSecurity
-                        ? 'bg-gradient-to-r from-cyan-400/70 via-cyan-300/30 to-transparent'
-                        : 'bg-gradient-to-r from-orange-400/70 via-yellow-300/30 to-transparent'
-                    } opacity-70`}
-                  />
-
-                  <div className="relative z-10 flex min-h-full flex-col justify-between">
-                    <div>
-                      <div className="mb-10 flex items-center justify-between gap-6">
-                        <p className={`${card.accent} text-sm font-black tracking-[0.28em]`}>
-                          {card.label}
-                        </p>
-
-                        <div className="flex h-20 w-20 items-center justify-center rounded-3xl border border-white/10 bg-white/[0.06] shadow-xl backdrop-blur-md transition-all duration-500 group-hover:scale-110">
-                          <Icon className={card.accent} size={40} />
-                        </div>
-                      </div>
-
-                      <h2 className="max-w-xl text-4xl font-black leading-[1.02] tracking-tight md:text-5xl xl:text-6xl">
-                        {card.title}
-                      </h2>
-
-                      <p className="mt-8 max-w-xl text-lg leading-relaxed text-gray-300">
-                        {card.description}
-                      </p>
-
-                      <ul className="mt-10 grid gap-4">
-                        {card.items.map((item) => (
-                          <li
-                            key={item}
-                            className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4 text-gray-100 backdrop-blur-sm transition-all duration-300 group-hover:border-white/20"
-                          >
-                            <CheckCircle className={`${card.accent} shrink-0`} size={21} />
-                            <span className="text-base font-semibold">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <button
-                      onClick={() => onNavigate('contact')}
-                      className={`mt-12 inline-flex w-fit items-center gap-3 rounded-2xl px-7 py-4 font-black transition-all duration-300 ${
-                        isSecurity
-                          ? 'bg-cyan-400 text-slate-950 hover:bg-cyan-300 shadow-lg shadow-cyan-400/20'
-                          : 'bg-orange-400 text-slate-950 hover:bg-orange-300 shadow-lg shadow-orange-400/20'
-                      }`}
-                    >
-                      {card.button}
-                      <ArrowRight size={20} />
-                    </button>
+                  <div className="mt-10 flex flex-wrap gap-3">
+                    {['Access Control', 'CCTV', 'Alarm Systems', 'Monitoring'].map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 text-sm font-bold text-cyan-100 backdrop-blur-sm"
+                      >
+                        {item}
+                      </span>
+                    ))}
                   </div>
+
+                  <button
+                    onClick={() => onNavigate('contact')}
+                    className="mt-10 inline-flex w-fit items-center gap-3 rounded-full bg-cyan-400 px-8 py-4 font-black text-slate-950 shadow-lg shadow-cyan-400/20 transition-all hover:bg-cyan-300 hover:gap-4"
+                  >
+                    View Security Solutions
+                    <ArrowRight size={20} />
+                  </button>
                 </div>
-              );
-            })}
+              </div>
+
+              <div className="group relative flex flex-col justify-center overflow-hidden border-t border-white/10 p-8 md:p-14 xl:p-20 lg:border-l lg:border-t-0">
+                <div className="absolute -right-32 bottom-10 h-96 w-96 rounded-full bg-orange-400/20 blur-3xl transition-all duration-700 group-hover:scale-125" />
+
+                <div className="relative z-10">
+                  <div className="mb-8 inline-flex h-16 w-16 items-center justify-center rounded-2xl border border-orange-400/25 bg-orange-400/10 shadow-xl shadow-orange-400/10 backdrop-blur-md">
+                    <Cpu className="text-orange-400" size={30} />
+                  </div>
+
+                  <p className="mb-6 text-sm font-black tracking-[0.3em] text-orange-400">
+                    IT INFRASTRUCTURE
+                  </p>
+
+                  <h2 className="max-w-2xl text-4xl font-black leading-[1.05] tracking-tight md:text-5xl xl:text-6xl">
+                    Build the digital foundation for growth.
+                  </h2>
+
+                  <p className="mt-7 max-w-xl text-base leading-relaxed text-gray-300 md:text-lg">
+                    Reliable networking, cloud, backup, cybersecurity, and managed IT support for scalable operations.
+                  </p>
+
+                  <div className="mt-10 flex flex-wrap gap-3">
+                    {['Networking', 'Cloud Backup', 'Managed IT', 'Cybersecurity'].map((item) => (
+                      <span
+                        key={item}
+                        className="rounded-full border border-orange-400/30 bg-orange-400/10 px-5 py-3 text-sm font-bold text-orange-100 backdrop-blur-sm"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => onNavigate('contact')}
+                    className="mt-10 inline-flex w-fit items-center gap-3 rounded-full bg-orange-400 px-8 py-4 font-black text-slate-950 shadow-lg shadow-orange-400/20 transition-all hover:bg-orange-300 hover:gap-4"
+                  >
+                    View IT Solutions
+                    <ArrowRight size={20} />
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

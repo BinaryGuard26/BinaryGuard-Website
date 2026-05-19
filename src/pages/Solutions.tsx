@@ -26,7 +26,7 @@ interface SolutionsProps {
 
 const pathwayCards = [
   {
-    label: 'PATHWAY 01',
+    label: 'ENTERPRISE SECURITY',
     title: 'Physical Security Solutions',
     description: 'Protect your people, property, and operations with connected physical security systems built for modern business environments.',
     icon: Shield,
@@ -36,7 +36,7 @@ const pathwayCards = [
     items: ['Access Control Systems', 'CCTV & Video Surveillance', 'Alarm & Intrusion Detection', 'Monitoring & Response Planning'],
   },
   {
-    label: 'PATHWAY 02',
+    label: 'IT INFRASTRUCTURE',
     title: 'IT Infrastructure Solutions',
     description: 'Build reliable technology foundations that support daily operations, cloud adoption, cybersecurity, and business growth.',
     icon: Cpu,

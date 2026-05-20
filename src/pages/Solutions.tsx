@@ -218,30 +218,6 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
                         Enterprise Security & IT Infrastructure
                       </p>
                     </div>
-
-                    <h3 className="text-3xl md:text-4xl font-black leading-tight mb-4">
-                      Secure. Connected. Scalable.
-                    </h3>
-
-                    <p className="text-gray-300 text-base leading-relaxed mb-6">
-                      Integrated surveillance, networking, cloud, access control,
-                      and managed IT solutions designed for modern business operations.
-                    </p>
-
-                    <div className="flex flex-wrap gap-3">
-                      <span className="px-4 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-300 text-sm">
-                        Surveillance
-                      </span>
-                      <span className="px-4 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-300 text-sm">
-                        Access Control
-                      </span>
-                      <span className="px-4 py-2 rounded-full bg-orange-400/10 border border-orange-400/20 text-orange-300 text-sm">
-                        Cloud Infrastructure
-                      </span>
-                      <span className="px-4 py-2 rounded-full bg-orange-400/10 border border-orange-400/20 text-orange-300 text-sm">
-                        Managed IT
-                      </span>
-                    </div>
                   </div>
                 </div>
               </div>

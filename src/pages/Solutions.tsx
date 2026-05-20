@@ -154,281 +154,137 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
         </div>
       </section>
 
-      <section className="relative z-10 -mt-16 pb-20 px-6">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-          {pathwayCards.map((card) => {
-            const Icon = card.icon;
-            return (
-              <div key={card.title} className={`group relative overflow-hidden min-h-[620px] rounded-[2rem] bg-gradient-to-br from-white/10 via-white/[0.04] to-white/[0.02] border border-white/10 p-10 md:p-12 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${card.hover}`}>
-                <div className="absolute -top-24 -right-24 w-72 h-72 bg-cyan-400/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-orange-400/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white/30 to-transparent" />
-                <div className="relative z-10 flex items-center justify-between gap-4 mb-10">
-                  <p className={`${card.accent} font-bold text-sm tracking-widest`}>{card.label}</p>
-                  <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/10 flex items-center justify-center shadow-lg">
-                    <Icon className={card.accent} size={30} />
+      <section className="relative overflow-hidden py-24 bg-[#020b1a] border-b border-white/10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(249,115,22,0.10),transparent_35%)]" />
+
+        <div className="relative z-10 max-w-screen-2xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <p className="text-cyan-400 font-bold tracking-[0.25em] text-sm mb-4">SOLUTION ECOSYSTEM</p>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight">BinaryGuard Enterprise Solutions</h2>
+            <p className="mt-6 max-w-3xl mx-auto text-gray-300 text-lg leading-relaxed">
+              A connected root map that brings physical security and IT infrastructure together under one scalable business technology strategy.
+            </p>
+          </div>
+
+          <div className="relative">
+            <div className="relative z-20 max-w-md mx-auto mb-16">
+              <div className="rounded-[2rem] border border-cyan-400/30 bg-gradient-to-br from-cyan-400/15 via-white/5 to-orange-400/10 p-8 text-center shadow-2xl shadow-cyan-400/10">
+                <div className="w-16 h-16 rounded-2xl bg-cyan-400/15 border border-cyan-400/30 flex items-center justify-center mx-auto mb-5">
+                  <Shield className="text-cyan-400" size={30} />
+                </div>
+                <p className="text-cyan-400 text-xs font-bold tracking-[0.25em] uppercase mb-3">Root Map</p>
+                <h3 className="text-3xl font-black">BinaryGuard Solutions</h3>
+                <p className="mt-3 text-gray-300 leading-relaxed">
+                  One integrated direction for secure, connected, and scalable operations.
+                </p>
+              </div>
+            </div>
+
+            <div className="hidden lg:block absolute top-[150px] left-1/2 w-px h-16 bg-gradient-to-b from-cyan-400/60 to-white/10" />
+            <div className="hidden lg:block absolute top-[214px] left-[18%] right-[18%] h-px bg-gradient-to-r from-cyan-400/50 via-white/20 to-orange-400/50" />
+            <div className="hidden lg:block absolute top-[214px] left-[18%] w-px h-16 bg-gradient-to-b from-cyan-400/50 to-white/10" />
+            <div className="hidden lg:block absolute top-[214px] right-[18%] w-px h-16 bg-gradient-to-b from-orange-400/50 to-white/10" />
+
+            <div className="grid lg:grid-cols-2 gap-10">
+              <div className="relative rounded-[2rem] border border-cyan-400/20 bg-white/[0.04] p-8 md:p-10 backdrop-blur-xl">
+                <div className="absolute -top-20 -left-20 w-64 h-64 bg-cyan-400/10 blur-3xl rounded-full" />
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="w-14 h-14 rounded-2xl bg-cyan-400/10 border border-cyan-400/30 flex items-center justify-center">
+                      <Shield className="text-cyan-400" size={28} />
+                    </div>
+                    <div>
+                      <p className="text-cyan-400 text-xs font-bold tracking-[0.25em] uppercase mb-1">Enterprise Security</p>
+                      <h3 className="text-3xl md:text-4xl font-black">Enterprise Security Solutions</h3>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-5">
+                    {securitySolutions.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <div key={item.title} className="group relative rounded-2xl border border-white/10 bg-[#020b1a]/80 p-5 hover:border-cyan-400/40 transition-all">
+                          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-400/70 to-transparent opacity-0 group-hover:opacity-100 transition-all" />
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="w-10 h-10 rounded-xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center">
+                              <Icon className="text-cyan-400" size={20} />
+                            </div>
+                            <h4 className="font-black leading-tight">{item.title}</h4>
+                          </div>
+                          <ul className="space-y-3">
+                            {item.points.map((point) => (
+                              <li key={point} className="flex gap-3 text-sm text-gray-300 leading-relaxed">
+                                <span className="text-cyan-400 mt-1 shrink-0">•</span>
+                                <span>{point}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-
-                <h2 className="relative z-10 text-3xl md:text-4xl font-black leading-tight mb-6">{card.title}</h2>
-                <p className="relative z-10 text-gray-300 text-lg leading-relaxed mb-9">{card.description}</p>
-
-                <ul className="relative z-10 space-y-4 text-gray-200 text-lg">
-                  {card.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <CheckCircle className={`${card.accent} mt-0.5 shrink-0`} size={18} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <button
-                  onClick={() => onNavigate('contact')}
-                  className={`relative z-10 mt-10 inline-flex items-center gap-2 ${card.accent} text-lg font-bold hover:gap-3 transition-all`}
-                >
-                  {card.button} <ArrowRight size={18} />
-                </button>
               </div>
-            );
-          })}
-        </div>
-      </section>
 
-      <section className="py-24 bg-[#030d1f] border-y border-white/10">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-14">
-            <p className="text-cyan-400 font-bold tracking-widest text-sm mb-3">
-              WHAT WE DELIVER
-            </p>
-
-            <h2 className="text-3xl md:text-5xl font-extrabold">
-              Protection, Connectivity, and Support
-            </h2>
-
-            <p className="mt-5 max-w-3xl mx-auto text-gray-300 leading-relaxed">
-              Explore integrated security and IT solutions built to protect your business,
-              improve operations, and support future growth.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-10">
-            <div className="rounded-3xl bg-white/5 border border-white/10 p-8">
-              
-<div className="mb-10">
-  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 backdrop-blur-sm mb-4">
-    <Shield className="text-cyan-400" size={16} />
-    <span className="text-cyan-400 text-xs font-bold tracking-[0.25em] uppercase">
-      Enterprise Security
-    </span>
-  </div>
-
-  <h3 className="text-4xl md:text-5xl font-black leading-none tracking-tight">
-    Physical{" "}
-    <span className="bg-gradient-to-r from-cyan-300 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
-      Security
-    </span>
-  </h3>
-
-  <div className="mt-4 w-24 h-[3px] bg-gradient-to-r from-cyan-400 to-transparent rounded-full" />
-</div>
-
-
-              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-                {securitySolutions.map((item) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <div
-                      key={item.title}
-                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-10 min-h-[520px] transition-all duration-500 hover:-translate-y-2 hover:border-cyan-400/50 hover:shadow-2xl hover:shadow-cyan-400/10"
-                    >
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                        <div className="absolute -top-20 -right-20 w-40 h-40 bg-cyan-400/10 blur-3xl rounded-full" />
-                      </div>
-
-                      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-400 via-blue-500 to-transparent opacity-70" />
-
-                      <div className="relative z-10 w-16 h-16 rounded-2xl bg-cyan-400/10 border border-cyan-400/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-500">
-                        <Icon className="text-cyan-400" size={30} />
-                      </div>
-
-                      <h4 className="relative z-10 text-[28px] font-black leading-tight mb-7 tracking-tight">
-                        {item.title}
-                      </h4>
-
-                      <ul className="relative z-10 space-y-6">
-                        {item.points.map((point) => (
-                          <li
-                            key={point}
-                            className="flex gap-3 text-gray-300 text-base leading-relaxed"
-                          >
-                            <span className="text-cyan-400 mt-1 shrink-0">•</span>
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-cyan-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+              <div className="relative rounded-[2rem] border border-orange-400/20 bg-white/[0.04] p-8 md:p-10 backdrop-blur-xl">
+                <div className="absolute -top-20 -right-20 w-64 h-64 bg-orange-400/10 blur-3xl rounded-full" />
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="w-14 h-14 rounded-2xl bg-orange-400/10 border border-orange-400/30 flex items-center justify-center">
+                      <Cpu className="text-orange-400" size={28} />
                     </div>
-                  );
-                })}
-              </div>
-            </div>
+                    <div>
+                      <p className="text-orange-400 text-xs font-bold tracking-[0.25em] uppercase mb-1">IT Infrastructure</p>
+                      <h3 className="text-3xl md:text-4xl font-black">IT Infrastructure Solutions</h3>
+                    </div>
+                  </div>
 
-            <div className="mt-2">
-              <div className="relative rounded-3xl overflow-hidden border border-cyan-400/30 bg-black shadow-2xl shadow-cyan-400/10">
-                <video
-                  src="/security-video.mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-[500px] object-cover opacity-80"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020b1a] via-[#020b1a]/40 to-transparent" />
-
-                <div className="absolute bottom-0 left-0 right-0 p-10">
-                  <p className="text-cyan-400 font-bold tracking-widest text-sm mb-3">
-                    ENTERPRISE SECURITY
-                  </p>
-
-                  <h3 className="text-3xl font-extrabold mb-4">
-                    Intelligent Physical Protection
-                  </h3>
-
-                  <p className="text-gray-300 leading-relaxed">
-                    Advanced surveillance, access control, and integrated monitoring
-                    systems built for modern organizations.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-[#020b1a]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col gap-10">
-            <div className="mt-2 order-2">
-              <div className="relative rounded-3xl overflow-hidden border border-orange-400/30 bg-black shadow-2xl shadow-orange-400/10">
-                <video
-                  src="/it-video.mp4"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-[500px] object-cover opacity-80"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020b1a] via-[#020b1a]/40 to-transparent" />
-
-                <div className="absolute bottom-0 left-0 right-0 p-10">
-                  <p className="text-orange-400 font-bold tracking-widest text-sm mb-3">
-                    IT INFRASTRUCTURE
-                  </p>
-
-                  <h3 className="text-3xl font-extrabold mb-4">
-                    Scalable Digital Infrastructure
-                  </h3>
-
-                  <p className="text-gray-300 leading-relaxed">
-                    Cloud, networking, AI, and managed IT solutions designed for
-                    performance, security, and scalability.
-                  </p>
+                  <div className="grid md:grid-cols-2 gap-5">
+                    {itSolutions.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <div key={item.title} className="group relative rounded-2xl border border-white/10 bg-[#020b1a]/80 p-5 hover:border-orange-400/40 transition-all">
+                          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-orange-400/70 to-transparent opacity-0 group-hover:opacity-100 transition-all" />
+                          <div className="flex items-center gap-3 mb-4">
+                            <div className="w-10 h-10 rounded-xl bg-orange-400/10 border border-orange-400/20 flex items-center justify-center">
+                              <Icon className="text-orange-400" size={20} />
+                            </div>
+                            <h4 className="font-black leading-tight">{item.title}</h4>
+                          </div>
+                          <ul className="space-y-3">
+                            {item.points.map((point) => (
+                              <li key={point} className="flex gap-3 text-sm text-gray-300 leading-relaxed">
+                                <span className="text-orange-400 mt-1 shrink-0">•</span>
+                                <span>{point}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-3xl bg-white/5 border border-white/10 p-7 order-1">
-              
-<div className="mb-10">
-  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-orange-400/20 bg-orange-400/10 backdrop-blur-sm mb-4">
-    <Cpu className="text-orange-400" size={16} />
-    <span className="text-orange-400 text-xs font-bold tracking-[0.25em] uppercase">
-      IT Infrastructure
-    </span>
-  </div>
-
-  <h3 className="text-4xl md:text-5xl font-black leading-none tracking-tight">
-    Digital{" "}
-    <span className="bg-gradient-to-r from-orange-300 via-orange-400 to-yellow-400 bg-clip-text text-transparent">
-      Infrastructure
-    </span>
-  </h3>
-
-  <div className="mt-4 w-24 h-[3px] bg-gradient-to-r from-orange-400 to-transparent rounded-full" />
-</div>
-
-
-              <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-                {itSolutions.map((item) => {
-                  const Icon = item.icon;
-
-                  return (
-                    <div
-                      key={item.title}
-                      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-[#071428] to-[#020b1a] p-10 min-h-[520px] transition-all duration-500 hover:-translate-y-2 hover:border-orange-400/50 hover:shadow-2xl hover:shadow-orange-400/10"
-                    >
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                        <div className="absolute -top-20 -right-20 w-40 h-40 bg-orange-400/10 blur-3xl rounded-full" />
-                      </div>
-
-                      <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-orange-400 via-yellow-500 to-transparent opacity-70" />
-
-                      <div className="relative z-10 w-16 h-16 rounded-2xl bg-orange-400/10 border border-orange-400/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-500">
-                        <Icon className="text-orange-400" size={30} />
-                      </div>
-
-                      <h4 className="relative z-10 text-[28px] font-black leading-tight mb-7 tracking-tight">
-                        {item.title}
-                      </h4>
-
-                      <ul className="relative z-10 space-y-6">
-                        {item.points.map((point) => (
-                          <li
-                            key={point}
-                            className="flex gap-3 text-gray-300 text-base leading-relaxed"
-                          >
-                            <span className="text-orange-400 mt-1 shrink-0">•</span>
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-orange-400/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                    </div>
-                  );
-                })}
-              </div>
+            <div className="mt-12 rounded-[2rem] border border-cyan-400/20 bg-gradient-to-r from-cyan-400/10 via-white/[0.04] to-orange-400/10 p-8 md:p-10 text-center">
+              <h3 className="text-3xl md:text-4xl font-black mb-4">Not sure which solution fits your business?</h3>
+              <p className="max-w-3xl mx-auto text-gray-300 leading-relaxed mb-8">
+                Share your business requirements and BinaryGuard will help map the right security and IT solution direction for your environment.
+              </p>
+              <button
+                onClick={() => onNavigate('contact')}
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-cyan-400 text-slate-950 font-bold hover:bg-cyan-300 transition-all shadow-lg shadow-cyan-400/20"
+              >
+                Get a Free Recommendation
+                <ArrowRight size={18} />
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-[#020b1a]">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="rounded-3xl bg-gradient-to-br from-cyan-400/15 via-white/5 to-orange-400/10 border border-cyan-400/30 p-8 md:p-12 text-center shadow-2xl shadow-cyan-400/10">
-            <div className="w-16 h-16 rounded-2xl bg-cyan-400/15 border border-cyan-400/30 flex items-center justify-center mx-auto mb-6">
-              <PhoneCall className="text-cyan-400" size={30} />
-            </div>
-            <h2 className="text-3xl md:text-4xl font-extrabold">Not sure where to start?</h2>
-            <p className="mt-4 text-gray-300 max-w-2xl mx-auto leading-relaxed">
-              Tell us your business needs and we’ll recommend the right security and IT solution.
-            </p>
-            <button
-              onClick={() => onNavigate('contact')}
-              className="mt-8 inline-flex items-center gap-3 px-8 py-3 rounded-full bg-cyan-400 text-slate-950 font-bold hover:bg-cyan-300 transition-all"
-            >
-              Get a Free Recommendation
-              <ArrowRight size={18} />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <Footer onNavigate={onNavigate} />
+            <Footer onNavigate={onNavigate} />
     </div>
   );
 }

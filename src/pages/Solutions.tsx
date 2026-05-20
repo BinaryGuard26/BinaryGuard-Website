@@ -154,26 +154,29 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
         </div>
       </section>
 
-      <section className="relative z-10 -mt-20 pb-16">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 xl:grid-cols-3 gap-8">
+      <section className="relative z-10 -mt-16 pb-20 px-6">
+        <div className="max-w-screen-2xl mx-auto grid lg:grid-cols-3 gap-8 items-stretch">
           {pathwayCards.map((card) => {
             const Icon = card.icon;
             return (
-              <div key={card.title} className={`rounded-3xl bg-white/5 border border-white/10 p-6 md:p-8 backdrop-blur-md transition-all ${card.hover}`}>
-                <div className="flex items-center justify-between gap-4 mb-6">
+              <div
+                key={card.title}
+                className={`relative overflow-hidden rounded-[2rem] bg-white/5 border border-white/10 p-8 md:p-10 min-h-[560px] backdrop-blur-md transition-all ${card.hover}`}
+              >
+                <div className="flex items-center justify-between gap-4 mb-8">
                   <p className={`${card.accent} font-bold text-sm tracking-widest`}>{card.label}</p>
-                  <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
+                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center">
                     <Icon className={card.accent} size={30} />
                   </div>
                 </div>
 
-                <h2 className="text-2xl md:text-3xl font-extrabold mb-4">{card.title}</h2>
-                <p className="text-gray-300 leading-relaxed mb-7">{card.description}</p>
+                <h2 className="text-3xl md:text-4xl font-black leading-tight mb-6">{card.title}</h2>
+                <p className="text-gray-300 leading-relaxed mb-8">{card.description}</p>
 
-                <ul className="space-y-3 text-gray-200">
+                <ul className="space-y-4 text-gray-200">
                   {card.items.map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <CheckCircle className={`${card.accent} mt-0.5 shrink-0`} size={18} />
+                      <CheckCircle className={`${card.accent} mt-0.5 shrink-0`} size={20} />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -181,13 +184,68 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 
                 <button
                   onClick={() => onNavigate('contact')}
-                  className={`mt-8 inline-flex items-center gap-2 ${card.accent} font-bold hover:gap-3 transition-all`}
+                  className={`mt-10 inline-flex items-center gap-2 ${card.accent} font-bold hover:gap-3 transition-all`}
                 >
                   {card.button} <ArrowRight size={18} />
                 </button>
               </div>
             );
           })}
+
+
+              <div className="relative overflow-hidden rounded-[2rem] border border-cyan-400/20 min-h-[560px] bg-[#020b1a] shadow-2xl shadow-cyan-400/10">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  poster="/Solutions.jpg"
+                  className="absolute inset-0 w-full h-full object-cover opacity-80"
+                >
+                  <source src="/enterprise-security-it.mp4" type="video/mp4" />
+                  <source src="/security-video.mp4" type="video/mp4" />
+                </video>
+
+                <div className="absolute inset-0 bg-gradient-to-b from-[#020b1a]/20 via-[#020b1a]/45 to-[#020b1a]/90" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.18),transparent_35%)]" />
+                <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:40px_40px]" />
+
+                <div className="absolute bottom-0 left-0 right-0 p-7 z-10">
+                  <div className="backdrop-blur-xl bg-black/25 border border-white/10 rounded-[1.5rem] p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse" />
+                      <p className="text-cyan-400 text-xs tracking-[0.25em] uppercase font-bold">
+                        Enterprise Security & IT Infrastructure
+                      </p>
+                    </div>
+
+                    <h3 className="text-3xl md:text-4xl font-black leading-tight mb-4">
+                      Secure. Connected. Scalable.
+                    </h3>
+
+                    <p className="text-gray-300 text-base leading-relaxed mb-6">
+                      Integrated surveillance, networking, cloud, access control,
+                      and managed IT solutions designed for modern business operations.
+                    </p>
+
+                    <div className="flex flex-wrap gap-3">
+                      <span className="px-4 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-300 text-sm">
+                        Surveillance
+                      </span>
+                      <span className="px-4 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-300 text-sm">
+                        Access Control
+                      </span>
+                      <span className="px-4 py-2 rounded-full bg-orange-400/10 border border-orange-400/20 text-orange-300 text-sm">
+                        Cloud Infrastructure
+                      </span>
+                      <span className="px-4 py-2 rounded-full bg-orange-400/10 border border-orange-400/20 text-orange-300 text-sm">
+                        Managed IT
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
         </div>
       </section>
 

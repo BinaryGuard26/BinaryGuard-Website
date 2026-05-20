@@ -123,6 +123,68 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.20),transparent_35%),radial-gradient(circle_at_bottom_left,rgba(249,115,22,0.14),transparent_30%)]" />
         </div>
 
+
+<div className="relative overflow-hidden rounded-[2rem] border border-cyan-400/20 min-h-[680px] group">
+
+  {/* Background Video */}
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    className="absolute inset-0 w-full h-full object-cover"
+  >
+    <source src="/enterprise-security.mp4" type="video/mp4" />
+  </video>
+
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-b from-[#020b1a]/40 via-[#020b1a]/60 to-[#020b1a]/95" />
+
+  {/* Glow Effect */}
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(34,211,238,0.18),transparent_35%)] opacity-80" />
+
+  {/* Content */}
+  <div className="relative z-10 h-full flex flex-col justify-end p-10">
+
+    <div className="inline-flex items-center gap-2 mb-5">
+      <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse" />
+      <span className="text-cyan-400 uppercase tracking-[0.25em] text-sm font-bold">
+        Enterprise Operations
+      </span>
+    </div>
+
+    <h2 className="text-4xl md:text-5xl font-black leading-tight mb-6 max-w-xl">
+      Intelligent Protection.
+      <br />
+      Connected Infrastructure.
+    </h2>
+
+    <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mb-8">
+      Integrated physical security and IT infrastructure solutions
+      designed for modern organizations that require visibility,
+      resilience, and operational confidence.
+    </p>
+
+    <div className="flex flex-wrap gap-4">
+      <button
+        onClick={() => onNavigate('contact')}
+        className="px-7 py-4 rounded-2xl bg-cyan-400 text-slate-950 font-bold hover:bg-cyan-300 transition-all"
+      >
+        Get Started
+      </button>
+
+      <button
+        onClick={() => onNavigate('services')}
+        className="px-7 py-4 rounded-2xl border border-white/20 text-white hover:bg-white/10 transition-all"
+      >
+        Explore Services
+      </button>
+    </div>
+  </div>
+</div>
+
+
+
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <span className="inline-flex items-center gap-2 px-6 py-2 rounded-full border border-cyan-400/40 bg-cyan-400/10 text-cyan-400 text-sm font-bold tracking-widest">
             SOLUTIONS

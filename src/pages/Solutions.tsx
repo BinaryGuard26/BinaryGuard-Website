@@ -431,7 +431,8 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 }
 
 
-<div className="relative overflow-hidden rounded-[2rem] border border-cyan-400/20 min-h-[680px]">
+
+<div className="relative overflow-hidden rounded-[2rem] border border-cyan-400/20 min-h-[680px] group">
 
   {/* Background Video */}
   <video
@@ -441,24 +442,43 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
     playsInline
     className="absolute inset-0 w-full h-full object-cover"
   >
-    <source src="/enterprise-security.mp4" type="video/mp4" />
+    <source src="/enterprise-security-it.mp4" type="video/mp4" />
   </video>
 
-  {/* Overlay */}
-  <div className="absolute inset-0 bg-gradient-to-b from-[#020b1a]/20 via-[#020b1a]/40 to-[#020b1a]/80" />
+  {/* Dark Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-b from-[#020b1a]/10 via-[#020b1a]/40 to-[#020b1a]/90" />
 
-  {/* Small Bottom Content */}
-  <div className="absolute bottom-0 left-0 right-0 p-8 z-10">
+  {/* Glow Layer */}
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(34,211,238,0.18),transparent_35%)]" />
 
-    <div className="backdrop-blur-xl bg-black/20 border border-white/10 rounded-2xl p-6">
+  {/* Animated Grid */}
+  <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(rgba(255,255,255,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
-      <p className="text-cyan-400 text-xs tracking-[0.25em] uppercase font-bold mb-3">
-        BinaryGuard Solutions
-      </p>
+  {/* Bottom Content */}
+  <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-10">
 
-      <h3 className="text-3xl font-black mb-4">
-        One Partner for Security & IT
+    <div className="backdrop-blur-xl bg-black/20 border border-white/10 rounded-[1.5rem] p-7">
+
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse" />
+
+        <p className="text-cyan-400 text-xs tracking-[0.25em] uppercase font-bold">
+          Enterprise Security & IT Infrastructure
+        </p>
+      </div>
+
+      <h3 className="text-4xl md:text-5xl font-black leading-tight mb-5">
+        Secure.
+        <br />
+        Connected.
+        <br />
+        Scalable.
       </h3>
+
+      <p className="text-gray-300 text-lg leading-relaxed max-w-3xl mb-7">
+        Integrated surveillance, networking, cloud, access control,
+        and managed IT solutions designed for modern business operations.
+      </p>
 
       <div className="flex flex-wrap gap-3">
 
@@ -476,6 +496,10 @@ export default function Solutions({ onNavigate }: SolutionsProps) {
 
         <span className="px-4 py-2 rounded-full bg-orange-400/10 border border-orange-400/20 text-orange-300 text-sm">
           Managed IT
+        </span>
+
+        <span className="px-4 py-2 rounded-full bg-white/10 border border-white/10 text-white text-sm">
+          Enterprise Networking
         </span>
 
       </div>

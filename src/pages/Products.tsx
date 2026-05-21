@@ -33,11 +33,12 @@ export default function Products({ onNavigate }: ProductsProps) {
               Portal
             </h1>
 
-            <p className="text-slate-300 leading-relaxed text-xl mb-10 max-w-5xl">
-              A controlled, client-specific ordering system designed for organizations
-              that require secure access card requests through approved corporate email
-              verification, OTP authentication, backend validation, admin approval,
-              cancellation workflow, and automated email status updates.
+            <p className="text-slate-300 leading-relaxed text-xl mb-10">
+              Submit an access card purchase request for your organization
+              through the approved corporate ordering portal. Authorized users
+              can request new access cards using verified corporate email
+              authentication and OTP validation. All requests are reviewed,
+              processed, and managed through an enterprise approval workflow.
             </p>
 
             <div className="flex flex-wrap gap-4">

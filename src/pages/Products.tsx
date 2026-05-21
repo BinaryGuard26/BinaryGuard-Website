@@ -24,7 +24,7 @@ export default function Products({ onNavigate }: ProductsProps) {
           <div className="max-w-4xl">
 
             <p className="text-cyan-400 font-semibold mb-3 tracking-wide uppercase text-sm">
-              Secure Product-Specific Ordering Portal
+              Door Access Card Ordering Portal
             </p>
 
             <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-8">

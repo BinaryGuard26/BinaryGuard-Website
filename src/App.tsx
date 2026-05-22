@@ -8,9 +8,16 @@ import Products from './pages/Products';
 import Contact from './pages/Contact';
 import FeedbackPage from './pages/feedback';
 import AccessCardLogin from './pages/AccessCardLogin';
+import OtpVerify from './pages/OtpVerify';
+import AccessCardOrderForm from './pages/AccessCardOrderForm';
 
 type PublicPage = 'home' | 'about' | 'services' | 'products' | 'contact' | 'solutions';
-type Page = PublicPage | 'feedback' | 'access-card-login';
+type Page =
+  | PublicPage
+  | 'feedback'
+  | 'access-card-login'
+  | 'otp-verify'
+  | 'access-card-order-form';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -30,13 +37,18 @@ export default function App() {
       contact: 'Contact Us – BinaryGuard',
       feedback: 'Client Feedback – BinaryGuard',
       'access-card-login': 'Access Card Login – BinaryGuard',
+      'otp-verify': 'OTP Verification – BinaryGuard',
+      'access-card-order-form': 'Access Card Order Form – BinaryGuard',
     };
 
     document.title = titles[currentPage];
   }, [currentPage]);
 
   const navbarCurrentPage: PublicPage =
-    currentPage === 'feedback' || currentPage === 'access-card-login'
+    currentPage === 'feedback' ||
+    currentPage === 'access-card-login' ||
+    currentPage === 'otp-verify' ||
+    currentPage === 'access-card-order-form'
       ? 'products'
       : currentPage;
 
@@ -52,6 +64,8 @@ export default function App() {
       {currentPage === 'contact' && <Contact onNavigate={navigate} />}
       {currentPage === 'feedback' && <FeedbackPage onNavigate={navigate} />}
       {currentPage === 'access-card-login' && <AccessCardLogin onNavigate={navigate} />}
+      {currentPage === 'otp-verify' && <OtpVerify onNavigate={navigate} />}
+      {currentPage === 'access-card-order-form' && <AccessCardOrderForm onNavigate={navigate} />}
     </div>
   );
 }

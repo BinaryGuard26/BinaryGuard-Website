@@ -6,7 +6,8 @@ type Page =
   | 'services'
   | 'products'
   | 'contact'
-  | 'solutions';
+  | 'solutions'
+  | 'access-card-login';
 
 interface ProductsProps {
   onNavigate: (page: Page) => void;
@@ -55,7 +56,10 @@ export default function Products({ onNavigate }: ProductsProps) {
 
             <div className="flex flex-wrap gap-4">
 
-              <button className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg shadow-cyan-500/20">
+              <button
+                onClick={() => onNavigate('access-card-login')}
+                className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold px-8 py-4 rounded-2xl transition-all duration-300 shadow-lg shadow-cyan-500/20"
+              >
                 Order Access Card
               </button>
 

@@ -95,7 +95,7 @@ export default function App() {
       about: 'About Us – BinaryGuard',
       solutions: 'Solutions – BinaryGuard',
       services: 'Services – BinaryGuard',
-      products: 'Products – BinaryGuard',
+      products: 'Access Card Ordering Portal – BinaryGuard',
       contact: 'Contact Us – BinaryGuard',
       feedback: 'Client Feedback – BinaryGuard',
 

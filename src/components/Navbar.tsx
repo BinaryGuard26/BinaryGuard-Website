@@ -20,7 +20,7 @@ const taglines: Record<Page, string> = {
   services: 'Reliable Services. Real Results.',
   contact: 'Connect with Our IT & Security Specialists',
   solutions: 'Enterprise-Grade Security and IT Solutions',
-  'access-card-portal': 'Secure Access Card Ordering Portal',
+  'access-card-portal': 'Secure Access Control Portal',
 };
 
 const mainNavLinks: { label: string; page: Page }[] = [
@@ -31,7 +31,7 @@ const mainNavLinks: { label: string; page: Page }[] = [
 ];
 
 const productLinks: { label: string; page: Page }[] = [
-  { label: 'Access Card Ordering Portal', page: 'access-card-portal' },
+  { label: 'Access Control', page: 'access-card-portal' },
 ];
 
 export default function Navbar({ currentPage, onNavigate }: NavbarProps) {

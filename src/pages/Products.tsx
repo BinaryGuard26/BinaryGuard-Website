@@ -37,13 +37,13 @@ export default function Products({ onNavigate }: ProductsProps) {
           <div>
 
             <p className="text-cyan-400 font-semibold mb-3 tracking-wide uppercase text-sm">
-              Access Control
+              Access Card Ordering Portal
             </p>
 
             <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-8">
-              Access Control
+              Access Card
               <br />
-              Portal
+              Ordering Portal
             </h1>
 
             <p className="text-slate-300 leading-relaxed text-xl mb-10">

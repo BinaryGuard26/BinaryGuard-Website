@@ -4,13 +4,14 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Solutions from './pages/Solutions';
 import Services from './pages/Services';
+import Products from './pages/Products';
 import Contact from './pages/Contact';
 import FeedbackPage from './pages/feedback';
 import AccessCardLogin from './pages/AccessCardLogin';
 import OtpVerify from './pages/OtpVerify';
 import AccessCardOrderForm from './pages/AccessCardOrderForm';
 
-type PublicPage = 'home' | 'about' | 'services' | 'contact' | 'solutions' | 'access-card-portal';
+type PublicPage = 'home' | 'about' | 'services' | 'products' | 'contact' | 'solutions';
 
 type PortalPage =
   | 'portal-login'
@@ -49,9 +50,9 @@ function PortalDashboard({ onNavigate }: { onNavigate: (page: Page) => void }) {
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
               First Module
             </p>
-            <h2 className="text-2xl font-bold">Access Control</h2>
+            <h2 className="text-2xl font-bold">Access Card Ordering</h2>
             <p className="mt-4 text-slate-300">
-              Submit secure access control requests using verified corporate email access.
+              Submit a secure access card request using verified corporate email access.
             </p>
           </button>
 
@@ -94,7 +95,7 @@ export default function App() {
       about: 'About Us – BinaryGuard',
       solutions: 'Solutions – BinaryGuard',
       services: 'Services – BinaryGuard',
-            'access-card-portal': 'Access Control – BinaryGuard',
+      products: 'Products – BinaryGuard',
       contact: 'Contact Us – BinaryGuard',
       feedback: 'Client Feedback – BinaryGuard',
 
@@ -115,7 +116,6 @@ export default function App() {
 
   const isPortalPage =
     currentPage === 'feedback' ||
-    currentPage === 'access-card-portal' ||
     currentPage === 'portal-login' ||
     currentPage === 'portal-verify-otp' ||
     currentPage === 'portal-dashboard' ||
@@ -124,7 +124,7 @@ export default function App() {
     currentPage === 'otp-verify' ||
     currentPage === 'access-card-order-form';
 
-  const navbarCurrentPage: PublicPage = isPortalPage ? 'access-card-portal' : currentPage;
+  const navbarCurrentPage: PublicPage = isPortalPage ? 'products' : currentPage;
 
   return (
     <div className="bg-[#030d1f]">
@@ -134,10 +134,11 @@ export default function App() {
       {currentPage === 'about' && <About onNavigate={navigate} />}
       {currentPage === 'solutions' && <Solutions onNavigate={navigate} />}
       {currentPage === 'services' && <Services onNavigate={navigate} />}
+      {currentPage === 'products' && <Products onNavigate={navigate} />}
       {currentPage === 'contact' && <Contact onNavigate={navigate} />}
       {currentPage === 'feedback' && <FeedbackPage onNavigate={navigate} />}
 
-      {(currentPage === 'access-card-portal' || currentPage === 'portal-login' || currentPage === 'access-card-login') && (
+      {(currentPage === 'portal-login' || currentPage === 'access-card-login') && (
         <AccessCardLogin onNavigate={navigate} />
       )}
 

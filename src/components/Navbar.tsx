@@ -20,7 +20,7 @@ const taglines: Record<Page, string> = {
   services: 'Reliable Services. Real Results.',
   contact: 'Connect with Our IT & Security Specialists',
   solutions: 'Enterprise-Grade Security and IT Solutions',
-  'access-card-portal': 'Secure Access Control Portal',
+  'access-card-portal': 'Access Card Ordering Portal',
 };
 
 const mainNavLinks: { label: string; page: Page }[] = [

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Twitter, Facebook, Instagram, ChevronUp, Phone, Mail, MapPin, Clock } from 'lucide-react';
 
-type Page = 'home' | 'about' | 'services' | 'products' | 'contact' | 'solutions';
+type Page = 'home' | 'about' | 'services' | 'products' | 'contact' | 'solutions' | 'access-control';
 
 interface FooterProps {
   onNavigate: (page: Page) => void;

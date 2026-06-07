@@ -6,6 +6,8 @@ import Solutions from './pages/Solutions';
 import Services from './pages/Services';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
+import Products from './pages/Products';
+import AccessControl from './pages/AccessControl';
 import FeedbackPage from './pages/feedback';
 import AccessCardLogin from './pages/AccessCardLogin';
 import OtpVerify from './pages/OtpVerify';
@@ -136,6 +138,10 @@ export default function App() {
       {currentPage === 'services' && <Services onNavigate={navigate} />}
       {currentPage === 'products' && <Products onNavigate={navigate} />}
       {currentPage === 'contact' && <Contact onNavigate={navigate} />}
+
+      {currentPage === 'products' && <Products onNavigate={navigate} />}
+      {currentPage === 'access-control' && <AccessControl onNavigate={navigate} />}
+
       {currentPage === 'feedback' && <FeedbackPage onNavigate={navigate} />}
 
       {(currentPage === 'portal-login' || currentPage === 'access-card-login') && (

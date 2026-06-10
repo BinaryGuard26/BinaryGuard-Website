@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BinaryGuard Authentication Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="brand-panel" aria-label="BinaryGuard overview">
+      <div class="brand-mark">BG</div>
+      <h1>BinaryGuard</h1>
+      <p>Secure website authentication flow with account creation, login verification, MFA, recovery, and role-based access states.</p>
+
+      <div class="flow-list" aria-label="Authentication process">
+        <button class="flow-step active" data-flow="register">
+          <span>01</span>
+          <strong>Register</strong>
+          <small>Create account and validate inputs</small>
+        </button>
+        <button class="flow-step" data-flow="login">
+          <span>02</span>
+          <strong>Login</strong>
+          <small>Check credentials and account status</small>
+        </button>
+        <button class="flow-step" data-flow="mfa">
+          <span>03</span>
+          <strong>Verify</strong>
+          <small>Confirm one-time security code</small>
+        </button>
+        <button class="flow-step" data-flow="reset">
+          <span>04</span>
+          <strong>Recover</strong>
+          <small>Reset password safely</small>
+        </button>
+      </div>
+    </section>
+
+    <section class="app-panel">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Authentication Workspace</p>
+          <h2 id="screenTitle">Create secure account</h2>
+        </div>
+        <div class="status-pill" id="statusPill">Not signed in</div>
+      </header>
+
+      <section class="screen active" id="registerScreen" aria-label="Registration form">
+        <div class="form-grid">
+          <label>
+            Full name
+            <input id="regName" autocomplete="name" value="Azeem Mohamed">
+          </label>
+          <label>
+            Email address
+            <input id="regEmail" type="email" autocomplete="email" value="azeem@example.com">
+          </label>
+          <label>
+            Password
+            <input id="regPassword" type="password" autocomplete="new-password" value="BinaryGuard#2026">
+          </label>
+          <label>
+            Confirm password
+            <input id="regConfirm" type="password" autocomplete="new-password" value="BinaryGuard#2026">
+          </label>
+        </div>
+        <div class="rules" id="passwordRules">
+          <span data-rule="length">12+ characters</span>
+          <span data-rule="upper">Uppercase</span>
+          <span data-rule="number">Number</span>
+          <span data-rule="symbol">Symbol</span>
+          <span data-rule="match">Passwords match</span>
+        </div>
+        <button class="primary" id="createAccountBtn">Create account</button>
+      </section>
+
+      <section class="screen" id="loginScreen" aria-label="Login form">
+        <div class="form-grid single">
+          <label>
+            Email address
+            <input id="loginEmail" type="email" autocomplete="email" value="azeem@example.com">
+          </label>
+          <label>
+            Password
+            <input id="loginPassword" type="password" autocomplete="current-password" value="BinaryGuard#2026">
+          </label>
+        </div>
+        <div class="inline-actions">
+          <label class="checkline">
+            <input id="rememberMe" type="checkbox" checked>
+            Remember this device
+          </label>
+          <button class="link-button" data-flow-target="reset">Forgot password?</button>
+        </div>
+        <button class="primary" id="loginBtn">Sign in</button>
+      </section>
+
+      <section class="screen" id="mfaScreen" aria-label="MFA verification form">
+        <p class="screen-copy">Enter the six-digit code sent to the registered email. Demo code: <strong>248106</strong>.</p>
+        <div class="code-row" id="codeInputs" aria-label="One-time passcode">
+          <input inputmode="numeric" maxlength="1" value="2">
+          <input inputmode="numeric" maxlength="1" value="4">
+          <input inputmode="numeric" maxlength="1" value="8">
+          <input inputmode="numeric" maxlength="1" value="1">
+          <input inputmode="numeric" maxlength="1" value="0">
+          <input inputmode="numeric" maxlength="1" value="6">
+        </div>
+        <button class="primary" id="verifyBtn">Verify code</button>
+      </section>
+
+      <section class="screen" id="resetScreen" aria-label="Password reset form">
+        <div class="form-grid single">
+          <label>
+            Account email
+            <input id="resetEmail" type="email" value="azeem@example.com">
+          </label>
+          <label>
+            New password
+            <input id="resetPassword" type="password" value="NewBinaryGuard#2026">
+          </label>
+        </div>
+        <button class="primary" id="resetBtn">Reset password</button>
+      </section>
+
+      <section class="screen" id="dashboardScreen" aria-label="Authenticated dashboard">
+        <div class="dashboard">
+          <div>
+            <p class="eyebrow">Session Active</p>
+            <h3>Welcome to BinaryGuard</h3>
+            <p>Your account passed credential validation and MFA verification.</p>
+          </div>
+          <div class="session-card">
+            <span>Role</span>
+            <strong id="roleLabel">User</strong>
+          </div>
+          <div class="session-card">
+            <span>Device</span>
+            <strong id="deviceLabel">Trusted</strong>
+          </div>
+        </div>
+        <div class="inline-actions end">
+          <button class="secondary" id="toggleRoleBtn">Toggle role</button>
+          <button class="secondary danger" id="logoutBtn">Log out</button>
+        </div>
+      </section>
+
+      <aside class="audit-log" aria-label="Audit log">
+        <div class="audit-head">
+          <strong>Process log</strong>
+          <button class="link-button" id="clearLogBtn">Clear</button>
+        </div>
+        <ol id="auditLog"></ol>
+      </aside>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

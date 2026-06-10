@@ -30,7 +30,9 @@ export default function AccessControl({ onNavigate }: AccessControlProps) {
             <div className="flex flex-wrap gap-5">
               <button
                 type="button"
-                onClick={() => onNavigate?.('access-card-portal')}
+                onClick={() => {
+                  window.location.href = '/auth/index.html';
+                }}
                 className="rounded-2xl bg-cyan-500 px-8 py-4 font-semibold text-slate-950 shadow-lg shadow-cyan-500/30 transition hover:bg-cyan-400"
               >
                 Order Access Card

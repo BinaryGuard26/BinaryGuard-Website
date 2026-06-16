@@ -1,225 +1,29 @@
-const screens = {
-  register: document.querySelector("#registerScreen"),
-  login: document.querySelector("#loginScreen"),
-  mfa: document.querySelector("#mfaScreen"),
-  reset: document.querySelector("#resetScreen"),
-  dashboard: document.querySelector("#dashboardScreen")
-};
-
-const titles = {
-  register: "Create secure account",
-  login: "Sign in to BinaryGuard",
-  mfa: "Verify identity",
-  reset: "Recover account access",
-  dashboard: "Authenticated dashboard"
-};
-
-const state = {
-  registered: false,
-  signedIn: false,
-  role: "User",
-  email: "azeem@example.com",
-  password: "BinaryGuard#2026",
-  trustedDevice: true
-};
-
-const screenTitle = document.querySelector("#screenTitle");
-const statusPill = document.querySelector("#statusPill");
-const auditLog = document.querySelector("#auditLog");
-const flowButtons = document.querySelectorAll(".flow-step");
-const createAccountBtn = document.querySelector("#createAccountBtn");
-const loginBtn = document.querySelector("#loginBtn");
-const verifyBtn = document.querySelector("#verifyBtn");
-const resetBtn = document.querySelector("#resetBtn");
-const toggleRoleBtn = document.querySelector("#toggleRoleBtn");
-const logoutBtn = document.querySelector("#logoutBtn");
-const clearLogBtn = document.querySelector("#clearLogBtn");
-
-function showScreen(name) {
-  Object.entries(screens).forEach(([key, screen]) => {
-    screen.classList.toggle("active", key === name);
-  });
-
-  flowButtons.forEach((button) => {
-    button.classList.toggle("active", button.dataset.flow === name);
-  });
-
-  screenTitle.textContent = titles[name];
-}
-
-function log(message) {
-  const item = document.createElement("li");
-  const time = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  item.textContent = `${time} - ${message}`;
-  auditLog.prepend(item);
-}
-
-function toast(message) {
-  document.querySelector(".toast")?.remove();
-  const node = document.createElement("div");
-  node.className = "toast";
-  node.textContent = message;
-  document.body.append(node);
-  window.setTimeout(() => node.remove(), 2800);
-}
-
-function updateStatus() {
-  if (state.signedIn) {
-    statusPill.textContent = "Signed in";
-    statusPill.classList.add("ok");
-    return;
-  }
-
-  statusPill.textContent = "Not signed in";
-  statusPill.classList.remove("ok");
-}
-
-function passwordChecks() {
-  const password = document.querySelector("#regPassword").value;
-  const confirm = document.querySelector("#regConfirm").value;
-  return {
-    length: password.length >= 12,
-    upper: /[A-Z]/.test(password),
-    number: /\d/.test(password),
-    symbol: /[^A-Za-z0-9]/.test(password),
-    match: password === confirm && password.length > 0
-  };
-}
-
-function updatePasswordRules() {
-  const checks = passwordChecks();
-  Object.entries(checks).forEach(([rule, pass]) => {
-    document.querySelector(`[data-rule="${rule}"]`).classList.toggle("pass", pass);
-  });
-  createAccountBtn.disabled = !Object.values(checks).every(Boolean);
-}
-
-function mfaCode() {
-  return [...document.querySelectorAll("#codeInputs input")].map((input) => input.value).join("");
-}
-
-function syncDashboard() {
-  document.querySelector("#roleLabel").textContent = state.role;
-  document.querySelector("#deviceLabel").textContent = state.trustedDevice ? "Trusted" : "Untrusted";
-}
-
-flowButtons.forEach((button) => {
-  button.addEventListener("click", () => showScreen(button.dataset.flow));
-});
-
-document.querySelectorAll("[data-flow-target]").forEach((button) => {
-  button.addEventListener("click", () => showScreen(button.dataset.flowTarget));
-});
-
-document.querySelectorAll("#regPassword, #regConfirm").forEach((input) => {
-  input.addEventListener("input", updatePasswordRules);
-});
-
-document.querySelectorAll("#codeInputs input").forEach((input, index, list) => {
-  input.addEventListener("input", () => {
-    input.value = input.value.replace(/\D/g, "").slice(0, 1);
-    if (input.value && list[index + 1]) list[index + 1].focus();
-  });
-});
-
-createAccountBtn.addEventListener("click", () => {
-  const email = document.querySelector("#regEmail").value.trim();
-  const name = document.querySelector("#regName").value.trim();
-
-  if (!name || !email.includes("@")) {
-    toast("Enter a valid name and email address.");
-    log("Registration stopped because required identity details were missing.");
-    return;
-  }
-
-  state.registered = true;
-  state.email = email;
-  state.password = document.querySelector("#regPassword").value;
-  document.querySelector("#loginEmail").value = email;
-  document.querySelector("#resetEmail").value = email;
-  toast("Account created. Continue to sign in.");
-  log(`Account registered for ${email}.`);
-  showScreen("login");
-});
-
-loginBtn.addEventListener("click", () => {
-  const email = document.querySelector("#loginEmail").value.trim();
-  const password = document.querySelector("#loginPassword").value;
-  state.trustedDevice = document.querySelector("#rememberMe").checked;
-
-  if (!state.registered) {
-    toast("Create an account before signing in.");
-    log("Login blocked because no account has been registered.");
-    showScreen("register");
-    return;
-  }
-
-  if (email !== state.email || password !== state.password) {
-    toast("Credentials do not match.");
-    log("Login failed after credential validation.");
-    return;
-  }
-
-  toast("Credentials accepted. MFA required.");
-  log("Credential check passed; MFA challenge issued.");
-  showScreen("mfa");
-});
-
-verifyBtn.addEventListener("click", () => {
-  if (mfaCode() !== "248106") {
-    toast("Invalid verification code.");
-    log("MFA verification failed.");
-    return;
-  }
-
-  state.signedIn = true;
-  updateStatus();
-  syncDashboard();
-  toast("Identity verified.");
-  log("MFA verified; secure session started.");
-  showScreen("dashboard");
-});
-
-resetBtn.addEventListener("click", () => {
-  const email = document.querySelector("#resetEmail").value.trim();
-  const password = document.querySelector("#resetPassword").value;
-
-  if (!state.registered || email !== state.email) {
-    toast("No matching account found.");
-    log("Password reset request did not match a registered account.");
-    return;
-  }
-
-  if (password.length < 12) {
-    toast("New password must be at least 12 characters.");
-    log("Password reset stopped because the new password was too short.");
-    return;
-  }
-
-  state.password = password;
-  document.querySelector("#loginPassword").value = password;
-  toast("Password reset complete. Sign in again.");
-  log("Password reset completed after account email check.");
-  showScreen("login");
-});
-
-toggleRoleBtn.addEventListener("click", () => {
-  state.role = state.role === "User" ? "Admin" : "User";
-  syncDashboard();
-  log(`Role switched to ${state.role} for access-state testing.`);
-});
-
-logoutBtn.addEventListener("click", () => {
-  state.signedIn = false;
-  updateStatus();
-  log("Session ended and user returned to login.");
-  showScreen("login");
-});
-
-clearLogBtn.addEventListener("click", () => {
-  auditLog.innerHTML = "";
-});
-
-updatePasswordRules();
-updateStatus();
-log("Prototype loaded with demo account details prefilled.");
+const screens={tenant:document.querySelector("#tenantScreen"),otp:document.querySelector("#otpScreen"),services:document.querySelector("#servicesScreen"),admin:document.querySelector("#adminScreen")};
+const titles={tenant:"Tenant Authentication",otp:"OTP Verification",services:"Service Authorization",admin:"Admin Authorization"};
+const state={tenantVerified:false,otpVerified:false,authorized:false,email:"user@gov.mb.ca",domain:"",otp:"248106",otpAttempts:0,maxOtpAttempts:3,adminAuthRequired:true};
+const approvedDomains=["gov.mb.ca"];
+const screenTitle=document.querySelector("#screenTitle");
+const statusPill=document.querySelector("#statusPill");
+const auditLog=document.querySelector("#auditLog");
+const flowButtons=document.querySelectorAll(".flow-step");
+const tenantBtn=document.querySelector("#tenantBtn");
+const verifyBtn=document.querySelector("#verifyBtn");
+const openServiceBtn=document.querySelector("#openServiceBtn");
+const adminLoginBtn=document.querySelector("#adminLoginBtn");
+const clearLogBtn=document.querySelector("#clearLogBtn");
+const domainRule=document.querySelector("#domainRule");
+function showScreen(name){Object.entries(screens).forEach(([key,screen])=>{screen.classList.toggle("active",key===name)});flowButtons.forEach((button)=>{button.classList.toggle("active",button.dataset.flow===name)});screenTitle.textContent=titles[name]}
+function log(message){const item=document.createElement("li");const time=new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});item.textContent=`${time} - ${message}`;auditLog.prepend(item)}
+function toast(message){document.querySelector(".toast")?.remove();const node=document.createElement("div");node.className="toast";node.textContent=message;document.body.append(node);window.setTimeout(()=>node.remove(),2800)}
+function updateStatus(){if(state.authorized){statusPill.textContent="Authorized";statusPill.classList.add("ok");return}statusPill.textContent="Awaiting Verification";statusPill.classList.remove("ok")}
+function getDomain(email){return email.split("@")[1]?.trim().toLowerCase()||""}
+function isApprovedDomain(email){return approvedDomains.includes(getDomain(email))}
+function mfaCode(){return[...document.querySelectorAll("#codeInputs input")].map((input)=>input.value).join("")}
+flowButtons.forEach((button)=>{button.addEventListener("click",()=>showScreen(button.dataset.flow))});
+document.querySelectorAll("#codeInputs input").forEach((input,index,list)=>{input.addEventListener("input",()=>{input.value=input.value.replace(/\D/g,"").slice(0,1);if(input.value&&list[index+1])list[index+1].focus()})});
+tenantBtn.addEventListener("click",()=>{const email=document.querySelector("#corporateEmail").value.trim().toLowerCase();if(!email.includes("@")){toast("Enter a valid corporate email address.");log("Tenant authentication stopped because email format was invalid.");return}if(!isApprovedDomain(email)){domainRule.classList.remove("pass");toast("Corporate domain not authorized.");log(`Unauthorized domain attempted: ${email}`);return}state.email=email;state.domain=getDomain(email);state.tenantVerified=true;domainRule.classList.add("pass");toast("Corporate domain approved. OTP issued.");log(`Tenant authenticated for approved domain: ${state.domain}.`);log("Short-lived OTP generated and sent to approved corporate email.");showScreen("otp")});
+verifyBtn.addEventListener("click",()=>{if(!state.tenantVerified){toast("Complete tenant authentication first.");showScreen("tenant");return}state.otpAttempts+=1;if(state.otpAttempts>state.maxOtpAttempts){toast("OTP attempt limit exceeded.");log("OTP verification blocked after too many attempts.");return}if(mfaCode()!==state.otp){toast("Invalid verification code.");log(`OTP verification failed. Attempt ${state.otpAttempts} of ${state.maxOtpAttempts}.`);return}state.otpVerified=true;state.authorized=true;updateStatus();toast("OTP verified. Service authorization completed.");log("OTP verified; code invalidated after successful verification.");log("Service authorization completed for Access Card Ordering Portal.");showScreen("services")});
+openServiceBtn.addEventListener("click",()=>{if(!state.authorized){toast("Authorization required before opening services.");showScreen("tenant");return}toast("Opening Access Card Ordering Portal.");log("Authorized user opened Access Card Ordering Portal service.")});
+adminLoginBtn.addEventListener("click",()=>{toast("Admin login requires stronger authentication.");log("Admin access requested. Email OTP alone is not sufficient for management access.")});
+clearLogBtn.addEventListener("click",()=>{auditLog.innerHTML=""});
+updateStatus();log("Secure Client Gateway loaded.");log("Waiting for tenant authentication.");

@@ -3,128 +3,153 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BinaryGuard User Authentication</title>
+  <title>BinaryGuard Authentication Prototype</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="shell">
-    <section class="brand-panel">
+    <section class="brand-panel" aria-label="BinaryGuard overview">
       <div class="brand-mark">BG</div>
-      <h1>BinaryGuard Secure Client Gateway</h1>
-      <p>Secure access to authorized client services through user authentication, corporate domain validation, OTP verification, and access recovery.</p>
+      <h1>BinaryGuard</h1>
+      <p>Secure website authentication flow with account creation, login verification, MFA, recovery, and role-based access states.</p>
 
-      <div class="flow-list">
-        <button class="flow-step active" data-flow="tenant">
-          <span>01</span><strong>User Authentication</strong><small>Register, login, verify, or recover access</small>
+      <div class="flow-list" aria-label="Authentication process">
+        <button class="flow-step active" data-flow="register">
+          <span>01</span>
+          <strong>Register</strong>
+          <small>Create account and validate inputs</small>
         </button>
-        <button class="flow-step muted" type="button">
-          <span>02</span><strong>Service Authorization</strong><small>Coming soon after OTP verification</small>
+        <button class="flow-step" data-flow="login">
+          <span>02</span>
+          <strong>Login</strong>
+          <small>Check credentials and account status</small>
         </button>
-        <button class="flow-step muted" type="button">
-          <span>03</span><strong>Access Card Ordering Portal</strong><small>Available after authorization</small>
+        <button class="flow-step" data-flow="mfa">
+          <span>03</span>
+          <strong>Verify</strong>
+          <small>Confirm one-time security code</small>
         </button>
-      </div>
-
-      <div class="security-note">
-        <strong>Current Implementation</strong>
-        <p>This phase focuses only on User Authentication: Register, Login, Verify OTP, and Recover Access.</p>
+        <button class="flow-step" data-flow="reset">
+          <span>04</span>
+          <strong>Recover</strong>
+          <small>Reset password safely</small>
+        </button>
       </div>
     </section>
 
     <section class="app-panel">
       <header class="topbar">
-        <div><p class="eyebrow">Layer 1 · User Authentication</p><h2 id="screenTitle">User Authentication</h2></div>
-        <div class="status-pill" id="statusPill">Awaiting Verification</div>
+        <div>
+          <p class="eyebrow">Authentication Workspace</p>
+          <h2 id="screenTitle">Create secure account</h2>
+        </div>
+        <div class="status-pill" id="statusPill">Not signed in</div>
       </header>
 
-      <section class="screen active" id="tenantScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Welcome Page</p>
-          <h3>BinaryGuard Secure Client Gateway</h3>
-          <p>Secure access to authorized client services. Choose how you want to continue with user authentication.</p>
-        </div>
-        <div class="option-grid">
-          <button class="option-card" data-flow-target="register"><span>Register</span><strong>Verify Corporate Identity</strong><small>Create a client access record using an approved corporate email domain.</small></button>
-          <button class="option-card" data-flow-target="login"><span>Login</span><strong>Corporate Access Login</strong><small>Enter your approved corporate email to receive an OTP.</small></button>
-          <button class="option-card" data-flow-target="verify"><span>Verify OTP</span><strong>One-Time Passcode</strong><small>Validate the 6-digit code sent to your corporate email.</small></button>
-          <button class="option-card" data-flow-target="recover"><span>Recover</span><strong>Recover Portal Access</strong><small>Request a recovery code for your approved corporate email.</small></button>
-        </div>
-        <div class="logic-box"><strong>User Authentication Flow</strong><p>Register/Login → Validate allowed domain → Generate OTP → Verify OTP → Create session.</p></div>
-      </section>
-
-      <section class="screen" id="registerScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Register</p>
-          <h3>Verify Corporate Identity</h3>
-          <p>Enter your approved corporate email address. The system validates your organization against approved tenant domains before access is granted.</p>
-        </div>
+      <section class="screen active" id="registerScreen" aria-label="Registration form">
         <div class="form-grid">
-          <label>Full Name<input id="regName" autocomplete="name" placeholder="John Smith" value="John Smith"></label>
-          <label>Corporate Email Address<input id="regEmail" type="email" autocomplete="email" placeholder="user@gov.mb.ca" value="john.smith@gov.mb.ca"></label>
-          <label>Organization<input id="regOrg" placeholder="Government of Manitoba" value="Government of Manitoba"></label>
+          <label>
+            Full name
+            <input id="regName" autocomplete="name" value="Azeem Mohamed">
+          </label>
+          <label>
+            Email address
+            <input id="regEmail" type="email" autocomplete="email" value="azeem@example.com">
+          </label>
+          <label>
+            Password
+            <input id="regPassword" type="password" autocomplete="new-password" value="BinaryGuard#2026">
+          </label>
+          <label>
+            Confirm password
+            <input id="regConfirm" type="password" autocomplete="new-password" value="BinaryGuard#2026">
+          </label>
         </div>
-        <div class="rules"><span>allowed_domains</span><span>gov.mb.ca</span><span>clientabc.com</span><span>cityofx.ca</span></div>
-        <button class="primary" id="registerBtn">Continue</button>
-        <div class="logic-box"><strong>Validation Logic</strong><p>Domain approved? YES → Create user record, generate OTP, send OTP. NO → Access denied.</p></div>
+        <div class="rules" id="passwordRules">
+          <span data-rule="length">12+ characters</span>
+          <span data-rule="upper">Uppercase</span>
+          <span data-rule="number">Number</span>
+          <span data-rule="symbol">Symbol</span>
+          <span data-rule="match">Passwords match</span>
+        </div>
+        <button class="primary" id="createAccountBtn">Create account</button>
       </section>
 
-      <section class="screen" id="loginScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Login</p>
-          <h3>Corporate Access Login</h3>
-          <p>Enter your approved corporate email address to continue.</p>
-        </div>
+      <section class="screen" id="loginScreen" aria-label="Login form">
         <div class="form-grid single">
-          <label>Corporate Email Address<input id="loginEmail" type="email" autocomplete="email" placeholder="user@gov.mb.ca" value="john.smith@gov.mb.ca"></label>
+          <label>
+            Email address
+            <input id="loginEmail" type="email" autocomplete="email" value="azeem@example.com">
+          </label>
+          <label>
+            Password
+            <input id="loginPassword" type="password" autocomplete="current-password" value="BinaryGuard#2026">
+          </label>
         </div>
-        <button class="primary" id="loginBtn">Continue</button>
-        <div class="logic-box"><strong>Layer 1 Checks</strong><p>allowed_domains, users, tenant status, domain approved, user active, tenant active.</p></div>
+        <div class="inline-actions">
+          <label class="checkline">
+            <input id="rememberMe" type="checkbox" checked>
+            Remember this device
+          </label>
+          <button class="link-button" data-flow-target="reset">Forgot password?</button>
+        </div>
+        <button class="primary" id="loginBtn">Sign in</button>
       </section>
 
-      <section class="screen" id="verifyScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Verify OTP</p>
-          <h3>Verify One-Time Passcode</h3>
-          <p>A verification code has been sent to your approved corporate email address.</p>
+      <section class="screen" id="mfaScreen" aria-label="MFA verification form">
+        <p class="screen-copy">Enter the six-digit code sent to the registered email. Demo code: <strong>248106</strong>.</p>
+        <div class="code-row" id="codeInputs" aria-label="One-time passcode">
+          <input inputmode="numeric" maxlength="1" value="2">
+          <input inputmode="numeric" maxlength="1" value="4">
+          <input inputmode="numeric" maxlength="1" value="8">
+          <input inputmode="numeric" maxlength="1" value="1">
+          <input inputmode="numeric" maxlength="1" value="0">
+          <input inputmode="numeric" maxlength="1" value="6">
         </div>
-        <div class="otp-rules"><span>6 digits</span><span>single use</span><span>5 minute expiry</span><span>3 attempts maximum</span><span>destroyed after success</span></div>
-        <p class="screen-copy">Demo code: <strong>248106</strong></p>
-        <div class="code-row" id="codeInputs">
-          <input inputmode="numeric" maxlength="1" value="2"><input inputmode="numeric" maxlength="1" value="4"><input inputmode="numeric" maxlength="1" value="8"><input inputmode="numeric" maxlength="1" value="1"><input inputmode="numeric" maxlength="1" value="0"><input inputmode="numeric" maxlength="1" value="6">
-        </div>
-        <button class="primary" id="verifyBtn">Verify</button>
-        <div class="logic-box"><strong>otp_codes</strong><p>id, email, code_hash, expires_at, attempt_count, used_at, created_at.</p></div>
+        <button class="primary" id="verifyBtn">Verify code</button>
       </section>
 
-      <section class="screen" id="recoverScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Recover Access</p>
-          <h3>Recover Portal Access</h3>
-          <p>Enter your corporate email address to request a recovery code.</p>
-        </div>
+      <section class="screen" id="resetScreen" aria-label="Password reset form">
         <div class="form-grid single">
-          <label>Corporate Email Address<input id="recoverEmail" type="email" placeholder="user@gov.mb.ca" value="john.smith@gov.mb.ca"></label>
+          <label>
+            Account email
+            <input id="resetEmail" type="email" value="azeem@example.com">
+          </label>
+          <label>
+            New password
+            <input id="resetPassword" type="password" value="NewBinaryGuard#2026">
+          </label>
         </div>
-        <button class="primary" id="recoverBtn">Send Recovery Code</button>
-        <div class="logic-box"><strong>Recovery Process</strong><p>Validate domain, validate user, generate recovery OTP, send email, verify, create new session.</p></div>
+        <button class="primary" id="resetBtn">Reset password</button>
       </section>
 
-      <section class="screen" id="serviceScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Next Step</p>
-          <h3>Service Authorization</h3>
-          <p>OTP verified. The next phase will check user role, tenant services, and permissions.</p>
+      <section class="screen" id="dashboardScreen" aria-label="Authenticated dashboard">
+        <div class="dashboard">
+          <div>
+            <p class="eyebrow">Session Active</p>
+            <h3>Welcome to BinaryGuard</h3>
+            <p>Your account passed credential validation and MFA verification.</p>
+          </div>
+          <div class="session-card">
+            <span>Role</span>
+            <strong id="roleLabel">User</strong>
+          </div>
+          <div class="session-card">
+            <span>Device</span>
+            <strong id="deviceLabel">Trusted</strong>
+          </div>
         </div>
-        <div class="service-grid">
-          <article class="service-card enabled"><span>Authorized</span><h4>Access Card Ordering Portal</h4><p>Submit access card requests through the secure corporate ordering workflow.</p><button class="primary" id="openServiceBtn">Open Access Card Ordering</button></article>
-          <article class="service-card enabled"><span>Authorized</span><h4>Service Request Portal</h4><p>Create support requests for approved sites and assigned client services.</p></article>
-          <article class="service-card locked"><span>Not Allowed</span><h4>Camera Ordering Portal</h4><p>This module requires service authorization before access is granted.</p></article>
-          <article class="service-card locked"><span>Not Allowed</span><h4>Pricing Management</h4><p>Admin-only. Client OTP must never grant access to pricing management.</p></article>
+        <div class="inline-actions end">
+          <button class="secondary" id="toggleRoleBtn">Toggle role</button>
+          <button class="secondary danger" id="logoutBtn">Log out</button>
         </div>
       </section>
 
-      <aside class="audit-log">
-        <div class="audit-head"><strong>Process log</strong><button class="link-button" id="clearLogBtn">Clear</button></div>
+      <aside class="audit-log" aria-label="Audit log">
+        <div class="audit-head">
+          <strong>Process log</strong>
+          <button class="link-button" id="clearLogBtn">Clear</button>
+        </div>
         <ol id="auditLog"></ol>
       </aside>
     </section>

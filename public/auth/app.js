@@ -1,5 +1,5 @@
 const screens={tenant:document.querySelector("#tenantScreen"),register:document.querySelector("#registerScreen"),login:document.querySelector("#loginScreen"),verify:document.querySelector("#verifyScreen"),recover:document.querySelector("#recoverScreen"),service:document.querySelector("#serviceScreen")};
-const titles={tenant:"Tenant Authentication",register:"Register",login:"Login",verify:"Verify OTP",recover:"Recover Access",service:"Service Authorization"};
+const titles={tenant:"User Authentication",register:"Register",login:"Login",verify:"Verify OTP",recover:"Recover Access",service:"Service Authorization"};
 const state={registered:false,tenantVerified:false,otpVerified:false,email:"john.smith@gov.mb.ca",domain:"",otp:"248106",otpAttempts:0,maxOtpAttempts:3};
 const approvedDomains=["gov.mb.ca","clientabc.com","cityofx.ca"];
 const screenTitle=document.querySelector("#screenTitle"),statusPill=document.querySelector("#statusPill"),auditLog=document.querySelector("#auditLog"),flowButtons=document.querySelectorAll(".flow-step[data-flow]"),clearLogBtn=document.querySelector("#clearLogBtn");
@@ -21,4 +21,4 @@ verifyBtn.addEventListener("click",()=>{if(!state.tenantVerified){toast("Please 
 recoverBtn.addEventListener("click",()=>{const email=document.querySelector("#recoverEmail").value.trim().toLowerCase();if(!validateDomain(email))return;toast("Recovery code sent.");log(`Recovery process started for ${email}.`);log("Recovery OTP generated and sent to approved corporate email.");showScreen("verify")});
 openServiceBtn.addEventListener("click",()=>{toast("Opening Access Card Ordering Portal.");log("User continued to Access Card Ordering Portal.")});
 clearLogBtn.addEventListener("click",()=>auditLog.innerHTML="");
-updateStatus("Awaiting Verification");log("Tenant Authentication page loaded.");log("Register, Login, Verify OTP, and Recover Access are ready.");
+updateStatus("Awaiting Verification");log("User Authentication page loaded.");log("Register, Login, Verify OTP, and Recover Access are ready.");

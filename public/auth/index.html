@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BinaryGuard Tenant Authentication</title>
+  <title>BinaryGuard User Authentication</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,11 +11,11 @@
     <section class="brand-panel">
       <div class="brand-mark">BG</div>
       <h1>BinaryGuard Secure Client Gateway</h1>
-      <p>Secure access to authorized client services through tenant authentication, corporate domain validation, OTP verification, and access recovery.</p>
+      <p>Secure access to authorized client services through user authentication, corporate domain validation, OTP verification, and access recovery.</p>
 
       <div class="flow-list">
         <button class="flow-step active" data-flow="tenant">
-          <span>01</span><strong>Tenant Authentication</strong><small>Register, login, verify, or recover access</small>
+          <span>01</span><strong>User Authentication</strong><small>Register, login, verify, or recover access</small>
         </button>
         <button class="flow-step muted" type="button">
           <span>02</span><strong>Service Authorization</strong><small>Coming soon after OTP verification</small>
@@ -27,13 +27,13 @@
 
       <div class="security-note">
         <strong>Current Implementation</strong>
-        <p>This phase focuses only on Tenant Authentication: Register, Login, Verify OTP, and Recover Access.</p>
+        <p>This phase focuses only on User Authentication: Register, Login, Verify OTP, and Recover Access.</p>
       </div>
     </section>
 
     <section class="app-panel">
       <header class="topbar">
-        <div><p class="eyebrow">Layer 1 · Tenant Authentication</p><h2 id="screenTitle">Tenant Authentication</h2></div>
+        <div><p class="eyebrow">Layer 1 · User Authentication</p><h2 id="screenTitle">User Authentication</h2></div>
         <div class="status-pill" id="statusPill">Awaiting Verification</div>
       </header>
 
@@ -41,7 +41,7 @@
         <div class="layer-heading">
           <p class="eyebrow">Welcome Page</p>
           <h3>BinaryGuard Secure Client Gateway</h3>
-          <p>Secure access to authorized client services. Choose how you want to continue with tenant authentication.</p>
+          <p>Secure access to authorized client services. Choose how you want to continue with user authentication.</p>
         </div>
         <div class="option-grid">
           <button class="option-card" data-flow-target="register"><span>Register</span><strong>Verify Corporate Identity</strong><small>Create a client access record using an approved corporate email domain.</small></button>
@@ -49,7 +49,7 @@
           <button class="option-card" data-flow-target="verify"><span>Verify OTP</span><strong>One-Time Passcode</strong><small>Validate the 6-digit code sent to your corporate email.</small></button>
           <button class="option-card" data-flow-target="recover"><span>Recover</span><strong>Recover Portal Access</strong><small>Request a recovery code for your approved corporate email.</small></button>
         </div>
-        <div class="logic-box"><strong>Tenant Authentication Flow</strong><p>Register/Login → Validate allowed domain → Generate OTP → Verify OTP → Create session.</p></div>
+        <div class="logic-box"><strong>User Authentication Flow</strong><p>Register/Login → Validate allowed domain → Generate OTP → Verify OTP → Create session.</p></div>
       </section>
 
       <section class="screen" id="registerScreen">

@@ -8,258 +8,88 @@
 </head>
 <body>
   <main class="shell">
-    <section class="brand-panel" aria-label="BinaryGuard secure gateway overview">
+    <section class="brand-panel" aria-label="BinaryGuard secure client gateway overview">
       <div class="brand-mark">BG</div>
       <h1>BinaryGuard Secure Client Gateway</h1>
-      <p>
-        A separate client portal for tenant authentication, short-lived OTP verification,
-        service authorization, tenant-isolated data access, and protected administrator workflows.
-      </p>
-
-      <div class="flow-list" aria-label="Gateway process">
-        <button class="flow-step active" data-flow="tenant">
-          <span>01</span>
-          <strong>Tenant Authentication</strong>
-          <small>Validate corporate email domain</small>
-        </button>
-        <button class="flow-step" data-flow="otp">
-          <span>02</span>
-          <strong>OTP Verification</strong>
-          <small>Single-use, attempt-limited code</small>
-        </button>
-        <button class="flow-step" data-flow="services">
-          <span>03</span>
-          <strong>Service Authorization</strong>
-          <small>Show allowed service modules</small>
-        </button>
-        <button class="flow-step" data-flow="security">
-          <span>04</span>
-          <strong>Supabase Security</strong>
-          <small>tenant_id, RLS, audit controls</small>
-        </button>
-        <button class="flow-step" data-flow="admin">
-          <span>05</span>
-          <strong>Admin Authorization</strong>
-          <small>Staff login + MFA + role check</small>
-        </button>
+      <p>Multi-layer authentication gateway providing tenant validation, OTP verification, service authorization, and administrative access control for BinaryGuard client services.</p>
+      <div class="flow-list" aria-label="Authentication layers">
+        <button class="flow-step active" data-flow="tenant"><span>01</span><strong>Tenant Authentication</strong><small>Validate approved corporate domain</small></button>
+        <button class="flow-step" data-flow="otp"><span>02</span><strong>OTP Verification</strong><small>Single-use security code validation</small></button>
+        <button class="flow-step" data-flow="services"><span>03</span><strong>Service Authorization</strong><small>Determine permitted services</small></button>
+        <button class="flow-step" data-flow="admin"><span>04</span><strong>Admin Authorization</strong><small>Protected management access</small></button>
       </div>
-
       <div class="security-note">
-        <strong>Production Rule</strong>
-        <p>
-          Email OTP is for client service access only. Admin access requires stronger authentication,
-          role checks, audit logging, and tenant-isolated backend controls.
-        </p>
+        <strong>Security Notice</strong>
+        <p>Client OTP access is separate from administrator security. Admin functions require stronger authentication, role checks, and audit logging.</p>
       </div>
     </section>
 
     <section class="app-panel">
       <header class="topbar">
-        <div>
-          <p class="eyebrow">Access Card Ordering Portal</p>
-          <h2 id="screenTitle">Tenant Authentication</h2>
-        </div>
+        <div><p class="eyebrow">BinaryGuard Access Control</p><h2 id="screenTitle">Tenant Authentication</h2></div>
         <div class="status-pill" id="statusPill">Awaiting Verification</div>
       </header>
 
       <section class="screen active" id="tenantScreen" aria-label="Tenant authentication">
         <div class="layer-heading">
           <p class="eyebrow">Layer 1</p>
-          <h3>Verify Corporate Identity</h3>
-          <p>
-            Enter your approved corporate email address. The portal validates the domain against
-            the <strong>allowed_domains</strong> table before any service access is granted.
-          </p>
+          <h3>Verify Corporate Email</h3>
+          <p>Enter your approved corporate email address. We will verify your organization domain before allowing access to client services.</p>
         </div>
-
         <div class="form-grid single">
-          <label>
-            Corporate Email Address
-            <input id="corporateEmail" type="email" autocomplete="email" placeholder="john.smith@gov.mb.ca" value="john.smith@gov.mb.ca">
-          </label>
+          <label>Corporate Email Address<input id="corporateEmail" type="email" autocomplete="email" placeholder="user@gov.mb.ca" value="user@gov.mb.ca"></label>
         </div>
-
-        <div class="rules">
-          <span id="domainRule">allowed_domains check</span>
-          <span>tenant_id identified</span>
-          <span>audit log created</span>
-        </div>
-
-        <button class="primary" id="tenantBtn">Validate Domain</button>
-
-        <div class="info-box">
-          <strong>If domain is not approved:</strong>
-          <p>Show “You are not authorized” and redirect the user to Contact Us.</p>
-        </div>
+        <div class="rules"><span id="domainRule">Approved domain required</span><span>Tenant lookup</span><span>Audit logged</span></div>
+        <button class="primary" id="tenantBtn">Continue</button>
+        <p class="screen-copy small">Only approved corporate email domains can access this portal.</p>
       </section>
 
       <section class="screen" id="otpScreen" aria-label="OTP verification">
         <div class="layer-heading">
           <p class="eyebrow">Layer 1 Continued</p>
-          <h3>Verify One-Time Passcode</h3>
-          <p>
-            A short-lived code is sent to the approved corporate email address.
-            OTP is not stored as plain text; only a hash should be stored.
-          </p>
+          <h3>Verify One-Time Code</h3>
+          <p>Enter the short-lived one-time code sent to your approved corporate email address.</p>
         </div>
-
-        <div class="otp-rules">
-          <span>5-minute expiry</span>
-          <span>single-use</span>
-          <span>3 attempts maximum</span>
-          <span>invalidated after success</span>
-        </div>
-
-        <p class="screen-copy">Demo code: <strong>248106</strong></p>
-
+        <p class="screen-copy">Demo code: <strong>248106</strong>. OTP codes are single-use, attempt-limited, and expire shortly after being issued.</p>
         <div class="code-row" id="codeInputs" aria-label="One-time passcode">
-          <input inputmode="numeric" maxlength="1" value="2">
-          <input inputmode="numeric" maxlength="1" value="4">
-          <input inputmode="numeric" maxlength="1" value="8">
-          <input inputmode="numeric" maxlength="1" value="1">
-          <input inputmode="numeric" maxlength="1" value="0">
-          <input inputmode="numeric" maxlength="1" value="6">
+          <input inputmode="numeric" maxlength="1" value="2"><input inputmode="numeric" maxlength="1" value="4"><input inputmode="numeric" maxlength="1" value="8"><input inputmode="numeric" maxlength="1" value="1"><input inputmode="numeric" maxlength="1" value="0"><input inputmode="numeric" maxlength="1" value="6">
         </div>
-
         <button class="primary" id="verifyBtn">Verify OTP</button>
       </section>
 
       <section class="screen" id="servicesScreen" aria-label="Service authorization">
         <div class="layer-heading">
           <p class="eyebrow">Layer 2</p>
-          <h3>Authorized Client Services</h3>
-          <p>
-            The system checks <strong>tenant_services</strong> and <strong>user_roles</strong>
-            to decide which modules this user or domain can access.
-          </p>
+          <h3>Available Services</h3>
+          <p>Your organization is approved for the following BinaryGuard services.</p>
         </div>
-
-        <div class="tenant-summary">
-          <div>
-            <span>Tenant</span>
-            <strong>Government of Manitoba</strong>
-          </div>
-          <div>
-            <span>Domain</span>
-            <strong id="tenantDomain">gov.mb.ca</strong>
-          </div>
-          <div>
-            <span>Role</span>
-            <strong>client_user</strong>
-          </div>
-        </div>
-
         <div class="service-grid">
-          <article class="service-card enabled">
-            <span>Authorized</span>
-            <h4>Access Card Ordering Portal</h4>
-            <p>Submit access card requests through a secure, tenant-isolated workflow.</p>
-            <button class="primary" id="openServiceBtn">Open Service</button>
-          </article>
-
-          <article class="service-card enabled">
-            <span>Authorized</span>
-            <h4>Service Request Form</h4>
-            <p>Create support requests for approved sites and assigned client services.</p>
-          </article>
-
-          <article class="service-card locked">
-            <span>Not Enabled</span>
-            <h4>Camera Ordering Portal</h4>
-            <p>This service is hidden or disabled unless enabled for the tenant.</p>
-          </article>
-
-          <article class="service-card locked">
-            <span>Not Enabled</span>
-            <h4>Quote Request</h4>
-            <p>Available only when tenant_services enables the module.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="screen" id="securityScreen" aria-label="Supabase security">
-        <div class="layer-heading">
-          <p class="eyebrow">Database Security</p>
-          <h3>Supabase / PostgreSQL Controls</h3>
-          <p>
-            Supabase Studio basic authentication is not your production admin security layer.
-            Use PostgreSQL RLS and backend authorization to isolate tenant data.
-          </p>
-        </div>
-
-        <div class="security-grid">
-          <article class="control-card">
-            <span>Rule 1</span>
-            <h4>Every business table needs tenant_id</h4>
-            <p>Orders, dropdowns, pricing, sessions, and audit logs must be tied to the tenant.</p>
-          </article>
-
-          <article class="control-card">
-            <span>Rule 2</span>
-            <h4>Every query restricted by tenant_id</h4>
-            <p>The backend must never return records from another tenant.</p>
-          </article>
-
-          <article class="control-card">
-            <span>Rule 3</span>
-            <h4>Enable RLS before production</h4>
-            <p>Use Row Level Security as a defense-in-depth control for tenant isolation.</p>
-          </article>
-
-          <article class="control-card">
-            <span>Rule 4</span>
-            <h4>Never expose service_role key</h4>
-            <p>The browser must only use safe public keys. Privileged logic belongs in backend API.</p>
-          </article>
+          <article class="service-card enabled"><span>Approved</span><h4>Access Card Ordering Portal</h4><p>Submit access card requests through the secure corporate ordering workflow.</p><button class="primary" id="openServiceBtn">Open Service</button></article>
+          <article class="service-card"><span>Future Module</span><h4>Camera Ordering Portal</h4><p>Request surveillance equipment and camera-related service items.</p></article>
+          <article class="service-card"><span>Future Module</span><h4>Service Requests</h4><p>Create support requests for approved sites and customer locations.</p></article>
+          <article class="service-card"><span>Future Module</span><h4>Quote Requests</h4><p>Request pricing and estimates through an approved corporate workflow.</p></article>
         </div>
       </section>
 
       <section class="screen" id="adminScreen" aria-label="Admin authorization">
         <div class="layer-heading">
           <p class="eyebrow">Layer 3</p>
-          <h3>Staff / Admin Authorization</h3>
-          <p>
-            Admin access must be separate from client OTP login. Use staff email, password,
-            MFA/OTP, role check, and audit logging.
-          </p>
+          <h3>Admin Authorization</h3>
+          <p>Administrative access is separated from client email OTP access.</p>
         </div>
-
         <div class="admin-warning">
-          <h4>Email OTP alone is not administrator security</h4>
-          <p>
-            Staff who manage forms, pricing, dropdowns, submissions, tenants, services, or exports
-            must use stronger authentication and role-based access.
-          </p>
+          <h4>Staff/Admin Access</h4>
+          <p>Admin access requires stronger authentication. Email OTP alone is not accepted for managing forms, pricing, dropdowns, submissions, users, or security settings.</p>
         </div>
-
-        <div class="admin-grid">
-          <article class="admin-card">
-            <span>staff_operator</span>
-            <h4>Process Submissions</h4>
-            <p>View card access submissions and update order status.</p>
-          </article>
-
-          <article class="admin-card">
-            <span>staff_admin</span>
-            <h4>Manage Portal Data</h4>
-            <p>Update dropdown values, access-level lists, and product pricing.</p>
-          </article>
-
-          <article class="admin-card">
-            <span>system_admin</span>
-            <h4>Manage Security</h4>
-            <p>Manage tenant access, service permissions, roles, and audit controls.</p>
-          </article>
+        <div class="service-grid admin-grid">
+          <article class="service-card"><span>Protected</span><h4>Forms & Dropdowns</h4><p>Requires staff authentication and role-based access control.</p></article>
+          <article class="service-card"><span>Protected</span><h4>Pricing & Submissions</h4><p>Requires stronger login, session management, and audit logging.</p></article>
         </div>
-
-        <button class="secondary" id="adminLoginBtn">Go to Admin Portal</button>
+        <button class="secondary" id="adminLoginBtn">Go to Admin Login</button>
       </section>
 
       <aside class="audit-log" aria-label="Audit log">
-        <div class="audit-head">
-          <strong>Process log</strong>
-          <button class="link-button" id="clearLogBtn">Clear</button>
-        </div>
+        <div class="audit-head"><strong>Process log</strong><button class="link-button" id="clearLogBtn">Clear</button></div>
         <ol id="auditLog"></ol>
       </aside>
     </section>

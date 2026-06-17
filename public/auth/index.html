@@ -3,92 +3,127 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BinaryGuard Secure Client Gateway</title>
+  <title>BinaryGuard Tenant Authentication</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <main class="shell">
-    <section class="brand-panel" aria-label="BinaryGuard secure client gateway overview">
+    <section class="brand-panel">
       <div class="brand-mark">BG</div>
       <h1>BinaryGuard Secure Client Gateway</h1>
-      <p>Multi-layer authentication gateway providing tenant validation, OTP verification, service authorization, and administrative access control for BinaryGuard client services.</p>
-      <div class="flow-list" aria-label="Authentication layers">
-        <button class="flow-step active" data-flow="tenant"><span>01</span><strong>Tenant Authentication</strong><small>Validate approved corporate domain</small></button>
-        <button class="flow-step" data-flow="otp"><span>02</span><strong>OTP Verification</strong><small>Single-use security code validation</small></button>
-        <button class="flow-step" data-flow="services"><span>03</span><strong>Service Authorization</strong><small>Determine permitted services</small></button>
-        <button class="flow-step" data-flow="admin"><span>04</span><strong>Admin Authorization</strong><small>Protected management access</small></button>
+      <p>Secure access to authorized client services through tenant authentication, corporate domain validation, OTP verification, and access recovery.</p>
+
+      <div class="flow-list">
+        <button class="flow-step active" data-flow="tenant">
+          <span>01</span><strong>Tenant Authentication</strong><small>Register, login, verify, or recover access</small>
+        </button>
+        <button class="flow-step muted" type="button">
+          <span>02</span><strong>Service Authorization</strong><small>Coming soon after OTP verification</small>
+        </button>
+        <button class="flow-step muted" type="button">
+          <span>03</span><strong>Access Card Ordering Portal</strong><small>Available after authorization</small>
+        </button>
       </div>
+
       <div class="security-note">
-        <strong>Security Notice</strong>
-        <p>Client OTP access is separate from administrator security. Admin functions require stronger authentication, role checks, and audit logging.</p>
+        <strong>Current Implementation</strong>
+        <p>This phase focuses only on Tenant Authentication: Register, Login, Verify OTP, and Recover Access.</p>
       </div>
     </section>
 
     <section class="app-panel">
       <header class="topbar">
-        <div><p class="eyebrow">BinaryGuard Access Control</p><h2 id="screenTitle">Tenant Authentication</h2></div>
+        <div><p class="eyebrow">Layer 1 · Tenant Authentication</p><h2 id="screenTitle">Tenant Authentication</h2></div>
         <div class="status-pill" id="statusPill">Awaiting Verification</div>
       </header>
 
-      <section class="screen active" id="tenantScreen" aria-label="Tenant authentication">
+      <section class="screen active" id="tenantScreen">
         <div class="layer-heading">
-          <p class="eyebrow">Layer 1</p>
-          <h3>Verify Corporate Email</h3>
-          <p>Enter your approved corporate email address. We will verify your organization domain before allowing access to client services.</p>
+          <p class="eyebrow">Welcome Page</p>
+          <h3>BinaryGuard Secure Client Gateway</h3>
+          <p>Secure access to authorized client services. Choose how you want to continue with tenant authentication.</p>
+        </div>
+        <div class="option-grid">
+          <button class="option-card" data-flow-target="register"><span>Register</span><strong>Verify Corporate Identity</strong><small>Create a client access record using an approved corporate email domain.</small></button>
+          <button class="option-card" data-flow-target="login"><span>Login</span><strong>Corporate Access Login</strong><small>Enter your approved corporate email to receive an OTP.</small></button>
+          <button class="option-card" data-flow-target="verify"><span>Verify OTP</span><strong>One-Time Passcode</strong><small>Validate the 6-digit code sent to your corporate email.</small></button>
+          <button class="option-card" data-flow-target="recover"><span>Recover</span><strong>Recover Portal Access</strong><small>Request a recovery code for your approved corporate email.</small></button>
+        </div>
+        <div class="logic-box"><strong>Tenant Authentication Flow</strong><p>Register/Login → Validate allowed domain → Generate OTP → Verify OTP → Create session.</p></div>
+      </section>
+
+      <section class="screen" id="registerScreen">
+        <div class="layer-heading">
+          <p class="eyebrow">Register</p>
+          <h3>Verify Corporate Identity</h3>
+          <p>Enter your approved corporate email address. The system validates your organization against approved tenant domains before access is granted.</p>
+        </div>
+        <div class="form-grid">
+          <label>Full Name<input id="regName" autocomplete="name" placeholder="John Smith" value="John Smith"></label>
+          <label>Corporate Email Address<input id="regEmail" type="email" autocomplete="email" placeholder="user@gov.mb.ca" value="john.smith@gov.mb.ca"></label>
+          <label>Organization<input id="regOrg" placeholder="Government of Manitoba" value="Government of Manitoba"></label>
+        </div>
+        <div class="rules"><span>allowed_domains</span><span>gov.mb.ca</span><span>clientabc.com</span><span>cityofx.ca</span></div>
+        <button class="primary" id="registerBtn">Continue</button>
+        <div class="logic-box"><strong>Validation Logic</strong><p>Domain approved? YES → Create user record, generate OTP, send OTP. NO → Access denied.</p></div>
+      </section>
+
+      <section class="screen" id="loginScreen">
+        <div class="layer-heading">
+          <p class="eyebrow">Login</p>
+          <h3>Corporate Access Login</h3>
+          <p>Enter your approved corporate email address to continue.</p>
         </div>
         <div class="form-grid single">
-          <label>Corporate Email Address<input id="corporateEmail" type="email" autocomplete="email" placeholder="user@gov.mb.ca" value="user@gov.mb.ca"></label>
+          <label>Corporate Email Address<input id="loginEmail" type="email" autocomplete="email" placeholder="user@gov.mb.ca" value="john.smith@gov.mb.ca"></label>
         </div>
-        <div class="rules"><span id="domainRule">Approved domain required</span><span>Tenant lookup</span><span>Audit logged</span></div>
-        <button class="primary" id="tenantBtn">Continue</button>
-        <p class="screen-copy small">Only approved corporate email domains can access this portal.</p>
+        <button class="primary" id="loginBtn">Continue</button>
+        <div class="logic-box"><strong>Layer 1 Checks</strong><p>allowed_domains, users, tenant status, domain approved, user active, tenant active.</p></div>
       </section>
 
-      <section class="screen" id="otpScreen" aria-label="OTP verification">
+      <section class="screen" id="verifyScreen">
         <div class="layer-heading">
-          <p class="eyebrow">Layer 1 Continued</p>
-          <h3>Verify One-Time Code</h3>
-          <p>Enter the short-lived one-time code sent to your approved corporate email address.</p>
+          <p class="eyebrow">Verify OTP</p>
+          <h3>Verify One-Time Passcode</h3>
+          <p>A verification code has been sent to your approved corporate email address.</p>
         </div>
-        <p class="screen-copy">Demo code: <strong>248106</strong>. OTP codes are single-use, attempt-limited, and expire shortly after being issued.</p>
-        <div class="code-row" id="codeInputs" aria-label="One-time passcode">
+        <div class="otp-rules"><span>6 digits</span><span>single use</span><span>5 minute expiry</span><span>3 attempts maximum</span><span>destroyed after success</span></div>
+        <p class="screen-copy">Demo code: <strong>248106</strong></p>
+        <div class="code-row" id="codeInputs">
           <input inputmode="numeric" maxlength="1" value="2"><input inputmode="numeric" maxlength="1" value="4"><input inputmode="numeric" maxlength="1" value="8"><input inputmode="numeric" maxlength="1" value="1"><input inputmode="numeric" maxlength="1" value="0"><input inputmode="numeric" maxlength="1" value="6">
         </div>
-        <button class="primary" id="verifyBtn">Verify OTP</button>
+        <button class="primary" id="verifyBtn">Verify</button>
+        <div class="logic-box"><strong>otp_codes</strong><p>id, email, code_hash, expires_at, attempt_count, used_at, created_at.</p></div>
       </section>
 
-      <section class="screen" id="servicesScreen" aria-label="Service authorization">
+      <section class="screen" id="recoverScreen">
         <div class="layer-heading">
-          <p class="eyebrow">Layer 2</p>
-          <h3>Available Services</h3>
-          <p>Your organization is approved for the following BinaryGuard services.</p>
+          <p class="eyebrow">Recover Access</p>
+          <h3>Recover Portal Access</h3>
+          <p>Enter your corporate email address to request a recovery code.</p>
+        </div>
+        <div class="form-grid single">
+          <label>Corporate Email Address<input id="recoverEmail" type="email" placeholder="user@gov.mb.ca" value="john.smith@gov.mb.ca"></label>
+        </div>
+        <button class="primary" id="recoverBtn">Send Recovery Code</button>
+        <div class="logic-box"><strong>Recovery Process</strong><p>Validate domain, validate user, generate recovery OTP, send email, verify, create new session.</p></div>
+      </section>
+
+      <section class="screen" id="serviceScreen">
+        <div class="layer-heading">
+          <p class="eyebrow">Next Step</p>
+          <h3>Service Authorization</h3>
+          <p>OTP verified. The next phase will check user role, tenant services, and permissions.</p>
         </div>
         <div class="service-grid">
-          <article class="service-card enabled"><span>Approved</span><h4>Access Card Ordering Portal</h4><p>Submit access card requests through the secure corporate ordering workflow.</p><button class="primary" id="openServiceBtn">Open Service</button></article>
-          <article class="service-card"><span>Future Module</span><h4>Camera Ordering Portal</h4><p>Request surveillance equipment and camera-related service items.</p></article>
-          <article class="service-card"><span>Future Module</span><h4>Service Requests</h4><p>Create support requests for approved sites and customer locations.</p></article>
-          <article class="service-card"><span>Future Module</span><h4>Quote Requests</h4><p>Request pricing and estimates through an approved corporate workflow.</p></article>
+          <article class="service-card enabled"><span>Authorized</span><h4>Access Card Ordering Portal</h4><p>Submit access card requests through the secure corporate ordering workflow.</p><button class="primary" id="openServiceBtn">Open Access Card Ordering</button></article>
+          <article class="service-card enabled"><span>Authorized</span><h4>Service Request Portal</h4><p>Create support requests for approved sites and assigned client services.</p></article>
+          <article class="service-card locked"><span>Not Allowed</span><h4>Camera Ordering Portal</h4><p>This module requires service authorization before access is granted.</p></article>
+          <article class="service-card locked"><span>Not Allowed</span><h4>Pricing Management</h4><p>Admin-only. Client OTP must never grant access to pricing management.</p></article>
         </div>
       </section>
 
-      <section class="screen" id="adminScreen" aria-label="Admin authorization">
-        <div class="layer-heading">
-          <p class="eyebrow">Layer 3</p>
-          <h3>Admin Authorization</h3>
-          <p>Administrative access is separated from client email OTP access.</p>
-        </div>
-        <div class="admin-warning">
-          <h4>Staff/Admin Access</h4>
-          <p>Admin access requires stronger authentication. Email OTP alone is not accepted for managing forms, pricing, dropdowns, submissions, users, or security settings.</p>
-        </div>
-        <div class="service-grid admin-grid">
-          <article class="service-card"><span>Protected</span><h4>Forms & Dropdowns</h4><p>Requires staff authentication and role-based access control.</p></article>
-          <article class="service-card"><span>Protected</span><h4>Pricing & Submissions</h4><p>Requires stronger login, session management, and audit logging.</p></article>
-        </div>
-        <button class="secondary" id="adminLoginBtn">Go to Admin Login</button>
-      </section>
-
-      <aside class="audit-log" aria-label="Audit log">
+      <aside class="audit-log">
         <div class="audit-head"><strong>Process log</strong><button class="link-button" id="clearLogBtn">Clear</button></div>
         <ol id="auditLog"></ol>
       </aside>

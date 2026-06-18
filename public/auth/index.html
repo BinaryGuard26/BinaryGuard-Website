@@ -113,15 +113,50 @@
         <div class="layer-heading">
           <p class="eyebrow">Next Step</p>
           <h3>Service Authorization</h3>
-          <p>OTP verified. The next phase will check user role, tenant services, and permissions.</p>
+          <p>
+            OTP verified. Your account is currently authorized only for the Access Card Ordering Portal.
+            Other client service modules are visible as future services and are not available yet.
+          </p>
         </div>
+
         <div class="service-grid">
-          <article class="service-card enabled"><span>Authorized</span><h4>Access Card Ordering Portal</h4><p>Submit access card requests through the secure corporate ordering workflow.</p><button class="primary" id="openServiceBtn">Open Access Card Ordering</button></article>
-          <article class="service-card enabled"><span>Authorized</span><h4>Service Request Portal</h4><p>Create support requests for approved sites and assigned client services.</p></article>
-          <article class="service-card locked"><span>Not Allowed</span><h4>Camera Ordering Portal</h4><p>This module requires service authorization before access is granted.</p></article>
-          <article class="service-card locked"><span>Not Allowed</span><h4>Pricing Management</h4><p>Admin-only. Client OTP must never grant access to pricing management.</p></article>
+          <article class="service-card enabled">
+            <span>Authorized</span>
+            <h4>Access Card Ordering Portal</h4>
+            <p>
+              Submit access card requests through the secure corporate ordering workflow.
+            </p>
+            <button class="primary" id="openServiceBtn">
+              Open Access Card Ordering
+            </button>
+          </article>
+
+          <article class="service-card locked">
+            <span>Coming Soon</span>
+            <h4>Camera Ordering Portal</h4>
+            <p>
+              This service is currently unavailable.
+            </p>
+          </article>
+
+          <article class="service-card locked">
+            <span>Coming Soon</span>
+            <h4>Quote Request Portal</h4>
+            <p>
+              This service is currently unavailable.
+            </p>
+          </article>
+
+          <article class="service-card locked">
+            <span>Coming Soon</span>
+            <h4>Service Request Portal</h4>
+            <p>
+              This service is currently unavailable.
+            </p>
+          </article>
         </div>
       </section>
+
 
       <aside class="audit-log">
         <div class="audit-head"><strong>Process log</strong><button class="link-button" id="clearLogBtn">Clear</button></div>

@@ -17,11 +17,11 @@
         <button class="flow-step active" data-flow="tenant">
           <span>01</span><strong>User Authentication</strong><small>Register, login, verify, or recover access</small>
         </button>
-        <button class="flow-step muted" type="button">
-          <span>02</span><strong>Service Authorization</strong><small>Coming soon after OTP verification</small>
+        <button class="flow-step" data-flow="service" type="button">
+          <span>02</span><strong>Service Authorization</strong><small>Available after OTP verification</small>
         </button>
         <button class="flow-step muted" type="button">
-          <span>03</span><strong>Access Card Ordering Portal</strong><small>Available after authorization</small>
+          <span>03</span><strong>Access Card Ordering Portal</strong><small>Open from authorized service card</small>
         </button>
       </div>
 
@@ -33,7 +33,7 @@
 
     <section class="app-panel">
       <header class="topbar">
-        <div><p class="eyebrow">Layer 1 · User Authentication</p><h2 id="screenTitle">User Authentication</h2></div>
+        <div><p class="eyebrow" id="screenEyebrow">Layer 1 · User Authentication</p><h2 id="screenTitle">User Authentication</h2></div>
         <div class="status-pill" id="statusPill">Awaiting Verification</div>
       </header>
 
@@ -109,53 +109,47 @@
         <div class="logic-box"><strong>Recovery Process</strong><p>Validate domain, validate user, generate recovery OTP, send email, verify, create new session.</p></div>
       </section>
 
-      <section class="screen" id="serviceScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Next Step</p>
-          <h3>Service Authorization</h3>
-          <p>
-            OTP verified. Your account is currently authorized only for the Access Card Ordering Portal.
-            Other client service modules are visible as future services and are not available yet.
-          </p>
-        </div>
+      
+<section class="screen" id="serviceScreen">
+  <div class="layer-heading">
+    <p class="eyebrow">Next Step</p>
+    <h3>Service Authorization</h3>
+    <p>Only Access Card Ordering Portal is currently authorized for client users.</p>
+  </div>
 
-        <div class="service-grid">
-          <article class="service-card enabled">
-            <span>Authorized</span>
-            <h4>Access Card Ordering Portal</h4>
-            <p>
-              Submit access card requests through the secure corporate ordering workflow.
-            </p>
-            <button class="primary" id="openServiceBtn">
-              Open Access Card Ordering
-            </button>
-          </article>
+  <div class="service-grid">
 
-          <article class="service-card locked">
-            <span>Coming Soon</span>
-            <h4>Camera Ordering Portal</h4>
-            <p>
-              This service is currently unavailable.
-            </p>
-          </article>
+    <article class="service-card enabled">
+      <span>Authorized</span>
+      <h4>Access Card Ordering Portal</h4>
+      <p>
+        Submit access card requests through the secure corporate ordering workflow.
+      </p>
+      <button class="primary" id="openServiceBtn">
+        Open Access Card Ordering
+      </button>
+    </article>
 
-          <article class="service-card locked">
-            <span>Coming Soon</span>
-            <h4>Quote Request Portal</h4>
-            <p>
-              This service is currently unavailable.
-            </p>
-          </article>
+    <article class="service-card locked">
+      <span>Coming Soon</span>
+      <h4>Camera Ordering Portal</h4>
+      <p>This service is currently unavailable.</p>
+    </article>
 
-          <article class="service-card locked">
-            <span>Coming Soon</span>
-            <h4>Service Request Portal</h4>
-            <p>
-              This service is currently unavailable.
-            </p>
-          </article>
-        </div>
-      </section>
+    <article class="service-card locked">
+      <span>Coming Soon</span>
+      <h4>Quote Request Portal</h4>
+      <p>This service is currently unavailable.</p>
+    </article>
+
+    <article class="service-card locked">
+      <span>Coming Soon</span>
+      <h4>Service Request Portal</h4>
+      <p>This service is currently unavailable.</p>
+    </article>
+
+  </div>
+</section>
 
 
       <aside class="audit-log">

@@ -2,334 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BinaryGuard Secure Client Gateway</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BinaryGuard Client Portal</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="shell">
-    <section class="brand-panel" aria-label="BinaryGuard secure client gateway">
-      <div class="brand-mark">BG</div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">BG</span><div><strong>BinaryGuard</strong><small>Secure Client Portal</small></div></div>
+      <div class="secure-chip"><span></span> portal.binaryguard.ca</div>
+      <nav class="journey" aria-label="Portal progress">
+        <button class="journey-step active" data-nav="auth"><i>1</i><span><b>User Authentication</b><small>Corporate identity</small></span></button>
+        <button class="journey-step locked" data-nav="otp"><i>2</i><span><b>OTP Verification</b><small>One-time passcode</small></span></button>
+        <button class="journey-step locked" data-nav="services"><i>3</i><span><b>Service Authorization</b><small>Tenant & role access</small></span></button>
+        <button class="journey-step locked" data-nav="order"><i>4</i><span><b>Access Card Portal</b><small>Secure ordering</small></span></button>
+      </nav>
+      <div class="security-card"><span class="shield">✓</span><div><strong>Protected workflow</strong><p>Each layer is verified before the next becomes available.</p></div></div>
+    </aside>
 
-      <h1>BinaryGuard Secure Client Gateway</h1>
-
-      <p>
-        Secure access to authorized client services through user authentication,
-        corporate domain validation, OTP verification, and access recovery.
-      </p>
-
-      <div class="flow-list" aria-label="Security layers">
-        <button class="flow-step active" data-layer="user" type="button">
-          <span>01</span>
-          <strong>User Authentication</strong>
-          <small>Register, Login, Verify OTP, Recover</small>
-        </button>
-
-        <button class="flow-step locked" data-layer="service" type="button">
-          <span>02</span>
-          <strong>Service Authorization</strong>
-          <small>Locked until OTP verification</small>
-        </button>
-
-        <button class="flow-step locked" data-layer="order" type="button">
-          <span>03</span>
-          <strong>Access Card Order Portal</strong>
-          <small>Locked until service authorization</small>
-        </button>
-      </div>
-
-      <div class="security-note">
-        <strong>Security Flow</strong>
-        <p>
-          Only one layer is active at a time. Layer 2 unlocks only after OTP verification.
-          Layer 3 unlocks only after service authorization. Logout resets the flow.
-        </p>
-      </div>
-    </section>
-
-    <section class="app-panel">
+    <main>
       <header class="topbar">
-        <div>
-          <p class="eyebrow" id="screenEyebrow">Layer 1 · User Authentication</p>
-          <h2 id="screenTitle">User Authentication</h2>
-        </div>
-        <div class="status-pill" id="statusPill">Not Verified</div>
+        <div><p class="eyebrow" id="eyebrow">SECURE ACCESS</p><h1 id="pageTitle">Welcome to BinaryGuard</h1></div>
+        <div class="session" id="sessionInfo" hidden><span class="avatar">JS</span><div><b>John Smith</b><small>Government of Manitoba</small></div><button id="logoutBtn" class="text-btn">Sign out</button></div>
+        <span class="status" id="statusBadge"><i></i> Not verified</span>
       </header>
 
-      <!-- LAYER 1: USER AUTHENTICATION WELCOME -->
-      <section class="screen active" id="userScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Layer 1</p>
-          <h3>User Authentication</h3>
-          <p>
-            Complete user authentication first. Service Authorization and Access Card Order Portal
-            remain inactive until the OTP verification is successful.
-          </p>
-        </div>
-
-        <div class="option-grid">
-          <button class="option-card" data-auth-target="register" type="button">
-            <span>Register</span>
-            <strong>Verify Corporate Identity</strong>
-            <small>Create an access record using an approved corporate email domain.</small>
-          </button>
-
-          <button class="option-card" data-auth-target="login" type="button">
-            <span>Login</span>
-            <strong>Corporate Access Login</strong>
-            <small>Validate your corporate email and receive an OTP.</small>
-          </button>
-
-          <button class="option-card" data-auth-target="verify" type="button">
-            <span>Verify OTP</span>
-            <strong>One-Time Passcode</strong>
-            <small>Confirm the six-digit code sent to your corporate email.</small>
-          </button>
-
-          <button class="option-card" data-auth-target="recover" type="button">
-            <span>Recover</span>
-            <strong>Recover Portal Access</strong>
-            <small>Request a recovery code for an approved corporate email.</small>
-          </button>
-        </div>
-
-        <div class="logic-box">
-          <strong>Layer 1 Rule</strong>
-          <p>
-            User Authentication is the only active layer at startup.
-            Layer 2 and Layer 3 are locked.
-          </p>
-        </div>
+      <section class="page active" id="authPage">
+        <div class="hero"><span class="hero-icon">→</span><div><p class="eyebrow">LAYER 1</p><h2>Corporate access login</h2><p>Use your approved organization email to enter the secure client portal.</p></div></div>
+        <form id="loginForm" class="card compact">
+          <label>Corporate email address<input id="email" type="email" value="john.smith@gov.mb.ca" required autocomplete="email"></label>
+          <button class="primary" type="submit">Continue securely <span>→</span></button>
+          <p class="form-note">For this interactive prototype, use any address ending in <b>@gov.mb.ca</b>.</p>
+        </form>
       </section>
 
-      <!-- REGISTER -->
-      <section class="screen" id="registerScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Layer 1 · Register</p>
-          <h3>Verify Corporate Identity</h3>
-          <p>
-            Enter your approved corporate email address. The domain is validated against
-            authorized tenant domains before access is granted.
-          </p>
-        </div>
-
-        <div class="form-grid">
-          <label>
-            Full Name
-            <input id="regName" value="John Smith" placeholder="Full name">
-          </label>
-
-          <label>
-            Corporate Email Address
-            <input id="regEmail" type="email" value="john.smith@gov.mb.ca" placeholder="user@gov.mb.ca">
-          </label>
-
-          <label>
-            Organization
-            <input id="regOrg" value="Government of Manitoba" placeholder="Organization">
-          </label>
-        </div>
-
-        <div class="rules">
-          <span>allowed_domains</span>
-          <span>gov.mb.ca</span>
-          <span>clientabc.com</span>
-          <span>cityofx.ca</span>
-        </div>
-
-        <button class="primary" id="registerBtn" type="button">Continue</button>
-        <button class="secondary" data-back-user type="button">Back</button>
+      <section class="page" id="otpPage">
+        <div class="hero"><span class="hero-icon">••</span><div><p class="eyebrow">LAYER 2</p><h2>Verify your identity</h2><p>We sent a six-digit code to <b id="otpEmail"></b>. It expires in 5 minutes.</p></div></div>
+        <form id="otpForm" class="card compact">
+          <label>Verification code<input id="otpCode" inputmode="numeric" maxlength="6" value="248106" aria-describedby="demoCode" required></label>
+          <div class="code-meta"><span id="demoCode">Demo code: <b>248106</b></span><span>3 attempts maximum</span></div>
+          <button class="primary" type="submit">Verify & continue <span>→</span></button>
+        </form>
       </section>
 
-      <!-- LOGIN -->
-      <section class="screen" id="loginScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Layer 1 · Login</p>
-          <h3>Corporate Access Login</h3>
-          <p>Enter your approved corporate email address to continue.</p>
-        </div>
-
-        <div class="form-grid single">
-          <label>
-            Corporate Email Address
-            <input id="loginEmail" type="email" value="john.smith@gov.mb.ca" placeholder="user@gov.mb.ca">
-          </label>
-        </div>
-
-        <button class="primary" id="loginBtn" type="button">Continue</button>
-        <button class="secondary" data-back-user type="button">Back</button>
-      </section>
-
-      <!-- VERIFY OTP -->
-      <section class="screen" id="verifyScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Layer 1 · OTP Verification</p>
-          <h3>Verify One-Time Passcode</h3>
-          <p>A verification code has been sent to your approved corporate email address.</p>
-        </div>
-
-        <div class="otp-rules">
-          <span>6 digits</span>
-          <span>single use</span>
-          <span>5 minute expiry</span>
-          <span>3 attempts maximum</span>
-          <span>destroyed after success</span>
-        </div>
-
-        <p class="screen-copy">Demo code: <strong>248106</strong></p>
-
-        <div class="code-row" id="codeInputs">
-          <input inputmode="numeric" maxlength="1" value="2">
-          <input inputmode="numeric" maxlength="1" value="4">
-          <input inputmode="numeric" maxlength="1" value="8">
-          <input inputmode="numeric" maxlength="1" value="1">
-          <input inputmode="numeric" maxlength="1" value="0">
-          <input inputmode="numeric" maxlength="1" value="6">
-        </div>
-
-        <button class="primary" id="verifyBtn" type="button">Verify OTP</button>
-        <button class="secondary" data-back-user type="button">Back</button>
-      </section>
-
-      <!-- RECOVER -->
-      <section class="screen" id="recoverScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Layer 1 · Recover</p>
-          <h3>Recover Portal Access</h3>
-          <p>Enter your corporate email address to request a recovery code.</p>
-        </div>
-
-        <div class="form-grid single">
-          <label>
-            Corporate Email Address
-            <input id="recoverEmail" type="email" value="john.smith@gov.mb.ca" placeholder="user@gov.mb.ca">
-          </label>
-        </div>
-
-        <button class="primary" id="recoverBtn" type="button">Send Recovery Code</button>
-        <button class="secondary" data-back-user type="button">Back</button>
-      </section>
-
-      <!-- LAYER 2: SERVICE AUTHORIZATION -->
-      <section class="screen" id="serviceScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Layer 2</p>
-          <h3>Service Authorization</h3>
-          <p>
-            User Authentication is complete. Only this layer is active now.
-            Layer 1 and Layer 3 are inactive until you open the authorized service.
-          </p>
-        </div>
-
+      <section class="page" id="servicesPage">
+        <div class="hero"><span class="hero-icon">⌘</span><div><p class="eyebrow">AUTHORIZED SERVICES</p><h2>Good morning, John</h2><p>Select a service available to Government of Manitoba.</p></div></div>
         <div class="service-grid">
-          <article class="service-card enabled">
-            <span>Authorized</span>
-            <h4>Access Card Order Portal</h4>
-            <p>Submit access card requests through the secure corporate ordering workflow.</p>
-            <button class="primary" id="openServiceBtn" type="button">Open Access Card Ordering</button>
-          </article>
-
-          <article class="service-card locked-card">
-            <span>Coming Soon</span>
-            <h4>Camera Ordering Portal</h4>
-            <p>This service is currently unavailable.</p>
-          </article>
-
-          <article class="service-card locked-card">
-            <span>Coming Soon</span>
-            <h4>Quote Request Portal</h4>
-            <p>This service is currently unavailable.</p>
-          </article>
-
-          <article class="service-card locked-card">
-            <span>Coming Soon</span>
-            <h4>Service Request Portal</h4>
-            <p>This service is currently unavailable.</p>
-          </article>
+          <article class="service-card featured"><div class="service-top"><span class="service-icon">▣</span><span class="approved">Enabled</span></div><h3>Access Card Ordering</h3><p>Request new, replacement, temporary, or updated access cards for your organization.</p><button class="primary" id="openServiceBtn">Open Access Card Ordering <span>→</span></button></article>
+          <article class="service-card muted"><div class="service-top"><span class="service-icon">◉</span><span class="soon">Coming soon</span></div><h3>Camera Ordering</h3><p>Order security camera equipment and supporting services.</p></article>
+          <article class="service-card muted"><div class="service-top"><span class="service-icon">◇</span><span class="soon">Coming soon</span></div><h3>Quote Requests</h3><p>Request a tailored quote from the BinaryGuard team.</p></article>
         </div>
       </section>
 
-      <!-- LAYER 3: ACCESS CARD ORDER PORTAL -->
-      <section class="screen" id="orderScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Layer 3</p>
-          <h3>Access Card Order Portal</h3>
-          <p>
-            Service Authorization is complete. Only this layer is active now.
-            Layer 1 and Layer 2 are inactive until logout.
-          </p>
-        </div>
-
-        <div class="form-grid">
-          <label>
-            Requester Email
-            <input id="requesterEmail" type="email" value="john.smith@gov.mb.ca" readonly>
-          </label>
-
-          <label>
-            Cardholder Full Name
-            <input id="cardholderName" placeholder="Cardholder full name">
-          </label>
-
-          <label>
-            Site / Building
-            <input id="siteName" placeholder="Main Office / Building A">
-          </label>
-
-          <label>
-            Request Type
-            <select id="requestType">
-              <option>New Card</option>
-              <option>Replacement Card</option>
-              <option>Access Level Change</option>
-              <option>Cancel Card</option>
-            </select>
-          </label>
-
-          <label>
-            Access Level
-            <select id="accessLevel">
-              <option>Standard Access</option>
-              <option>Office Access</option>
-              <option>Restricted Area Access</option>
-              <option>Manager Approval Required</option>
-            </select>
-          </label>
-
-          <label>
-            Effective Date
-            <input id="effectiveDate" type="date">
-          </label>
-        </div>
-
-        <label class="full-width">
-          Notes
-          <textarea id="orderNotes" placeholder="Add any special instructions or delivery details"></textarea>
-        </label>
-
-        <div class="button-row">
-          <button class="primary" id="submitOrderBtn" type="button">Submit Access Card Request</button>
-          <button class="danger" id="logoutBtn" type="button">Logout</button>
-        </div>
-
-        <div class="logic-box">
-          <strong>Layer 3 Rule</strong>
-          <p>
-            Logout ends the session and resets the flow back to Layer 1.
-          </p>
-        </div>
+      <section class="page" id="checkingPage">
+        <div class="gate-card"><div class="spinner"></div><p class="eyebrow">SECURE CHECK</p><h2>Verifying service authorization</h2><p>We’re confirming your organization, service access, and role before loading the order form.</p><ul id="checkList"><li>Authenticated user</li><li>Active tenant</li><li>Access Card Ordering enabled</li><li>Authorized user role</li></ul></div>
       </section>
 
-      <aside class="audit-log">
-        <div class="audit-head">
-          <strong>Process log</strong>
-          <button class="link-button" id="clearLogBtn" type="button">Clear</button>
-        </div>
-        <ol id="auditLog"></ol>
-      </aside>
-    </section>
-  </main>
+      <section class="page" id="deniedPage">
+        <div class="gate-card denied"><span class="denied-icon">!</span><p class="eyebrow">ACCESS DENIED</p><h2>You are not authorized</h2><p>You are not authorized to use the Access Card Ordering service.</p><button class="secondary" data-back-services>Return to services</button></div>
+      </section>
 
+      <section class="page" id="orderPage">
+        <div class="order-heading"><div><p class="eyebrow">ACCESS CARD ORDERING</p><h2>New access card request</h2><p>Complete the details below. Required fields are marked with an asterisk.</p></div><span class="draft">Secure form</span></div>
+        <form id="orderForm">
+          <section class="form-section"><div class="section-title"><span>01</span><div><h3>Requester</h3><p>Loaded from your secure account</p></div><b class="readonly-pill">Read only</b></div><div class="identity-grid"><div><small>Requester</small><strong>John Smith</strong></div><div><small>Email</small><strong>john.smith@gov.mb.ca</strong></div><div><small>Organization</small><strong>Government of Manitoba</strong></div></div></section>
+          <section class="form-section"><div class="section-title"><span>02</span><div><h3>Request information</h3><p>Tell us what kind of card request this is</p></div></div><div class="form-grid"><label>Request type *<select id="requestType" data-options="request_type" required></select></label></div></section>
+          <section class="form-section"><div class="section-title"><span>03</span><div><h3>Cardholder information</h3><p>Who is this access card for?</p></div></div><div class="form-grid"><label>Cardholder name *<input id="cardholderName" required placeholder="Full legal name"></label><label>Cardholder email *<input id="cardholderEmail" type="email" required placeholder="name@gov.mb.ca"></label><label>Employee ID *<input id="employeeId" required placeholder="e.g. 104582"></label><label>Department *<input id="department" required placeholder="Department name"></label></div></section>
+          <section class="form-section"><div class="section-title"><span>04</span><div><h3>Site & access</h3><p>Tenant-specific options are loaded automatically</p></div></div><div class="form-grid"><label>Site *<select id="site" data-options="site" required></select></label><label>Building *<select id="building" data-options="building" required></select></label><label>Floor<input id="floor" placeholder="e.g. 3"></label><label>Access level *<select id="accessLevel" data-options="access_level" required></select></label><label>Effective date *<input id="effectiveDate" type="date" required></label><label>Expiry date <span class="optional">Optional</span><input id="expiryDate" type="date"></label></div></section>
+          <section class="form-section"><div class="section-title"><span>05</span><div><h3>Additional information</h3><p>Include details that will help us process the request</p></div></div><label>Notes <span class="optional">Optional</span><textarea id="notes" placeholder="Special access requirements, delivery instructions, or other details"></textarea></label></section>
+          <div class="form-actions"><p><span>✓</span> Submission creates a secure audit record.</p><button class="primary" type="submit">Submit access card order <span>→</span></button></div>
+        </form>
+      </section>
+
+      <section class="page" id="successPage">
+        <div class="success-card"><span class="success-icon">✓</span><p class="eyebrow">ORDER SUBMITTED</p><h2>Your request is on its way</h2><p>A confirmation has been sent to <b>john.smith@gov.mb.ca</b>. The processing team has also been notified.</p><div class="reference"><small>REFERENCE NUMBER</small><strong id="referenceNumber">ACO-2026-000145</strong><span>Submitted</span></div><div class="success-actions"><button class="primary" id="newOrderBtn">Create another order</button><button class="secondary" id="printBtn">Print confirmation</button></div></div>
+      </section>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </main>
+  </div>
   <script src="app.js"></script>
 </body>
 </html>

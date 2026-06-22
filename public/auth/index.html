@@ -17,11 +17,11 @@
         <button class="flow-step active" data-flow="tenant">
           <span>01</span><strong>User Authentication</strong><small>Register, login, verify, or recover access</small>
         </button>
-        <button class="flow-step" data-flow="service" type="button">
-          <span>02</span><strong>Service Authorization</strong><small>Available after OTP verification</small>
+        <button class="flow-step locked" data-flow="service" type="button">
+          <span>02</span><strong>Service Authorization</strong><small>Locked until OTP verification</small>
         </button>
-        <button class="flow-step" data-flow="order" type="button">
-          <span>03</span><strong>Access Card Order Portal</strong><small>Available after service authorization</small>
+        <button class="flow-step locked" data-flow="order" type="button">
+          <span>03</span><strong>Access Card Order Portal</strong><small>Locked until service authorization</small>
         </button>
       </div>
 
@@ -112,7 +112,7 @@
       
 <section class="screen" id="serviceScreen">
   <div class="layer-heading">
-    <p class="eyebrow">Layer 2</p>
+    <p class="eyebrow">Next Step</p>
     <h3>Service Authorization</h3>
     <p>Only Access Card Order Portal is currently authorized for client users.</p>
   </div>
@@ -150,75 +150,6 @@
 
   </div>
 </section>
-
-      <section class="screen" id="orderScreen">
-        <div class="layer-heading">
-          <p class="eyebrow">Layer 3</p>
-          <h3>Access Card Order Portal</h3>
-          <p>
-            Submit a secure access card request. The verified corporate email is used as the requester identity.
-          </p>
-        </div>
-
-        <div class="form-grid">
-          <label>
-            Requester Email
-            <input id="requesterEmail" type="email" value="john.smith@gov.mb.ca" readonly>
-          </label>
-
-          <label>
-            Full Name
-            <input id="cardholderName" placeholder="Cardholder full name">
-          </label>
-
-          <label>
-            Site / Building
-            <input id="siteName" placeholder="Main Office / Building A">
-          </label>
-
-          <label>
-            Request Type
-            <select id="requestType">
-              <option>New Card</option>
-              <option>Replacement Card</option>
-              <option>Access Level Change</option>
-              <option>Cancel Card</option>
-            </select>
-          </label>
-
-          <label>
-            Access Level
-            <select id="accessLevel">
-              <option>Standard Access</option>
-              <option>Office Access</option>
-              <option>Restricted Area Access</option>
-              <option>Manager Approval Required</option>
-            </select>
-          </label>
-
-          <label>
-            Effective Date
-            <input id="effectiveDate" type="date">
-          </label>
-        </div>
-
-        <label class="full-width">
-          Notes
-          <textarea id="orderNotes" placeholder="Add any special instructions or delivery details"></textarea>
-        </label>
-
-        <button class="primary" id="submitOrderBtn">
-          Submit Access Card Request
-        </button>
-
-        <div class="logic-box">
-          <strong>Order Workflow</strong>
-          <p>
-            Request saved with tenant_id and user_id, confirmation email sent to user,
-            staff notified, and status changes logged in audit_logs.
-          </p>
-        </div>
-      </section>
 
 
       <aside class="audit-log">

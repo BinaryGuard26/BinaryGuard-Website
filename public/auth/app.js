@@ -1,331 +1,54 @@
-const screens = {
-  user: document.querySelector("#userScreen"),
-  register: document.querySelector("#registerScreen"),
-  login: document.querySelector("#loginScreen"),
-  verify: document.querySelector("#verifyScreen"),
-  recover: document.querySelector("#recoverScreen"),
-  service: document.querySelector("#serviceScreen"),
-  order: document.querySelector("#orderScreen")
+const tenant = {
+  id: "tenant-gov-mb", name: "Government of Manitoba", active: true,
+  services: { access_card_ordering: true },
+  allowedRoles: ["tenant_user", "manager", "security_admin"],
+  processingEmail: "support@binaryguard.ca"
 };
-
-const titles = {
-  user: "User Authentication",
-  register: "Register",
-  login: "Login",
-  verify: "Verify OTP",
-  recover: "Recover Access",
-  service: "Service Authorization",
-  order: "Access Card Order Portal"
+const user = { id: "usr-1042", name: "John Smith", email: "john.smith@gov.mb.ca", role: "tenant_user", authenticated: false, otpVerified: false };
+const dropdownOptions = {
+  request_type: ["New Card", "Replacement Card", "Temporary Card", "Cancel Card", "Access Change"],
+  access_level: ["Standard Access", "Manager Access", "Restricted Area Access"],
+  site: ["Winnipeg Central Office", "Brandon Regional Office", "Thompson Service Centre"],
+  building: ["Government Administration Building", "Norquay Building", "Woodsworth Building"]
 };
+const pages = ["auth","otp","services","checking","denied","order","success"];
+const steps = ["auth","otp","services","order"];
+let referenceSequence = Number(localStorage.getItem("bg-reference-sequence") || 145);
+let auditLogs = JSON.parse(localStorage.getItem("bg-audit-logs") || "[]");
+const $ = (selector) => document.querySelector(selector);
 
-const layerText = {
-  user: "Layer 1 · User Authentication",
-  register: "Layer 1 · User Authentication",
-  login: "Layer 1 · User Authentication",
-  verify: "Layer 1 · User Authentication",
-  recover: "Layer 1 · User Authentication",
-  service: "Layer 2 · Service Authorization",
-  order: "Layer 3 · Access Card Order Portal"
-};
-
-const state = {
-  activeLayer: "user",
-  otpVerified: false,
-  serviceAuthorized: false,
-  email: "john.smith@gov.mb.ca",
-  domain: "",
-  otp: "248106",
-  otpAttempts: 0,
-  maxOtpAttempts: 3
-};
-
-const approvedDomains = ["gov.mb.ca", "clientabc.com", "cityofx.ca"];
-
-const screenTitle = document.querySelector("#screenTitle");
-const screenEyebrow = document.querySelector("#screenEyebrow");
-const statusPill = document.querySelector("#statusPill");
-const auditLog = document.querySelector("#auditLog");
-const flowButtons = document.querySelectorAll(".flow-step[data-layer]");
-
-const registerBtn = document.querySelector("#registerBtn");
-const loginBtn = document.querySelector("#loginBtn");
-const verifyBtn = document.querySelector("#verifyBtn");
-const recoverBtn = document.querySelector("#recoverBtn");
-const openServiceBtn = document.querySelector("#openServiceBtn");
-const submitOrderBtn = document.querySelector("#submitOrderBtn");
-const logoutBtn = document.querySelector("#logoutBtn");
-const clearLogBtn = document.querySelector("#clearLogBtn");
-
-function layerForScreen(name) {
-  if (["register", "login", "verify", "recover"].includes(name)) return "user";
-  return name;
+function showPage(name) {
+  pages.forEach(key => $(`#${key}Page`)?.classList.toggle("active", key === name));
+  const titles = {auth:["SECURE ACCESS","Welcome to BinaryGuard"],otp:["IDENTITY VERIFICATION","Enter your security code"],services:["CLIENT PORTAL","Authorized services"],checking:["SERVICE AUTHORIZATION","Checking access"],denied:["SERVICE AUTHORIZATION","Access denied"],order:["SECURE ORDERING","Access Card Ordering"],success:["REQUEST CONFIRMATION","Order submitted"]};
+  $("#eyebrow").textContent = titles[name][0]; $("#pageTitle").textContent = titles[name][1];
+  updateJourney(name); window.scrollTo({top:0,behavior:"smooth"});
 }
-
-function isLayerAllowed(layer) {
-  return state.activeLayer === layer;
-}
-
-function updateLayerButtons() {
-  flowButtons.forEach((button) => {
-    const layer = button.dataset.layer;
-    const active = layer === state.activeLayer;
-    button.classList.toggle("active", active);
-    button.classList.toggle("locked", !active);
+function updateJourney(page) {
+  const activeStep = page === "checking" || page === "denied" ? "services" : page === "success" ? "order" : page;
+  const activeIndex = steps.indexOf(activeStep);
+  document.querySelectorAll(".journey-step").forEach((el,i) => {
+    el.classList.toggle("active", i === activeIndex); el.classList.toggle("done", i < activeIndex); el.classList.toggle("locked", i > activeIndex);
+    el.querySelector("i").textContent = i < activeIndex ? "✓" : i + 1;
   });
 }
-
-function renderScreen(name) {
-  const layer = layerForScreen(name);
-
-  if (!isLayerAllowed(layer)) {
-    if (layer === "user") toast("User Authentication is inactive. Logout to start again.");
-    if (layer === "service") toast("Service Authorization is inactive until User Authentication is completed.");
-    if (layer === "order") toast("Access Card Order Portal is inactive until Service Authorization is completed.");
-    return;
-  }
-
-  Object.entries(screens).forEach(([key, screen]) => {
-    if (screen) screen.classList.toggle("active", key === name);
-  });
-
-  if (screenTitle) screenTitle.textContent = titles[name];
-  if (screenEyebrow) screenEyebrow.textContent = layerText[name];
-
-  updateLayerButtons();
+function status(text, ok=false){$("#statusBadge").innerHTML=`<i></i> ${text}`;$("#statusBadge").classList.toggle("ok",ok)}
+function toast(message){const el=$("#toast");el.textContent=message;el.classList.add("show");clearTimeout(el.timer);el.timer=setTimeout(()=>el.classList.remove("show"),2800)}
+function audit(action, entityType="session", entityId=user.id) {
+  auditLogs.unshift({actor_user_id:user.id,action,entity_type:entityType,entity_id:entityId,timestamp:new Date().toISOString(),ip_address:"Captured server-side"});
+  localStorage.setItem("bg-audit-logs",JSON.stringify(auditLogs.slice(0,100)));
 }
+function loadTenantOptions(){document.querySelectorAll("select[data-options]").forEach(select=>{select.innerHTML=`<option value="">Select an option</option>`+dropdownOptions[select.dataset.options].map(v=>`<option>${v}</option>`).join("")})}
+function authorizeService(){return [user.authenticated,user.otpVerified,tenant.active,tenant.services.access_card_ordering,tenant.allowedRoles.includes(user.role)].every(Boolean)}
+function resetSession(){user.authenticated=false;user.otpVerified=false;$("#sessionInfo").hidden=true;status("Not verified");audit("LOGOUT");showPage("auth")}
 
-function log(message) {
-  if (!auditLog) return;
-  const item = document.createElement("li");
-  const time = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-  item.textContent = `${time} - ${message}`;
-  auditLog.prepend(item);
-}
-
-function toast(message) {
-  document.querySelector(".toast")?.remove();
-  const node = document.createElement("div");
-  node.className = "toast";
-  node.textContent = message;
-  document.body.append(node);
-  setTimeout(() => node.remove(), 2800);
-}
-
-function updateStatus(text, ok = false) {
-  if (!statusPill) return;
-  statusPill.textContent = text;
-  statusPill.classList.toggle("ok", ok);
-}
-
-function getDomain(email) {
-  return email.split("@")[1]?.trim().toLowerCase() || "";
-}
-
-function validateDomain(email) {
-  if (!email.includes("@")) {
-    toast("Enter a valid corporate email address.");
-    log("User authentication stopped because the email format was invalid.");
-    return false;
-  }
-
-  const domain = getDomain(email);
-
-  if (!approvedDomains.includes(domain)) {
-    toast("Your organization is not authorized. Please contact BinaryGuard.");
-    log(`Access denied. Unauthorized domain attempted: ${email}`);
-    return false;
-  }
-
-  state.email = email;
-  state.domain = domain;
-
-  toast("Corporate domain approved. OTP generated.");
-  log(`Domain approved through allowed_domains: ${domain}.`);
-  log("OTP generated and sent to approved corporate email.");
-  updateStatus("OTP Issued", false);
-  return true;
-}
-
-function otpCode() {
-  return [...document.querySelectorAll("#codeInputs input")]
-    .map((input) => input.value)
-    .join("");
-}
-
-document.querySelectorAll("[data-auth-target]").forEach((button) => {
-  button.addEventListener("click", () => {
-    if (!isLayerAllowed("user")) {
-      toast("User Authentication is inactive. Logout to start again.");
-      return;
-    }
-
-    renderScreen(button.dataset.authTarget);
-  });
-});
-
-document.querySelectorAll("[data-back-user]").forEach((button) => {
-  button.addEventListener("click", () => renderScreen("user"));
-});
-
-flowButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const layer = button.dataset.layer;
-
-    if (!isLayerAllowed(layer)) {
-      if (layer === "user") toast("User Authentication is inactive after OTP verification. Logout to start again.");
-      if (layer === "service") toast("Service Authorization is locked until User Authentication and OTP Verification are completed.");
-      if (layer === "order") toast("Access Card Order Portal is locked until Service Authorization is completed.");
-      return;
-    }
-
-    if (layer === "user") renderScreen("user");
-    if (layer === "service") renderScreen("service");
-    if (layer === "order") renderScreen("order");
-  });
-});
-
-document.querySelectorAll("#codeInputs input").forEach((input, index, list) => {
-  input.addEventListener("input", () => {
-    input.value = input.value.replace(/\D/g, "").slice(0, 1);
-    if (input.value && list[index + 1]) list[index + 1].focus();
-  });
-});
-
-if (registerBtn) {
-  registerBtn.addEventListener("click", () => {
-    if (!isLayerAllowed("user")) return;
-
-    const name = document.querySelector("#regName").value.trim();
-    const email = document.querySelector("#regEmail").value.trim().toLowerCase();
-    const organization = document.querySelector("#regOrg").value.trim();
-
-    if (!name || !organization) {
-      toast("Enter full name and organization.");
-      log("Registration stopped because required identity details were missing.");
-      return;
-    }
-
-    if (!validateDomain(email)) return;
-
-    document.querySelector("#loginEmail").value = email;
-    document.querySelector("#recoverEmail").value = email;
-    log(`User record prepared for ${name} at ${organization}.`);
-    renderScreen("verify");
-  });
-}
-
-if (loginBtn) {
-  loginBtn.addEventListener("click", () => {
-    if (!isLayerAllowed("user")) return;
-
-    const email = document.querySelector("#loginEmail").value.trim().toLowerCase();
-
-    if (!validateDomain(email)) return;
-
-    log("Tenant status checked: active.");
-    log("User status checked: active.");
-    renderScreen("verify");
-  });
-}
-
-if (verifyBtn) {
-  verifyBtn.addEventListener("click", () => {
-    if (!isLayerAllowed("user")) return;
-
-    state.otpAttempts += 1;
-
-    if (state.otpAttempts > state.maxOtpAttempts) {
-      toast("OTP attempt limit exceeded.");
-      log("OTP verification blocked after maximum attempts.");
-      return;
-    }
-
-    if (otpCode() !== state.otp) {
-      toast("Invalid verification code.");
-      log(`OTP failed. Attempt ${state.otpAttempts} of ${state.maxOtpAttempts}.`);
-      return;
-    }
-
-    state.otpVerified = true;
-    state.activeLayer = "service";
-
-    updateStatus("Verified", true);
-    toast("OTP verified. Moving to Service Authorization.");
-    log("OTP valid. Session created with token_hash and expiry.");
-    log("OTP marked used and destroyed after successful verification.");
-    log("Layer 1 is now inactive. Layer 2 is now active.");
-
-    renderScreen("service");
-  });
-}
-
-if (recoverBtn) {
-  recoverBtn.addEventListener("click", () => {
-    if (!isLayerAllowed("user")) return;
-
-    const email = document.querySelector("#recoverEmail").value.trim().toLowerCase();
-
-    if (!validateDomain(email)) return;
-
-    toast("Recovery code sent.");
-    log(`Recovery process started for ${email}.`);
-    log("Recovery OTP generated and sent to approved corporate email.");
-    renderScreen("verify");
-  });
-}
-
-if (openServiceBtn) {
-  openServiceBtn.addEventListener("click", () => {
-    if (!isLayerAllowed("service")) {
-      toast("Service Authorization is not active.");
-      return;
-    }
-
-    state.serviceAuthorized = true;
-    state.activeLayer = "order";
-
-    const requesterEmail = document.querySelector("#requesterEmail");
-    if (requesterEmail) requesterEmail.value = state.email;
-
-    toast("Opening Access Card Order Portal.");
-    log("Service authorized. Layer 2 is now inactive.");
-    log("Layer 3 opened: Access Card Order Portal.");
-
-    renderScreen("order");
-  });
-}
-
-if (submitOrderBtn) {
-  submitOrderBtn.addEventListener("click", () => {
-    if (!isLayerAllowed("order")) return;
-
-    toast("Access card request submitted.");
-    log("Access card request submitted and saved with tenant_id and user_id.");
-  });
-}
-
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
-    state.activeLayer = "user";
-    state.otpVerified = false;
-    state.serviceAuthorized = false;
-    state.otpAttempts = 0;
-
-    updateStatus("Not Verified", false);
-    toast("Logged out. Returning to User Authentication.");
-    log("Logout completed. Layer 1 is active. Layer 2 and Layer 3 are inactive.");
-
-    renderScreen("user");
-  });
-}
-
-if (clearLogBtn) {
-  clearLogBtn.addEventListener("click", () => {
-    auditLog.innerHTML = "";
-  });
-}
-
-updateStatus("Not Verified", false);
-renderScreen("user");
-log("User Authentication page loaded.");
-log("Layer 2 and Layer 3 are inactive until User Authentication is completed.");
+$("#loginForm").addEventListener("submit",e=>{e.preventDefault();const email=$("#email").value.trim().toLowerCase();if(!email.endsWith("@gov.mb.ca")){toast("This email domain is not approved for portal access.");audit("LOGIN_DENIED");return}user.email=email;user.authenticated=true;$("#otpEmail").textContent=email;audit("LOGIN_ACCEPTED");status("OTP required");showPage("otp")});
+$("#otpForm").addEventListener("submit",e=>{e.preventDefault();if($("#otpCode").value!=="248106"){toast("That code is incorrect. Please try again.");audit("OTP_FAILED");return}user.otpVerified=true;$("#sessionInfo").hidden=false;status("Verified",true);audit("OTP_VERIFIED");showPage("services")});
+$("#openServiceBtn").addEventListener("click",()=>{showPage("checking");audit("SERVICE_AUTHORIZATION_STARTED","tenant_service","access_card_ordering");const items=[...document.querySelectorAll("#checkList li")];items.forEach(x=>x.classList.remove("checked"));items.forEach((item,i)=>setTimeout(()=>item.classList.add("checked"),350*(i+1)));setTimeout(()=>{if(authorizeService()){loadTenantOptions();audit("SERVICE_AUTHORIZED","tenant_service","access_card_ordering");showPage("order")}else{audit("SERVICE_ACCESS_DENIED","tenant_service","access_card_ordering");showPage("denied")}},1900)});
+$("#orderForm").addEventListener("submit",e=>{e.preventDefault();const id=crypto.randomUUID();const reference=`ACO-${new Date().getFullYear()}-${String(referenceSequence++).padStart(6,"0")}`;localStorage.setItem("bg-reference-sequence",referenceSequence);const order={id,reference,tenant_id:tenant.id,submitted_by_user_id:user.id,cardholder_name:$("#cardholderName").value,cardholder_email:$("#cardholderEmail").value,employee_id:$("#employeeId").value,department:$("#department").value,site_name:$("#site").value,building_address:$("#building").value,floor:$("#floor").value,request_type:$("#requestType").value,access_level:$("#accessLevel").value,effective_date:$("#effectiveDate").value,expiry_date:$("#expiryDate").value||null,notes:$("#notes").value,status:"Submitted",created_at:new Date().toISOString()};const orders=JSON.parse(localStorage.getItem("bg-card-access-orders")||"[]");orders.unshift(order);localStorage.setItem("bg-card-access-orders",JSON.stringify(orders));audit("CREATE_ORDER","card_access_order",id);audit("CONFIRMATION_EMAIL_QUEUED","card_access_order",id);audit("STAFF_NOTIFICATION_QUEUED","card_access_order",id);$("#referenceNumber").textContent=reference;showPage("success")});
+$("#newOrderBtn").addEventListener("click",()=>{$("#orderForm").reset();loadTenantOptions();showPage("order")});
+$("#printBtn").addEventListener("click",()=>window.print());
+$("#logoutBtn").addEventListener("click",resetSession);
+document.querySelectorAll("[data-back-services]").forEach(b=>b.addEventListener("click",()=>showPage("services")));
+document.querySelectorAll(".journey-step").forEach((button,i)=>button.addEventListener("click",()=>{if(!button.classList.contains("locked"))showPage(steps[i])}));
+$("#effectiveDate").min=new Date().toISOString().slice(0,10);
+showPage("auth");

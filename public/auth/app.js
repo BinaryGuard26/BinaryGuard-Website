@@ -29,8 +29,6 @@ const layerText = {
 };
 
 const state = {
-  registered: false,
-  tenantVerified: false,
   otpVerified: false,
   serviceAuthorized: false,
   email: "john.smith@gov.mb.ca",
@@ -55,6 +53,7 @@ const verifyBtn = document.querySelector("#verifyBtn");
 const recoverBtn = document.querySelector("#recoverBtn");
 const openServiceBtn = document.querySelector("#openServiceBtn");
 const submitOrderBtn = document.querySelector("#submitOrderBtn");
+const logoutBtn = document.querySelector("#logoutBtn");
 
 function layerForScreen(name) {
   if (name === "order") return "order";
@@ -62,7 +61,18 @@ function layerForScreen(name) {
   return "tenant";
 }
 
-function showScreen(name) {
+function updateLayerLocks() {
+  flowButtons.forEach((button) => {
+    const flow = button.dataset.flow;
+    button.classList.remove("locked");
+
+    if (flow === "tenant" && state.otpVerified) button.classList.add("locked");
+    if (flow === "service" && (!state.otpVerified || state.serviceAuthorized)) button.classList.add("locked");
+    if (flow === "order" && !state.serviceAuthorized) button.classList.add("locked");
+  });
+}
+
+function renderScreen(name) {
   Object.entries(screens).forEach(([key, screen]) => {
     if (screen) screen.classList.toggle("active", key === name);
   });
@@ -72,8 +82,29 @@ function showScreen(name) {
     button.classList.toggle("active", button.dataset.flow === activeLayer);
   });
 
-  if (screenTitle) screenTitle.textContent = titles[name] || "User Authentication";
-  if (screenEyebrow) screenEyebrow.textContent = layerText[name] || "Layer 1 · User Authentication";
+  if (screenTitle) screenTitle.textContent = titles[name];
+  if (screenEyebrow) screenEyebrow.textContent = layerText[name];
+
+  updateLayerLocks();
+}
+
+function showScreen(name) {
+  if (name === "service" && !state.otpVerified) {
+    toast("Service Authorization is locked until OTP Verification is completed.");
+    return;
+  }
+
+  if (name === "order" && !state.serviceAuthorized) {
+    toast("Access Card Order Portal is locked until Service Authorization is completed.");
+    return;
+  }
+
+  if (["tenant", "register", "login", "verify", "recover"].includes(name) && state.otpVerified) {
+    toast("User Authentication is inactive after verification. Logout to start again.");
+    return;
+  }
+
+  renderScreen(name);
 }
 
 function log(message) {
@@ -90,7 +121,7 @@ function toast(message) {
   node.className = "toast";
   node.textContent = message;
   document.body.append(node);
-  window.setTimeout(() => node.remove(), 2800);
+  setTimeout(() => node.remove(), 2800);
 }
 
 function updateStatus(text, ok = false) {
@@ -110,10 +141,8 @@ function isApprovedDomain(email) {
 function validateDomain(email) {
   if (!email.includes("@")) {
     toast("Enter a valid corporate email address.");
-    log("User authentication stopped because email format was invalid.");
     return false;
   }
-
   if (!isApprovedDomain(email)) {
     toast("Your organization is not authorized. Please contact BinaryGuard.");
     log(`Access denied. Unauthorized domain attempted: ${email}`);
@@ -122,8 +151,6 @@ function validateDomain(email) {
 
   state.email = email;
   state.domain = getDomain(email);
-  state.tenantVerified = true;
-
   toast("Domain approved. OTP generated.");
   log(`Domain approved through allowed_domains: ${state.domain}.`);
   log("OTP generated and sent to approved corporate email.");
@@ -132,9 +159,7 @@ function validateDomain(email) {
 }
 
 function otpCode() {
-  return [...document.querySelectorAll("#codeInputs input")]
-    .map((input) => input.value)
-    .join("");
+  return [...document.querySelectorAll("#codeInputs input")].map((input) => input.value).join("");
 }
 
 document.querySelectorAll("[data-flow-target]").forEach((button) => {
@@ -143,25 +168,18 @@ document.querySelectorAll("[data-flow-target]").forEach((button) => {
 
 flowButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    if (button.dataset.flow === "service") {
-      if (!state.otpVerified) {
-        toast("Please complete OTP verification first.");
-        return;
-      }
-      showScreen("service");
+    const flow = button.dataset.flow;
+
+    if (button.classList.contains("locked")) {
+      if (flow === "tenant") toast("User Authentication is inactive after verification. Logout to start again.");
+      if (flow === "service") toast("Service Authorization is locked until OTP Verification is completed, or inactive after opening Layer 3.");
+      if (flow === "order") toast("Access Card Order Portal is locked until Service Authorization is completed.");
       return;
     }
 
-    if (button.dataset.flow === "order") {
-      if (!state.serviceAuthorized) {
-        toast("Please open the authorized service first.");
-        return;
-      }
-      showScreen("order");
-      return;
-    }
-
-    showScreen("tenant");
+    if (flow === "tenant") showScreen("tenant");
+    if (flow === "service") showScreen("service");
+    if (flow === "order") showScreen("order");
   });
 });
 
@@ -180,46 +198,31 @@ if (registerBtn) {
 
     if (!name || !organization) {
       toast("Enter full name and organization.");
-      log("Registration stopped because required identity details were missing.");
       return;
     }
 
     if (!validateDomain(email)) return;
-
-    state.registered = true;
-    document.querySelector("#loginEmail").value = email;
-    document.querySelector("#recoverEmail").value = email;
-
     log(`User record prepared for ${name} at ${organization}.`);
-    showScreen("verify");
+    renderScreen("verify");
   });
 }
 
 if (loginBtn) {
   loginBtn.addEventListener("click", () => {
     const email = document.querySelector("#loginEmail").value.trim().toLowerCase();
-
     if (!validateDomain(email)) return;
-
     log("Tenant status checked: active.");
     log("User status checked: active.");
-    showScreen("verify");
+    renderScreen("verify");
   });
 }
 
 if (verifyBtn) {
   verifyBtn.addEventListener("click", () => {
-    if (!state.tenantVerified) {
-      toast("Please register or login first.");
-      showScreen("tenant");
-      return;
-    }
-
     state.otpAttempts += 1;
 
     if (state.otpAttempts > state.maxOtpAttempts) {
       toast("OTP attempt limit exceeded.");
-      log("OTP verification blocked after maximum attempts.");
       return;
     }
 
@@ -231,29 +234,30 @@ if (verifyBtn) {
 
     state.otpVerified = true;
     updateStatus("Verified", true);
-
     toast("OTP verified. Moving to Service Authorization.");
     log("OTP valid. Session created with token_hash and expiry.");
     log("OTP marked used and destroyed after successful verification.");
-    showScreen("service");
+    renderScreen("service");
   });
 }
 
 if (recoverBtn) {
   recoverBtn.addEventListener("click", () => {
     const email = document.querySelector("#recoverEmail").value.trim().toLowerCase();
-
     if (!validateDomain(email)) return;
-
     toast("Recovery code sent.");
     log(`Recovery process started for ${email}.`);
-    log("Recovery OTP generated and sent to approved corporate email.");
-    showScreen("verify");
+    renderScreen("verify");
   });
 }
 
 if (openServiceBtn) {
   openServiceBtn.addEventListener("click", () => {
+    if (!state.otpVerified) {
+      toast("Please complete OTP Verification first.");
+      return;
+    }
+
     state.serviceAuthorized = true;
     toast("Opening Access Card Order Portal.");
     log("Layer 3 opened: Access Card Order Portal.");
@@ -261,7 +265,7 @@ if (openServiceBtn) {
     const requesterEmail = document.querySelector("#requesterEmail");
     if (requesterEmail) requesterEmail.value = state.email;
 
-    showScreen("order");
+    renderScreen("order");
   });
 }
 
@@ -272,6 +276,18 @@ if (submitOrderBtn) {
   });
 }
 
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    state.otpVerified = false;
+    state.serviceAuthorized = false;
+    state.otpAttempts = 0;
+    updateStatus("Awaiting Verification", false);
+    toast("Logged out. Returning to User Authentication.");
+    log("Session ended. User returned to Layer 1.");
+    renderScreen("tenant");
+  });
+}
+
 if (clearLogBtn) {
   clearLogBtn.addEventListener("click", () => {
     auditLog.innerHTML = "";
@@ -279,6 +295,6 @@ if (clearLogBtn) {
 }
 
 updateStatus("Awaiting Verification");
-showScreen("tenant");
+renderScreen("tenant");
 log("User Authentication page loaded.");
-log("Register, Login, Verify OTP, and Recover Access are ready.");
+log("Layer 2 and Layer 3 are locked until verification is completed.");

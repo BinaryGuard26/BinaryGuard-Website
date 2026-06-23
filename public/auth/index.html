@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>BinaryGuard Client Portal</title>
+  <title>BinaryGuard Portal + Admin CPanel</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
       <div class="brand"><span class="brand-mark">BG</span><div><strong>BinaryGuard</strong><small>Secure Client Portal</small></div></div>
       <div class="secure-chip"><span></span> portal.binaryguard.ca</div>
       <nav class="journey" aria-label="Portal progress">
-        <button class="journey-step active" data-nav="auth"><i>1</i><span><b>User Authentication</b><small>Corporate identity</small></span></button>
+        <button class="journey-step active" data-nav="auth"><i>1</i><span><b>User Authentication</b><small>Login or registration request</small></span></button>
         <button class="journey-step locked" data-nav="otp"><i>2</i><span><b>OTP Verification</b><small>One-time passcode</small></span></button>
         <button class="journey-step locked" data-nav="services"><i>3</i><span><b>Service Authorization</b><small>Tenant & role access</small></span></button>
         <button class="journey-step locked" data-nav="order"><i>4</i><span><b>Access Card Portal</b><small>Secure ordering</small></span></button>
@@ -23,17 +23,100 @@
     <main>
       <header class="topbar">
         <div><p class="eyebrow" id="eyebrow">SECURE ACCESS</p><h1 id="pageTitle">Welcome to BinaryGuard</h1></div>
-        <div class="session" id="sessionInfo" hidden><span class="avatar">JS</span><div><b>John Smith</b><small>Government of Manitoba</small></div><button id="logoutBtn" class="text-btn">Sign out</button></div>
+        <div class="session" id="sessionInfo" hidden><span class="avatar" id="sessionAvatar">JS</span><div><b id="sessionName">John Smith</b><small id="sessionOrg">Government of Manitoba</small></div><button id="logoutBtn" class="text-btn">Sign out</button></div>
         <span class="status" id="statusBadge"><i></i> Not verified</span>
       </header>
 
       <section class="page active" id="authPage">
         <div class="hero"><span class="hero-icon">→</span><div><p class="eyebrow">LAYER 1</p><h2>Corporate access login</h2><p>Use your approved organization email to enter the secure client portal.</p></div></div>
         <form id="loginForm" class="card compact">
-          <label>Corporate email address<input id="email" type="email" value="john.smith@gov.mb.ca" required autocomplete="email"></label>
+          <label>Corporate email address<input id="email" type="email" placeholder="approved.user@gov.mb.ca" required autocomplete="email"></label>
           <button class="primary" type="submit">Continue securely <span>→</span></button>
-          <p class="form-note">For this interactive prototype, use any address ending in <b>@gov.mb.ca</b>.</p>
+          <p class="form-note">Users cannot continue until an operator submits registration and an admin approves it in CPanel.</p>
+          <div class="split-actions">
+            <button class="text-btn" type="button" id="showRegisterBtn">Register company user</button>
+          </div>
         </form>
+      </section>
+
+      <section class="page" id="registerPage">
+        <div class="hero"><span class="hero-icon">+</span><div><p class="eyebrow">USER REGISTRATION</p><h2>Register a company user</h2><p>Organization operators can submit new user requests. Access is granted only after Admin CPanel approval.</p></div></div>
+        <form id="registrationForm" class="card">
+          <div class="form-grid">
+            <label>Operator name *<input id="operatorName" value="John Smith" required></label>
+            <label>Operator email *<input id="operatorEmail" type="email" value="john.smith@gov.mb.ca" required></label>
+            <label>Organization *<input id="registrationOrg" value="Government of Manitoba" readonly></label>
+            <label>Requested user role *<select id="requestedRole" required><option value="tenant_user">Company User</option><option value="manager">Manager</option></select></label>
+            <label>Company user full name *<input id="newUserName" placeholder="e.g. Sarah Ahmed" required></label>
+            <label>Company user email *<input id="newUserEmail" type="email" placeholder="sarah.ahmed@gov.mb.ca" required></label>
+            <label>Department *<input id="newUserDepartment" placeholder="Department name" required></label>
+            <label>Reason for access *<input id="registrationReason" placeholder="Why this user needs portal access" required></label>
+          </div>
+          <div class="approval-flow"><span>Operator submits request</span><i></i><span>Admin CPanel review</span><i></i><span>Account activated after approval</span></div>
+          <div class="form-actions"><p><span>✓</span> Creates a pending company-user registration request.</p><button class="secondary" type="button" data-back-auth>Back to login</button><button class="primary" type="submit">Submit registration request <span>→</span></button></div>
+        </form>
+      </section>
+
+      <section class="page" id="adminRegisterPage">
+        <div class="hero"><span class="hero-icon">A</span><div><p class="eyebrow">ADMIN REGISTRATION</p><h2>Request Admin CPanel access</h2><p>Admin users also require approval before they can control the portal.</p></div></div>
+        <form id="adminRegistrationForm" class="card">
+          <div class="form-grid">
+            <label>Full name *<input id="adminApplicantName" placeholder="e.g. Priya Chen" required></label>
+            <label>BinaryGuard work email *<input id="adminApplicantEmail" type="email" placeholder="priya@binaryguard.ca" required></label>
+            <label>Requested admin role *<select id="requestedAdminRole" required><option value="admin_operator">Admin Operator</option><option value="admin_manager">Admin Manager</option><option value="super_admin">Super Admin</option></select></label>
+            <label>Admin invitation code *<input id="adminInviteCode" placeholder="Provided by security lead" required></label>
+            <label>Sponsor / approver email *<input id="adminSponsorEmail" type="email" placeholder="security.lead@binaryguard.ca" required></label>
+            <label>Business justification *<input id="adminAccessReason" placeholder="Why CPanel access is required" required></label>
+          </div>
+          <label class="check-row"><input id="adminSecurityAck" type="checkbox" required> I understand Admin CPanel access can approve users, change services, and process orders.</label>
+          <div class="approval-flow"><span>Admin candidate submits request</span><i></i><span>Existing admin reviews</span><i></i><span>CPanel account activated</span></div>
+          <div class="form-actions"><p><span>✓</span> Admin access remains inactive until approved.</p><button class="secondary" type="button" data-back-auth>Back to login</button><button class="primary" type="submit">Submit admin request <span>→</span></button></div>
+        </form>
+      </section>
+
+      <section class="page" id="adminLoginPage">
+        <div class="hero"><span class="hero-icon">🔒</span><div><p class="eyebrow">ADMIN SECURE LOGIN</p><h2>Admin CPanel authentication</h2><p>Only active, approved admin users with MFA can open the control panel.</p></div></div>
+        <form id="adminLoginForm" class="card compact">
+          <label>Admin email<input id="adminLoginEmail" type="email" value="admin@binaryguard.ca" required autocomplete="username"></label>
+          <label>Password<input id="adminLoginPassword" type="password" value="Admin#2026!" required autocomplete="current-password"></label>
+          <label>MFA code<input id="adminMfaCode" inputmode="numeric" maxlength="6" value="864209" required></label>
+          <button class="primary" type="submit">Unlock Admin CPanel <span>→</span></button>
+          <p class="form-note">Prototype break-glass admin: <b>admin@binaryguard.ca</b>, password <b>Admin#2026!</b>, MFA <b>864209</b>.</p>
+          <div class="split-actions"><button class="text-btn" type="button" data-back-auth>Back to portal login</button><button class="text-btn" type="button" id="clearAdminSessionBtn">Lock admin session</button></div>
+        </form>
+      </section>
+
+      <section class="page" id="registrationSubmittedPage">
+        <div class="success-card"><span class="success-icon">✓</span><p class="eyebrow">REQUEST SENT</p><h2>Waiting for admin approval</h2><p>The account is not active yet. Admin approval is required before the user can access the system.</p><div class="reference"><small>REQUEST REFERENCE</small><strong id="registrationReference">REG-2026-000001</strong><span>Pending Approval</span></div><div class="success-actions"><button class="primary" id="goAdminReviewBtn">Open Admin CPanel</button><button class="secondary" data-back-auth>Return to login</button></div></div>
+      </section>
+
+      <section class="page" id="adminPage">
+        <div class="order-heading"><div><p class="eyebrow">ADMIN CPANEL</p><h2>Portal Control Panel</h2><p>Control registrations, users, services, dropdown data, access card orders, and audit logs from one protected place.</p></div><span class="draft" id="adminSessionBadge">admin.binaryguard.ca</span></div>
+        <div class="cpanel">
+          <aside class="cpanel-menu">
+            <button class="active" data-admin-tab="dashboard">Dashboard</button>
+            <button data-admin-tab="companyApprovals">Company approvals <b id="companyPendingBadge">0</b></button>
+            <button data-admin-tab="adminApprovals">Admin approvals <b id="adminPendingBadge">0</b></button>
+            <button data-admin-tab="users">Users</button>
+            <button data-admin-tab="adminUsers">Admin users</button>
+            <button data-admin-tab="orders">Access card orders</button>
+            <button data-admin-tab="services">Tenant services</button>
+            <button data-admin-tab="dropdowns">Dropdown options</button>
+            <button data-admin-tab="audit">Audit logs</button>
+            <button data-back-auth>Back to portal login</button>
+          </aside>
+          <section class="cpanel-content">
+            <div class="admin-tab active" id="admin-dashboard"></div>
+            <div class="admin-tab" id="admin-companyApprovals"></div>
+            <div class="admin-tab" id="admin-adminApprovals"></div>
+            <div class="admin-tab" id="admin-users"></div>
+            <div class="admin-tab" id="admin-adminUsers"></div>
+            <div class="admin-tab" id="admin-orders"></div>
+            <div class="admin-tab" id="admin-services"></div>
+            <div class="admin-tab" id="admin-dropdowns"></div>
+            <div class="admin-tab" id="admin-audit"></div>
+          </section>
+        </div>
       </section>
 
       <section class="page" id="otpPage">
@@ -46,16 +129,24 @@
       </section>
 
       <section class="page" id="servicesPage">
-        <div class="hero"><span class="hero-icon">⌘</span><div><p class="eyebrow">AUTHORIZED SERVICES</p><h2>Good morning, John</h2><p>Select a service available to Government of Manitoba.</p></div></div>
+        <div class="hero"><span class="hero-icon">⌘</span><div><p class="eyebrow">AUTHORIZED SERVICES</p><h2 id="serviceGreeting">Good morning, John</h2><p>Select a service available to <span id="serviceOrg">Government of Manitoba</span>.</p></div></div>
         <div class="service-grid">
           <article class="service-card featured"><div class="service-top"><span class="service-icon">▣</span><span class="approved">Enabled</span></div><h3>Access Card Ordering</h3><p>Request new, replacement, temporary, or updated access cards for your organization.</p><button class="primary" id="openServiceBtn">Open Access Card Ordering <span>→</span></button></article>
           <article class="service-card muted"><div class="service-top"><span class="service-icon">◉</span><span class="soon">Coming soon</span></div><h3>Camera Ordering</h3><p>Order security camera equipment and supporting services.</p></article>
           <article class="service-card muted"><div class="service-top"><span class="service-icon">◇</span><span class="soon">Coming soon</span></div><h3>Quote Requests</h3><p>Request a tailored quote from the BinaryGuard team.</p></article>
         </div>
+        <section class="client-dashboard">
+          <div class="dashboard-heading">
+            <div><p class="eyebrow">MY DASHBOARD</p><h2>Submitted requests</h2><p>Review, edit, modify, or delete your submitted access card requests.</p></div>
+            <button class="secondary" id="refreshClientDashboardBtn" type="button">Refresh</button>
+          </div>
+          <div id="clientRequestSummary" class="client-summary"></div>
+          <div id="clientRequests" class="client-request-list"></div>
+        </section>
       </section>
 
       <section class="page" id="checkingPage">
-        <div class="gate-card"><div class="spinner"></div><p class="eyebrow">SECURE CHECK</p><h2>Verifying service authorization</h2><p>We’re confirming your organization, service access, and role before loading the order form.</p><ul id="checkList"><li>Authenticated user</li><li>Active tenant</li><li>Access Card Ordering enabled</li><li>Authorized user role</li></ul></div>
+        <div class="gate-card"><div class="spinner"></div><p class="eyebrow">SECURE CHECK</p><h2>Verifying service authorization</h2><p>We’re confirming your account activation, organization, service access, and role before loading the order form.</p><ul id="checkList"><li>Authenticated user</li><li>Activated user account</li><li>Active tenant</li><li>Access Card Ordering enabled</li><li>Authorized user role</li></ul></div>
       </section>
 
       <section class="page" id="deniedPage">
@@ -63,19 +154,20 @@
       </section>
 
       <section class="page" id="orderPage">
-        <div class="order-heading"><div><p class="eyebrow">ACCESS CARD ORDERING</p><h2>New access card request</h2><p>Complete the details below. Required fields are marked with an asterisk.</p></div><span class="draft">Secure form</span></div>
+        <div class="order-heading"><div><p class="eyebrow">ACCESS CARD ORDERING</p><h2 id="orderFormTitle">New access card request</h2><p id="orderFormHelp">Complete the details below. Required fields are marked with an asterisk.</p></div><span class="draft" id="orderModeBadge">Secure form</span></div>
         <form id="orderForm">
-          <section class="form-section"><div class="section-title"><span>01</span><div><h3>Requester</h3><p>Loaded from your secure account</p></div><b class="readonly-pill">Read only</b></div><div class="identity-grid"><div><small>Requester</small><strong>John Smith</strong></div><div><small>Email</small><strong>john.smith@gov.mb.ca</strong></div><div><small>Organization</small><strong>Government of Manitoba</strong></div></div></section>
+          <section class="form-section"><div class="section-title"><span>01</span><div><h3>Requester</h3><p>Loaded from your secure account</p></div><b class="readonly-pill">Read only</b></div><div class="identity-grid"><div><small>Requester</small><strong id="requesterName">John Smith</strong></div><div><small>Email</small><strong id="requesterEmail">john.smith@gov.mb.ca</strong></div><div><small>Organization</small><strong id="requesterOrg">Government of Manitoba</strong></div></div></section>
           <section class="form-section"><div class="section-title"><span>02</span><div><h3>Request information</h3><p>Tell us what kind of card request this is</p></div></div><div class="form-grid"><label>Request type *<select id="requestType" data-options="request_type" required></select></label></div></section>
           <section class="form-section"><div class="section-title"><span>03</span><div><h3>Cardholder information</h3><p>Who is this access card for?</p></div></div><div class="form-grid"><label>Cardholder name *<input id="cardholderName" required placeholder="Full legal name"></label><label>Cardholder email *<input id="cardholderEmail" type="email" required placeholder="name@gov.mb.ca"></label><label>Employee ID *<input id="employeeId" required placeholder="e.g. 104582"></label><label>Department *<input id="department" required placeholder="Department name"></label></div></section>
           <section class="form-section"><div class="section-title"><span>04</span><div><h3>Site & access</h3><p>Tenant-specific options are loaded automatically</p></div></div><div class="form-grid"><label>Site *<select id="site" data-options="site" required></select></label><label>Building *<select id="building" data-options="building" required></select></label><label>Floor<input id="floor" placeholder="e.g. 3"></label><label>Access level *<select id="accessLevel" data-options="access_level" required></select></label><label>Effective date *<input id="effectiveDate" type="date" required></label><label>Expiry date <span class="optional">Optional</span><input id="expiryDate" type="date"></label></div></section>
           <section class="form-section"><div class="section-title"><span>05</span><div><h3>Additional information</h3><p>Include details that will help us process the request</p></div></div><label>Notes <span class="optional">Optional</span><textarea id="notes" placeholder="Special access requirements, delivery instructions, or other details"></textarea></label></section>
           <div class="form-actions"><p><span>✓</span> Submission creates a secure audit record.</p><button class="primary" type="submit">Submit access card order <span>→</span></button></div>
+          <div class="edit-return"><button class="secondary" type="button" id="cancelOrderEditBtn">Back to dashboard</button></div>
         </form>
       </section>
 
       <section class="page" id="successPage">
-        <div class="success-card"><span class="success-icon">✓</span><p class="eyebrow">ORDER SUBMITTED</p><h2>Your request is on its way</h2><p>A confirmation has been sent to <b>john.smith@gov.mb.ca</b>. The processing team has also been notified.</p><div class="reference"><small>REFERENCE NUMBER</small><strong id="referenceNumber">ACO-2026-000145</strong><span>Submitted</span></div><div class="success-actions"><button class="primary" id="newOrderBtn">Create another order</button><button class="secondary" id="printBtn">Print confirmation</button></div></div>
+        <div class="success-card"><span class="success-icon">✓</span><p class="eyebrow">ORDER SUBMITTED</p><h2>Your request is on its way</h2><p>A confirmation has been sent to <b id="confirmationEmail">john.smith@gov.mb.ca</b>. The processing team has also been notified.</p><div class="reference"><small>REFERENCE NUMBER</small><strong id="referenceNumber">ACO-2026-000145</strong><span>Submitted</span></div><div class="success-actions"><button class="primary" id="newOrderBtn">Create another order</button><button class="secondary" id="printBtn">Print confirmation</button></div></div>
       </section>
 
       <div class="toast" id="toast" role="status" aria-live="polite"></div>

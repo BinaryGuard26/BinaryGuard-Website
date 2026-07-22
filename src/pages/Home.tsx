@@ -203,21 +203,86 @@ export default function Home({ onNavigate }: HomeProps) {
   return (
     <div className="bg-[#030d1f] min-h-screen">
       <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/Home.jpg"
-            className="w-full h-full object-cover object-center"
-          >
-            <source src="/home-hero-background.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-[#020816]/30" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#020816]/95 via-[#020816]/82 to-[#020816]/45" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.12),transparent_28%)]" />
+        <style>{`
+          @keyframes heroKenBurns {
+            0% { transform: scale(1.04) translate3d(0, 0, 0); }
+            50% { transform: scale(1.10) translate3d(-1.5%, -1%, 0); }
+            100% { transform: scale(1.06) translate3d(1%, -0.5%, 0); }
+          }
+
+          @keyframes heroGridDrift {
+            from { background-position: 0 0, 0 0; }
+            to { background-position: 90px 60px, -70px 50px; }
+          }
+
+          @keyframes heroOrbFloat {
+            0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.22; }
+            50% { transform: translate3d(35px, -28px, 0) scale(1.16); opacity: 0.45; }
+          }
+
+          @keyframes heroScan {
+            0% { transform: translateY(-120%); opacity: 0; }
+            12% { opacity: 0.25; }
+            88% { opacity: 0.18; }
+            100% { transform: translateY(120vh); opacity: 0; }
+          }
+
+          .hero-bg-kenburns {
+            animation: heroKenBurns 24s ease-in-out infinite alternate;
+            will-change: transform;
+          }
+
+          .hero-grid-drift {
+            background-image:
+              linear-gradient(rgba(34, 211, 238, 0.055) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(34, 211, 238, 0.055) 1px, transparent 1px);
+            background-size: 90px 90px;
+            animation: heroGridDrift 28s linear infinite;
+            mask-image: linear-gradient(to right, transparent 0%, black 35%, black 100%);
+          }
+
+          .hero-orb {
+            animation: heroOrbFloat 10s ease-in-out infinite;
+            will-change: transform, opacity;
+          }
+
+          .hero-orb-delay { animation-delay: -4s; }
+
+          .hero-scan-line {
+            animation: heroScan 12s linear infinite;
+            will-change: transform, opacity;
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .hero-bg-kenburns,
+            .hero-grid-drift,
+            .hero-orb,
+            .hero-scan-line {
+              animation: none !important;
+            }
+          }
+        `}</style>
+
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <img
+            src="/binaryguard-hero-background.png"
+            alt=""
+            aria-hidden="true"
+            className="hero-bg-kenburns absolute inset-0 h-full w-full object-cover object-center"
+          />
+
+          <div className="absolute inset-0 bg-[#020816]/25" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#020816]/95 via-[#020816]/82 to-[#020816]/30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#020816]/10 via-transparent to-[#020816]/70" />
+
+          <div className="hero-grid-drift absolute inset-0 opacity-60" />
+
+          <div className="hero-orb absolute -right-20 top-[18%] h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
+          <div className="hero-orb hero-orb-delay absolute left-[42%] bottom-[8%] h-56 w-56 rounded-full bg-blue-500/10 blur-3xl" />
+
+          <div className="hero-scan-line absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/50 to-transparent shadow-[0_0_18px_rgba(34,211,238,0.45)]" />
+
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.16),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(59,130,246,0.14),transparent_30%)]" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center">

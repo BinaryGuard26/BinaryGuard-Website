@@ -204,20 +204,14 @@ export default function Home({ onNavigate }: HomeProps) {
     <div className="bg-[#030d1f] min-h-screen">
       <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/Home.jpg"
-            className="w-full h-full object-cover object-center"
-          >
-            <source src="/home-hero-background.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-[#020816]/30" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#020816]/95 via-[#020816]/82 to-[#020816]/45" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.12),transparent_28%)]" />
+          <img
+            src="/security-operations-background.png"
+            alt="BinaryGuard security operations centre"
+            className="w-full h-full object-cover object-center brightness-125 contrast-110 saturate-125 scale-105"
+          />
+          <div className="absolute inset-0 bg-[#020816]/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#020816]/60 via-[#020816]/35 to-[#020816]/10" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.08),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.06),transparent_35%)]" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
@@ -274,7 +268,7 @@ export default function Home({ onNavigate }: HomeProps) {
           </div>
 
           <div className="lg:justify-self-end w-full max-w-md">
-            <div className="rounded-[28px] border border-white/15 bg-white/10 backdrop-blur-md p-6 shadow-2xl shadow-cyan-950/20">
+            <div className="rounded-[28px] border border-white/15 bg-[#1E293B]/75 backdrop-blur-md p-6 shadow-2xl shadow-cyan-950/20">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-2xl bg-cyan-400/15 text-cyan-300 flex items-center justify-center">
                   <Shield size={24} />

@@ -204,20 +204,14 @@ export default function Home({ onNavigate }: HomeProps) {
     <div className="bg-[#030d1f] min-h-screen">
       <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/Home.jpg"
+          <img
+            src="/security-operations-background.png"
+            alt="BinaryGuard security operations centre"
             className="w-full h-full object-cover object-center"
-          >
-            <source src="/home-hero-background.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-[#020816]/30" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#020816]/95 via-[#020816]/82 to-[#020816]/45" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.12),transparent_28%)]" />
+          />
+          <div className="absolute inset-0 bg-[#020816]/35" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#020816]/95 via-[#020816]/80 to-[#020816]/35" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.14),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.08),transparent_30%)]" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center">

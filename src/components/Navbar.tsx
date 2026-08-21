@@ -1,37 +1,38 @@
 import { useState } from 'react';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, UserRound } from 'lucide-react';
 
-type Page =
+export type NavbarPage =
   | 'home'
   | 'about'
   | 'services'
+  | 'products'
   | 'contact'
   | 'solutions'
-  | 'access-card-portal';
+  | 'access-control';
 
 interface NavbarProps {
-  currentPage: Page;
-  onNavigate: (page: Page) => void;
+  currentPage: NavbarPage;
+  onNavigate: (page: NavbarPage) => void;
 }
 
-const taglines: Record<Page, string> = {
+const taglines: Record<NavbarPage, string> = {
   home: 'Securing Your Premises. Empowering Your Business.',
   about: 'Smart Security and IT Solutions for a Connected World',
   services: 'Reliable Services. Real Results.',
+  products: 'Enterprise-Grade Physical Security Products',
   contact: 'Connect with Our IT & Security Specialists',
   solutions: 'Enterprise-Grade Security and IT Solutions',
   'access-control': 'Access Card Ordering Portal',
-  'access-card-portal': 'Secure Access Control Portal',
 };
 
-const mainNavLinks: { label: string; page: Page }[] = [
+const mainNavLinks: { label: string; page: NavbarPage }[] = [
   { label: 'HOME', page: 'home' },
   { label: 'ABOUT US', page: 'about' },
   { label: 'SOLUTIONS', page: 'solutions' },
   { label: 'SERVICES', page: 'services' },
 ];
 
-const productLinks: { label: string; page: Page }[] = [
+const productLinks: { label: string; page: NavbarPage }[] = [
   { label: 'Access Control', page: 'access-control' },
 ];
 
@@ -39,13 +40,17 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
 
-  const handleNavigate = (page: Page) => {
+  const handleNavigate = (page: NavbarPage) => {
     onNavigate(page);
     setMobileOpen(false);
     setMobileProductsOpen(false);
   };
 
   const isProductActive = productLinks.some((link) => link.page === currentPage);
+
+  const openSecureAccess = () => {
+    window.location.assign('/dashboard');
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#030d1f]/95 backdrop-blur-sm border-b border-white/10">
@@ -128,14 +133,26 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           {taglines[currentPage]}
         </p>
 
-        <button
-          type="button"
-          className="md:hidden text-white"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle navigation menu"
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={openSecureAccess}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 text-cyan-300 transition hover:border-cyan-300 hover:bg-cyan-400/20 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
+            aria-label="Open BinaryGuard secure login"
+            title="Secure login"
+          >
+          <UserRound size={21} strokeWidth={1.8} aria-hidden="true" />
+          </button>
+
+          <button
+            type="button"
+            className="md:hidden text-white"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {mobileOpen && (

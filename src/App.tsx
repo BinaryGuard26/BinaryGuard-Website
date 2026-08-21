@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Navbar from './components/Navbar';
+import Navbar, { type NavbarPage } from './components/Navbar';
 import Home from './pages/Home';
 import About from './pages/About';
 import Solutions from './pages/Solutions';
@@ -10,8 +10,9 @@ import FeedbackPage from './pages/feedback';
 import AccessCardLogin from './pages/AccessCardLogin';
 import OtpVerify from './pages/OtpVerify';
 import AccessCardOrderForm from './pages/AccessCardOrderForm';
+import AccessDashboard from './pages/AccessDashboard';
 
-type PublicPage = 'home' | 'about' | 'services' | 'products' | 'contact' | 'solutions' | 'access-control';
+type PublicPage = NavbarPage;
 
 type PortalPage =
   | 'portal-login'
@@ -20,6 +21,7 @@ type PortalPage =
   | 'portal-access-card-order';
 
 type LegacyAccessCardPage =
+  | 'access-card-portal'
   | 'access-card-login'
   | 'otp-verify'
   | 'access-card-order-form';
@@ -82,20 +84,31 @@ function PortalDashboard({ onNavigate }: { onNavigate: (page: Page) => void }) {
 }
 
 export default function App() {
+  const isAccessDashboard =
+    window.location.pathname === '/dashboard' ||
+    window.location.pathname.startsWith('/dashboard/');
+
   const [currentPage, setCurrentPage] = useState<Page>('home');
 
-  const navigate = (page: Page) => {
-    setCurrentPage(page);
+  const navigate = (page: string) => {
+    setCurrentPage(page as Page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
+    if (isAccessDashboard) {
+      document.title = 'Secure Access – BinaryGuard';
+      return;
+    }
+
     const titles: Record<Page, string> = {
       home: 'BinaryGuard – Securing Your Premises',
       about: 'About Us – BinaryGuard',
       solutions: 'Solutions – BinaryGuard',
       services: 'Services – BinaryGuard',
-            'access-card-portal': 'Access Control – BinaryGuard',
+      products: 'Products – BinaryGuard',
+      'access-control': 'Access Control – BinaryGuard',
+      'access-card-portal': 'Access Control – BinaryGuard',
       contact: 'Contact Us – BinaryGuard',
       feedback: 'Client Feedback – BinaryGuard',
 
@@ -112,7 +125,7 @@ export default function App() {
     };
 
     document.title = titles[currentPage];
-  }, [currentPage]);
+  }, [currentPage, isAccessDashboard]);
 
   const isPortalPage =
     currentPage === 'feedback' ||
@@ -125,7 +138,13 @@ export default function App() {
     currentPage === 'otp-verify' ||
     currentPage === 'access-card-order-form';
 
-  const navbarCurrentPage: PublicPage = isPortalPage ? 'access-control' : currentPage;
+  const navbarCurrentPage: PublicPage = isPortalPage
+    ? 'access-control'
+    : (currentPage as PublicPage);
+
+  if (isAccessDashboard) {
+    return <AccessDashboard />;
+  }
 
   return (
     <div className="bg-[#030d1f]">

@@ -12,7 +12,7 @@ import OtpVerify from './pages/OtpVerify';
 import AccessCardOrderForm from './pages/AccessCardOrderForm';
 import AccessDashboard from './pages/AccessDashboard';
 
-type PublicPage = NavbarPage;
+type PublicPage = Exclude<NavbarPage, 'products'>;
 
 type PortalPage =
   | 'portal-login'
@@ -106,7 +106,6 @@ export default function App() {
       about: 'About Us – BinaryGuard',
       solutions: 'Solutions – BinaryGuard',
       services: 'Services – BinaryGuard',
-      products: 'Products – BinaryGuard',
       'access-control': 'Access Control – BinaryGuard',
       'access-card-portal': 'Access Control – BinaryGuard',
       contact: 'Contact Us – BinaryGuard',

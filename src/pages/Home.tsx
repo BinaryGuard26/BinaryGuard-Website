@@ -20,7 +20,7 @@ import {
 import Footer from '../components/Footer';
 import { supabase } from '../lib/supabase';
 
-type Page = 'home' | 'about' | 'services' | 'products' | 'contact' | 'solutions' | 'feedback';
+type Page = 'home' | 'about' | 'services' | 'contact' | 'solutions' | 'feedback';
 
 interface HomeProps {
   onNavigate: (page: Page) => void;

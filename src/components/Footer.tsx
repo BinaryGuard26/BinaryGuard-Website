@@ -131,4 +131,3 @@ export default function Footer({ onNavigate }: FooterProps) {
       )}
     </footer>
   );
-}

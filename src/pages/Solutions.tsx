@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 import Footer from '../components/Footer';
 
-type Page = 'home' | 'about' | 'services' | 'products' | 'contact' | 'solutions';
+type Page = 'home' | 'about' | 'services' | 'contact' | 'solutions';
 
 interface SolutionsProps {
   onNavigate: (page: Page) => void;

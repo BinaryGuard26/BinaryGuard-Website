@@ -27,9 +27,9 @@ interface HomeProps {
 }
 
 const trustMetrics = [
-  { value: '24/7', label: 'Monitoring & support' },
-  { value: '< 1 Day', label: 'Typical first response' },
-  { value: 'End-to-End', label: 'Security + IT delivery' },
+  { value: 'Security + IT', label: 'Integrated delivery' },
+  { value: 'Multi-Site', label: 'Scalable architecture' },
+  { value: 'Lifecycle', label: 'Plan, deploy, support' },
 ];
 
 const pillars = [
@@ -221,25 +221,15 @@ export default function Home({ onNavigate }: HomeProps) {
             </span>
 
               <h1 className="max-w-4xl text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.05] mb-4">
-                <span className="block">
-                  Enterprise-Grade
-                </span>
-
-                <span className="block">
-                  Physical Security,
-                </span>
-
-                <span className="block text-cyan-400 mt-3 text-3xl md:text-5xl lg:text-[58px] whitespace-nowrap">
-                  IT &amp; Infrastructure
-                  <br />
-                  Solutions
-                </span>
+                Integrated Security &amp;
+                <span className="block text-cyan-400 mt-2">IT Infrastructure</span>
+                <span className="block mt-2">for Modern Organizations</span>
               </h1>
 
             <p className="max-w-3xl text-base md:text-lg text-gray-300 leading-8 mb-8">
-              BinaryGuard delivers integrated physical security and IT solutions that improve
-              visibility, resilience, and operational control—designed for businesses that need
-              dependable systems and a professional long-term partner.
+              BinaryGuard designs, deploys, and supports integrated physical security and IT
+              environments that improve visibility, resilience, and operational control—from a
+              single site to multi-location enterprise operations.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-10">
@@ -247,7 +237,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 onClick={() => onNavigate('contact')}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 hover:bg-cyan-400 text-white font-semibold px-7 py-3.5 transition-all"
               >
-                Get Free Consultation <ArrowRight size={18} />
+                Request a Consultation <ArrowRight size={18} />
               </button>
               <button
                 onClick={() => onNavigate('solutions')}
@@ -274,7 +264,7 @@ export default function Home({ onNavigate }: HomeProps) {
                   <Shield size={24} />
                 </div>
                 <div>
-                  <p className="text-white font-semibold">Top-class delivery focus</p>
+                  <p className="text-white font-semibold">Enterprise delivery focus</p>
                   <p className="text-gray-400 text-sm">Security, IT, support, and deployment aligned.</p>
                 </div>
               </div>
@@ -309,9 +299,12 @@ export default function Home({ onNavigate }: HomeProps) {
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-2xl mb-12">
             <span className="text-cyan-400 text-sm font-semibold tracking-[0.22em]">WHY BINARYGUARD</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">A more premium standard for security and IT delivery</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">
+              One partner across security, infrastructure, and support
+            </h2>
             <p className="text-gray-400 leading-8">
-              We combine practical engineering, modern design thinking, and responsive support so your business gets a solution that performs well today and scales with tomorrow.
+              We bring physical security, networking, cloud, and ongoing technical support into one
+              coordinated delivery model—reducing complexity and improving accountability.
             </p>
           </div>
 
@@ -334,7 +327,9 @@ export default function Home({ onNavigate }: HomeProps) {
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
             <div className="max-w-2xl">
               <span className="text-cyan-400 text-sm font-semibold tracking-[0.22em]">CORE CAPABILITIES</span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">Solutions built for real operations</h2>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">
+                Core solutions for secure, connected operations
+              </h2>
               <p className="text-gray-400 leading-8">
                 From enterprise protection to modern workplace infrastructure, we design and deploy systems that help businesses operate with confidence.
               </p>
@@ -374,7 +369,9 @@ export default function Home({ onNavigate }: HomeProps) {
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 items-center">
           <div>
             <span className="text-cyan-400 text-sm font-semibold tracking-[0.22em]">OUR PROCESS</span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-5">A delivery model that keeps projects clear and controlled</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-5">
+              A clear delivery model from assessment to support
+            </h2>
             <p className="text-gray-400 leading-8 mb-8">
               We keep projects structured from first consultation through post-deployment support, helping reduce risk and improve outcomes for stakeholders, users, and operations teams.
             </p>
@@ -410,7 +407,9 @@ export default function Home({ onNavigate }: HomeProps) {
             </div>
             <div className="p-8 md:p-10 lg:p-12">
               <span className="text-cyan-400 text-sm font-semibold tracking-[0.22em]">BUSINESS READY</span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-5">Built for organizations that need confidence, not complexity</h2>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-5">
+                Built for organizations that need control, visibility, and scale
+              </h2>
               <p className="text-gray-400 leading-8 mb-8">
                 Whether you are upgrading a site, standardizing multiple locations, or modernizing your infrastructure, BinaryGuard helps you move forward with a solution that is secure, scalable, and professionally delivered.
               </p>
@@ -484,7 +483,7 @@ export default function Home({ onNavigate }: HomeProps) {
         <div className="max-w-7xl mx-auto px-6">
           <div className="rounded-[32px] border border-cyan-400/20 bg-gradient-to-r from-cyan-500/10 via-white/5 to-cyan-500/10 p-8 md:p-10 lg:p-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
             <div className="max-w-2xl">
-              <span className="text-cyan-400 text-sm font-semibold tracking-[0.22em]">START YOUR NEXT PROJECT</span>
+              <span className="text-cyan-400 text-sm font-semibold tracking-[0.22em]">PLAN YOUR NEXT PROJECT</span>
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">Ready to upgrade your security and IT environment?</h2>
               <p className="text-gray-300 leading-8">
                 Let’s plan a solution that fits your business, site conditions, operational goals, and future growth.

@@ -1,7 +1,7 @@
 import { ClipboardList, PenTool, Truck, Wrench, Activity, MessageSquare, ArrowRight } from 'lucide-react';
 import Footer from '../components/Footer';
 
-type Page = 'home' | 'about' | 'services' | 'products' | 'contact' | 'solutions';
+type Page = 'home' | 'about' | 'services' | 'contact' | 'solutions';
 
 interface ServicesProps {
   onNavigate: (page: Page) => void;

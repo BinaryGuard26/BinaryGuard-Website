@@ -6,8 +6,7 @@ export type NavbarPage =
   | 'about'
   | 'services'
   | 'contact'
-  | 'solutions'
-;
+  | 'solutions';
 
 interface NavbarProps {
   currentPage: NavbarPage;
@@ -38,7 +37,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   };
 
   const openSecureAccess = () => {
-    window.location.assign('/dashboard');
+    window.location.assign('https://portal.binaryguard.ca');
   };
 
   return (
@@ -72,8 +71,6 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             </button>
           ))}
 
-
-
           <button
             type="button"
             onClick={() => handleNavigate('contact')}
@@ -99,7 +96,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             aria-label="Open BinaryGuard secure login"
             title="Secure login"
           >
-          <UserRound size={21} strokeWidth={1.8} aria-hidden="true" />
+            <UserRound size={21} strokeWidth={1.8} aria-hidden="true" />
           </button>
 
           <button
@@ -121,20 +118,22 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
               key={page}
               onClick={() => handleNavigate(page)}
               className={`text-xs font-semibold tracking-widest text-left transition-colors ${
-                currentPage === page ? 'text-cyan-400' : 'text-gray-300 hover:text-cyan-400'
+                currentPage === page
+                  ? 'text-cyan-400'
+                  : 'text-gray-300 hover:text-cyan-400'
               }`}
             >
               {label}
             </button>
           ))}
 
-
-
           <button
             type="button"
             onClick={() => handleNavigate('contact')}
             className={`text-xs font-semibold tracking-widest text-left transition-colors ${
-              currentPage === 'contact' ? 'text-cyan-400' : 'text-gray-300 hover:text-cyan-400'
+              currentPage === 'contact'
+                ? 'text-cyan-400'
+                : 'text-gray-300 hover:text-cyan-400'
             }`}
           >
             CONTACT US

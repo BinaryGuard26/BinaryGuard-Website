@@ -5,14 +5,13 @@ import About from './pages/About';
 import Solutions from './pages/Solutions';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
-import AccessControl from './pages/AccessControl';
 import FeedbackPage from './pages/feedback';
 import AccessCardLogin from './pages/AccessCardLogin';
 import OtpVerify from './pages/OtpVerify';
 import AccessCardOrderForm from './pages/AccessCardOrderForm';
 import AccessDashboard from './pages/AccessDashboard';
 
-type PublicPage = Exclude<NavbarPage, 'products'>;
+type PublicPage = NavbarPage;
 
 type PortalPage =
   | 'portal-login'
@@ -106,7 +105,6 @@ export default function App() {
       about: 'About Us – BinaryGuard',
       solutions: 'Solutions – BinaryGuard',
       services: 'Services – BinaryGuard',
-      'access-control': 'Access Control – BinaryGuard',
       'access-card-portal': 'Access Control – BinaryGuard',
       contact: 'Contact Us – BinaryGuard',
       feedback: 'Client Feedback – BinaryGuard',
@@ -138,7 +136,7 @@ export default function App() {
     currentPage === 'access-card-order-form';
 
   const navbarCurrentPage: PublicPage = isPortalPage
-    ? 'access-control'
+    ? 'home'
     : (currentPage as PublicPage);
 
   if (isAccessDashboard) {
@@ -155,7 +153,6 @@ export default function App() {
       {currentPage === 'services' && <Services onNavigate={navigate} />}
       {currentPage === 'contact' && <Contact onNavigate={navigate} />}
       {currentPage === 'feedback' && <FeedbackPage onNavigate={navigate} />}
-      {currentPage === 'access-control' && <AccessControl onNavigate={navigate} />}
 
       {(currentPage === 'access-card-portal' || currentPage === 'portal-login' || currentPage === 'access-card-login') && (
         <AccessCardLogin onNavigate={navigate} />

@@ -37,7 +37,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   };
 
   const openSecureAccess = () => {
-    window.location.assign('https://portal.binaryguard.ca');
+    window.location.assign('https://login.binaryguard.ca');
   };
 
   return (

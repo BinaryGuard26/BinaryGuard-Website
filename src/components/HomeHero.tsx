@@ -1,15 +1,8 @@
 import {
   ArrowRight,
-  Building2,
-  Clock3,
-  Factory,
-  GraduationCap,
-  Hospital,
-  Landmark,
+  Clock,
   MapPin,
-  ShieldCheck,
-  ShoppingCart,
-  Zap,
+  Shield,
 } from 'lucide-react';
 
 type HeroPage = 'contact' | 'solutions';
@@ -19,20 +12,20 @@ interface HomeHeroProps {
 }
 
 const metrics = [
-  { icon: ShieldCheck, value: '500+', label: 'Projects\nDelivered' },
-  { icon: Clock3, value: '24/7', label: 'Monitoring\n& Support' },
-  { icon: Zap, value: '< 1 DAY', label: 'Typical First\nResponse' },
-  { icon: ShieldCheck, value: '99.9%', label: 'System\nAvailability' },
+  { icon: Shield, value: '500+', label: 'Projects\nDelivered' },
+  { icon: Clock, value: '24/7', label: 'Monitoring\n& Support' },
+  { icon: Clock, value: '< 1 DAY', label: 'Typical First\nResponse' },
+  { icon: Shield, value: '99.9%', label: 'System\nAvailability' },
   { icon: MapPin, value: 'CANADA', label: 'Nationwide\nService' },
 ];
 
 const sectors = [
-  { icon: Landmark, line1: 'GOVERNMENT', line2: 'OF CANADA' },
-  { icon: GraduationCap, line1: 'EDUCATION', line2: 'INSTITUTIONS' },
-  { icon: Hospital, line1: 'HEALTHCARE', line2: 'PROVIDERS' },
-  { icon: Building2, line1: 'COMMERCIAL', line2: 'BUILDINGS' },
-  { icon: ShoppingCart, line1: 'RETAIL', line2: 'BUSINESSES' },
-  { icon: Factory, line1: 'INDUSTRIAL', line2: 'FACILITIES' },
+  ['GOVERNMENT', 'OF CANADA'],
+  ['EDUCATION', 'INSTITUTIONS'],
+  ['HEALTHCARE', 'PROVIDERS'],
+  ['COMMERCIAL', 'BUILDINGS'],
+  ['RETAIL', 'BUSINESSES'],
+  ['INDUSTRIAL', 'FACILITIES'],
 ];
 
 function Sparkline() {
@@ -44,6 +37,14 @@ function Sparkline() {
         stroke="currentColor"
         strokeWidth="2"
       />
+    </svg>
+  );
+}
+
+function SectorIcon() {
+  return (
+    <svg viewBox="0 0 32 32" className="h-8 w-8 shrink-0" fill="none" aria-hidden="true">
+      <path d="M5 27h22M8 27V12h16v15M11 12V8h10v4M12 17h2m4 0h2m-8 4h2m4 0h2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
     </svg>
   );
 }
@@ -169,7 +170,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
                 <div className="rounded border border-white/5 bg-[#071829]/80 p-3">
                   <p className="text-[9px] text-slate-400">ACCESS CONTROL</p>
                   <p className="mt-3 text-[10px] text-emerald-400">All Systems</p>
-                  <p className="text-[11px] font-semibold text-cyan-300">0 Secure</p>
+                  <p className="text-[11px] font-semibold text-cyan-300">Secure</p>
                 </div>
 
                 <div className="rounded border border-white/5 bg-[#071829]/80 p-3 text-cyan-400">
@@ -209,9 +210,9 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
         </p>
 
         <div className="mx-auto grid max-w-[1450px] grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
-          {sectors.map(({ icon: Icon, line1, line2 }) => (
+          {sectors.map(([line1, line2]) => (
             <div key={line1} className="flex items-center gap-3 text-slate-400">
-              <Icon size={31} strokeWidth={1.35} className="shrink-0" />
+              <SectorIcon />
               <div className="text-[10px] font-semibold leading-[1.25] tracking-wide sm:text-[11px]">
                 <p>{line1}</p>
                 <p>{line2}</p>

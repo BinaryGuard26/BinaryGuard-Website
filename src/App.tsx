@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Navbar, { type NavbarPage } from './components/Navbar';
+import HomeHero from './components/HomeHero';
 import Home from './pages/Home';
 import About from './pages/About';
 import Solutions from './pages/Solutions';
@@ -41,7 +42,14 @@ export default function App() {
     <div className="bg-[#030d1f]">
       <Navbar currentPage={navbarCurrentPage} onNavigate={navigate} />
 
-      {currentPage === 'home' && <Home onNavigate={navigate} />}
+      {currentPage === 'home' && (
+        <div className="home-page-shell">
+          <HomeHero onNavigate={navigate} />
+          <div className="home-existing-content">
+            <Home onNavigate={navigate} />
+          </div>
+        </div>
+      )}
       {currentPage === 'about' && <About onNavigate={navigate} />}
       {currentPage === 'solutions' && <Solutions onNavigate={navigate} />}
       {currentPage === 'services' && <Services onNavigate={navigate} />}

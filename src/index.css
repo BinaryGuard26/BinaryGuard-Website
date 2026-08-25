@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* The homepage now renders a dedicated redesigned hero before the existing Home page.
-   Hide only the legacy hero section while preserving every remaining homepage section. */
+/* Homepage uses the dedicated HomeHero component before the remaining Home page sections. */
 .home-existing-content > div > section:first-child {
   display: none;
+}
+
+/* Keep the hero image/layout stable across production builds. */
+.home-page-shell {
+  overflow-x: hidden;
 }

@@ -1,5 +1,15 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { createClient } from '@supabase/supabase-js';
+
+interface ApiRequest {
+  method?: string;
+  body?: Record<string, unknown>;
+}
+
+interface ApiResponse {
+  status: (statusCode: number) => ApiResponse;
+  json: (body: unknown) => void;
+  setHeader: (name: string, value: string | string[]) => void;
+}
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL;
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -20,7 +30,7 @@ function cleanString(value: unknown): string | null {
   return trimmed.length > 0 ? trimmed : null;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: ApiRequest, res: ApiResponse) {
   try {
     const supabase = getSupabaseAdmin();
 

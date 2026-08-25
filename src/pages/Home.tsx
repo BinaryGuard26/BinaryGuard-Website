@@ -202,7 +202,7 @@ export default function Home({ onNavigate }: HomeProps) {
 
   return (
     <div className="bg-[#030d1f] min-h-screen">
-      <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-20 lg:pt-24 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="/security-operations-background.png"
@@ -214,25 +214,25 @@ export default function Home({ onNavigate }: HomeProps) {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(34,211,238,0.08),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(34,211,238,0.06),transparent_35%)]" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-12 items-center">
-          <div className="max-w-3xl">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-16 md:py-20 lg:py-24 grid grid-cols-1 lg:grid-cols-[1.08fr_0.92fr] gap-10 xl:gap-16 items-center">
+          <div className="max-w-3xl lg:pr-4">
             <span className="inline-flex items-center gap-2 border border-cyan-400/30 bg-cyan-400/10 text-cyan-300 text-xs tracking-[0.22em] px-4 py-2 rounded-full mb-6">
               MODERN SECURITY & IT PARTNER
             </span>
 
-              <h1 className="max-w-4xl text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-[1.05] mb-4">
+              <h1 className="max-w-4xl text-4xl sm:text-5xl lg:text-[64px] xl:text-[72px] font-extrabold text-white leading-[1.02] tracking-[-0.02em] mb-6">
                 Integrated Security &amp;
                 <span className="block text-cyan-400 mt-2">IT Infrastructure</span>
                 <span className="block mt-2">for Modern Organizations</span>
               </h1>
 
-            <p className="max-w-3xl text-base md:text-lg text-gray-300 leading-8 mb-8">
+            <p className="max-w-2xl text-base md:text-lg text-gray-300 leading-8 mb-8">
               BinaryGuard designs, deploys, and supports integrated physical security and IT
               environments that improve visibility, resilience, and operational control—from a
               single site to multi-location enterprise operations.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-10">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10">
               <button
                 onClick={() => onNavigate('contact')}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 hover:bg-cyan-400 text-white font-semibold px-7 py-3.5 transition-all"
@@ -241,15 +241,15 @@ export default function Home({ onNavigate }: HomeProps) {
               </button>
               <button
                 onClick={() => onNavigate('solutions')}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 text-white font-semibold px-7 py-3.5 transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 hover:border-cyan-400/30 text-white font-semibold px-7 py-3.5 transition-all"
               >
                 Explore Solutions <ChevronRight size={18} />
               </button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl">
               {trustMetrics.map((item) => (
-                <div key={item.label} className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm px-5 py-4">
+                <div key={item.label} className="rounded-2xl border border-white/10 bg-[#061327]/70 backdrop-blur-sm px-5 py-4">
                   <p className="text-cyan-400 text-2xl font-extrabold">{item.value}</p>
                   <p className="text-gray-300 text-sm mt-1">{item.label}</p>
                 </div>
@@ -257,9 +257,10 @@ export default function Home({ onNavigate }: HomeProps) {
             </div>
           </div>
 
-          <div className="lg:justify-self-end w-full max-w-md">
-            <div className="rounded-[28px] border border-white/15 bg-[#1E293B]/75 backdrop-blur-md p-6 shadow-2xl shadow-cyan-950/20">
-              <div className="flex items-center gap-3 mb-6">
+          <div className="lg:justify-self-end w-full max-w-lg">
+            <div className="relative overflow-hidden rounded-[30px] border border-white/12 bg-[#071428]/88 backdrop-blur-xl p-6 md:p-7 shadow-2xl shadow-cyan-950/20">
+              <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan-400/10 blur-3xl" />
+              <div className="relative z-10 flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 rounded-2xl bg-cyan-400/15 text-cyan-300 flex items-center justify-center">
                   <Shield size={24} />
                 </div>
@@ -269,16 +270,16 @@ export default function Home({ onNavigate }: HomeProps) {
                 </div>
               </div>
 
-              <div className="space-y-4 mb-6">
+              <div className="relative z-10 space-y-3 mb-6">
                 {highlights.map((item) => (
-                  <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-[#051326]/70 px-4 py-3">
+                  <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/8 bg-white/[0.035] px-4 py-3.5">
                     <CheckCircle size={18} className="text-cyan-400 mt-0.5 shrink-0" />
                     <p className="text-gray-200 text-sm leading-6">{item}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 px-4 py-4">
+              <div className="relative z-10 rounded-2xl border border-cyan-400/20 bg-cyan-400/[0.08] px-4 py-4">
                 <p className="text-cyan-300 text-sm font-semibold mb-1">Need a tailored rollout plan?</p>
                 <p className="text-gray-200 text-sm leading-6 mb-4">
                   Tell us about your site, requirements, or expansion goals and we will help map the right approach.
@@ -295,7 +296,7 @@ export default function Home({ onNavigate }: HomeProps) {
         </div>
       </section>
 
-      <section className="py-20 bg-[#040e22]">
+      <section className="py-24 bg-[#040e22]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-2xl mb-12">
             <span className="text-cyan-400 text-sm font-semibold tracking-[0.22em]">WHY BINARYGUARD</span>
@@ -322,7 +323,7 @@ export default function Home({ onNavigate }: HomeProps) {
         </div>
       </section>
 
-      <section className="py-20 bg-[#030d1f]">
+      <section className="py-24 bg-[#030d1f]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
             <div className="max-w-2xl">
@@ -344,7 +345,7 @@ export default function Home({ onNavigate }: HomeProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {solutionCards.map((item) => (
-              <div key={item.title} className="group rounded-3xl border border-white/10 bg-gradient-to-b from-white/6 to-white/0 p-6 hover:border-cyan-400/35 transition-all duration-300">
+              <div key={item.title} className="group rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.015] p-6 hover:-translate-y-1 hover:border-cyan-400/35 hover:shadow-xl hover:shadow-cyan-950/20 transition-all duration-300">
                 <div className="flex items-center justify-between mb-6">
                   <div className="w-12 h-12 rounded-2xl bg-[#08172b] border border-white/10 flex items-center justify-center">
                     {item.icon}
@@ -481,7 +482,7 @@ export default function Home({ onNavigate }: HomeProps) {
 
       <section className="py-20 bg-[#030d1f]">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="rounded-[32px] border border-cyan-400/20 bg-gradient-to-r from-cyan-500/10 via-white/5 to-cyan-500/10 p-8 md:p-10 lg:p-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div className="rounded-[32px] border border-cyan-400/20 bg-gradient-to-r from-cyan-500/10 via-white/[0.04] to-cyan-500/10 p-8 md:p-10 lg:p-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div className="max-w-2xl">
               <span className="text-cyan-400 text-sm font-semibold tracking-[0.22em]">PLAN YOUR NEXT PROJECT</span>
               <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 mb-4">Ready to upgrade your security and IT environment?</h2>

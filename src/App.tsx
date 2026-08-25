@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import Navbar, { type NavbarPage } from './components/Navbar';
-import HomeHero from './components/HomeHero';
 import Home from './pages/Home';
 import About from './pages/About';
 import Solutions from './pages/Solutions';
@@ -8,9 +7,7 @@ import Services from './pages/Services';
 import Contact from './pages/Contact';
 import FeedbackPage from './pages/feedback';
 
-type PublicPage = NavbarPage;
-
-type Page = PublicPage | 'feedback';
+type Page = NavbarPage | 'feedback';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -33,23 +30,14 @@ export default function App() {
     document.title = titles[currentPage];
   }, [currentPage]);
 
-  const navbarCurrentPage: PublicPage =
-    currentPage === 'feedback'
-      ? 'home'
-      : (currentPage as PublicPage);
+  const navbarCurrentPage: NavbarPage =
+    currentPage === 'feedback' ? 'home' : currentPage;
 
   return (
-    <div className="bg-[#030d1f]">
+    <div className="min-h-screen bg-[#030d1f]">
       <Navbar currentPage={navbarCurrentPage} onNavigate={navigate} />
 
-      {currentPage === 'home' && (
-        <div className="home-page-shell">
-          <HomeHero onNavigate={navigate} />
-          <div className="home-existing-content">
-            <Home onNavigate={navigate} />
-          </div>
-        </div>
-      )}
+      {currentPage === 'home' && <Home onNavigate={navigate} />}
       {currentPage === 'about' && <About onNavigate={navigate} />}
       {currentPage === 'solutions' && <Solutions onNavigate={navigate} />}
       {currentPage === 'services' && <Services onNavigate={navigate} />}

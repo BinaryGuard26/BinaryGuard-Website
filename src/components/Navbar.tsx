@@ -7,7 +7,7 @@ export type NavbarPage =
   | 'services'
   | 'contact'
   | 'solutions'
-  | 'access-control';
+;
 
 interface NavbarProps {
   currentPage: NavbarPage;
@@ -20,7 +20,6 @@ const taglines: Record<NavbarPage, string> = {
   services: 'Reliable Services. Real Results.',
   contact: 'Connect with Our IT & Security Specialists',
   solutions: 'Enterprise-Grade Security and IT Solutions',
-  'access-control': 'Access Card Ordering Portal',
 };
 
 const mainNavLinks: { label: string; page: NavbarPage }[] = [

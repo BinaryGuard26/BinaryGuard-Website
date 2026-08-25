@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { Menu, X, UserRound } from 'lucide-react';
+import { Menu, X, ChevronDown, UserRound } from 'lucide-react';
 
 export type NavbarPage =
   | 'home'
   | 'about'
   | 'services'
+  | 'products'
   | 'contact'
-  | 'solutions';
+  | 'solutions'
+  | 'access-control';
 
 interface NavbarProps {
   currentPage: NavbarPage;
@@ -17,8 +19,10 @@ const taglines: Record<NavbarPage, string> = {
   home: 'Securing Your Premises. Empowering Your Business.',
   about: 'Smart Security and IT Solutions for a Connected World',
   services: 'Reliable Services. Real Results.',
+  products: 'Enterprise-Grade Physical Security Products',
   contact: 'Connect with Our IT & Security Specialists',
   solutions: 'Enterprise-Grade Security and IT Solutions',
+  'access-control': 'Access Card Ordering Portal',
 };
 
 const mainNavLinks: { label: string; page: NavbarPage }[] = [
@@ -28,16 +32,24 @@ const mainNavLinks: { label: string; page: NavbarPage }[] = [
   { label: 'SERVICES', page: 'services' },
 ];
 
+const productLinks: { label: string; page: NavbarPage }[] = [
+  { label: 'Access Control', page: 'access-control' },
+];
+
 export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
 
   const handleNavigate = (page: NavbarPage) => {
     onNavigate(page);
     setMobileOpen(false);
+    setMobileProductsOpen(false);
   };
 
+  const isProductActive = productLinks.some((link) => link.page === currentPage);
+
   const openSecureAccess = () => {
-    window.location.assign('https://login.binaryguard.ca');
+    window.location.assign('/dashboard');
   };
 
   return (
@@ -71,6 +83,39 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             </button>
           ))}
 
+          <div className="relative group">
+            <button
+              type="button"
+              className={`flex items-center gap-1 text-xs font-semibold tracking-widest transition-colors duration-200 ${
+                isProductActive
+                  ? 'text-cyan-400'
+                  : 'text-gray-300 hover:text-cyan-400'
+              }`}
+            >
+              PRODUCTS
+              <ChevronDown size={14} />
+            </button>
+
+            <div className="invisible absolute left-0 top-full pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
+              <div className="w-72 rounded-xl border border-cyan-400/20 bg-[#061328] p-2 shadow-2xl shadow-cyan-950/40">
+                {productLinks.map(({ label, page }) => (
+                  <button
+                    type="button"
+                    key={page}
+                    onClick={() => handleNavigate(page)}
+                    className={`w-full rounded-lg px-4 py-3 text-left text-sm font-semibold transition-colors ${
+                      currentPage === page
+                        ? 'bg-cyan-400/10 text-cyan-400'
+                        : 'text-gray-300 hover:bg-cyan-400/10 hover:text-cyan-400'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <button
             type="button"
             onClick={() => handleNavigate('contact')}
@@ -92,11 +137,19 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           <button
             type="button"
             onClick={openSecureAccess}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/10 text-cyan-300 transition hover:border-cyan-300 hover:bg-cyan-400/20 hover:text-cyan-200 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
+            className="group flex h-10 items-center justify-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 text-cyan-300 transition-all duration-200 hover:border-cyan-300 hover:bg-cyan-400/20 hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
             aria-label="Open BinaryGuard secure login"
             title="Secure login"
           >
-            <UserRound size={21} strokeWidth={1.8} aria-hidden="true" />
+            <UserRound
+              size={20}
+              strokeWidth={1.8}
+              aria-hidden="true"
+              className="transition-transform duration-200 group-hover:scale-105"
+            />
+            <span className="text-xs font-semibold tracking-wide">
+              Login
+            </span>
           </button>
 
           <button
@@ -118,22 +171,53 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
               key={page}
               onClick={() => handleNavigate(page)}
               className={`text-xs font-semibold tracking-widest text-left transition-colors ${
-                currentPage === page
-                  ? 'text-cyan-400'
-                  : 'text-gray-300 hover:text-cyan-400'
+                currentPage === page ? 'text-cyan-400' : 'text-gray-300 hover:text-cyan-400'
               }`}
             >
               {label}
             </button>
           ))}
 
+          <div>
+            <button
+              type="button"
+              onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
+              className={`flex w-full items-center justify-between text-xs font-semibold tracking-widest text-left transition-colors ${
+                isProductActive ? 'text-cyan-400' : 'text-gray-300 hover:text-cyan-400'
+              }`}
+            >
+              PRODUCTS
+              <ChevronDown
+                size={14}
+                className={`transition-transform ${mobileProductsOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+
+            {mobileProductsOpen && (
+              <div className="mt-3 ml-4 flex flex-col gap-3 border-l border-white/10 pl-4">
+                {productLinks.map(({ label, page }) => (
+                  <button
+                    type="button"
+                    key={page}
+                    onClick={() => handleNavigate(page)}
+                    className={`text-left text-sm font-semibold transition-colors ${
+                      currentPage === page
+                        ? 'text-cyan-400'
+                        : 'text-gray-300 hover:text-cyan-400'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           <button
             type="button"
             onClick={() => handleNavigate('contact')}
             className={`text-xs font-semibold tracking-widest text-left transition-colors ${
-              currentPage === 'contact'
-                ? 'text-cyan-400'
-                : 'text-gray-300 hover:text-cyan-400'
+              currentPage === 'contact' ? 'text-cyan-400' : 'text-gray-300 hover:text-cyan-400'
             }`}
           >
             CONTACT US

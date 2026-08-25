@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Menu, X, UserRound } from 'lucide-react';
+import { useAuth } from '../auth/AuthProvider';
 
 export type NavbarPage =
   | 'home'
@@ -31,6 +32,7 @@ const navLinks: { label: string; page: NavbarPage }[] = [
 
 export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { login, ready } = useAuth();
 
   const handleNavigate = (page: NavbarPage) => {
     onNavigate(page);
@@ -38,18 +40,8 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   };
 
   const openSecureAccess = () => {
-    const authUrl = new URL(
-      'https://auth.binaryguard.ca/realms/binaryguard/protocol/openid-connect/auth'
-    );
-
-    authUrl.searchParams.set('client_id', 'binaryguard-website');
-    authUrl.searchParams.set('redirect_uri', 'https://www.binaryguard.ca/dashboard');
-    authUrl.searchParams.set('response_type', 'code');
-    authUrl.searchParams.set('scope', 'openid profile email');
-    authUrl.searchParams.set('kc_idp_hint', 'binaryguard-gateway');
-    authUrl.searchParams.set('prompt', 'login');
-
-    window.location.assign(authUrl.toString());
+    if (!ready) return;
+    void login();
   };
 
   return (
@@ -92,9 +84,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           <button
             type="button"
             onClick={openSecureAccess}
-            className="group flex h-10 items-center justify-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 text-cyan-300 transition-all duration-200 hover:border-cyan-300 hover:bg-cyan-400/20 hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-400/60"
+            disabled={!ready}
+            className="group flex h-10 items-center justify-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 text-cyan-300 transition-all duration-200 hover:border-cyan-300 hover:bg-cyan-400/20 hover:text-cyan-100 focus:outline-none focus:ring-2 focus:ring-cyan-400/60 disabled:cursor-wait disabled:opacity-60"
             aria-label="Open BinaryGuard secure login"
-            title="Secure login"
+            title={ready ? 'Secure login' : 'Preparing secure login'}
           >
             <UserRound
               size={20}

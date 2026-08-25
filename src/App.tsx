@@ -6,17 +6,12 @@ import Solutions from './pages/Solutions';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
 import FeedbackPage from './pages/feedback';
-import AccessDashboard from './pages/AccessDashboard';
 
 type PublicPage = NavbarPage;
 
 type Page = PublicPage | 'feedback';
 
 export default function App() {
-  const isAccessDashboard =
-    window.location.pathname === '/dashboard' ||
-    window.location.pathname.startsWith('/dashboard/');
-
   const [currentPage, setCurrentPage] = useState<Page>('home');
 
   const navigate = (page: string) => {
@@ -25,11 +20,6 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (isAccessDashboard) {
-      document.title = 'Secure Access – BinaryGuard';
-      return;
-    }
-
     const titles: Record<Page, string> = {
       home: 'BinaryGuard – Securing Your Premises',
       about: 'About Us – BinaryGuard',
@@ -40,17 +30,12 @@ export default function App() {
     };
 
     document.title = titles[currentPage];
-  }, [currentPage, isAccessDashboard]);
+  }, [currentPage]);
 
-  const isPortalPage = currentPage === 'feedback';
-
-  const navbarCurrentPage: PublicPage = isPortalPage
-    ? 'home'
-    : (currentPage as PublicPage);
-
-  if (isAccessDashboard) {
-    return <AccessDashboard />;
-  }
+  const navbarCurrentPage: PublicPage =
+    currentPage === 'feedback'
+      ? 'home'
+      : (currentPage as PublicPage);
 
   return (
     <div className="bg-[#030d1f]">
@@ -62,7 +47,6 @@ export default function App() {
       {currentPage === 'services' && <Services onNavigate={navigate} />}
       {currentPage === 'contact' && <Contact onNavigate={navigate} />}
       {currentPage === 'feedback' && <FeedbackPage onNavigate={navigate} />}
-
     </div>
   );
 }

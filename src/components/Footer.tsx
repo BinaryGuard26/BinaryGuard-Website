@@ -79,13 +79,11 @@ export default function Footer({ onNavigate }: FooterProps) {
 
         <div className="bg-white/5 border border-white/10 rounded-xl p-6 relative">
           <p className="text-white font-bold text-lg mb-2">Ready to secure your business?</p>
-          <button
-            onClick={() => onNavigate('contact')}
-            className="group"
-          >
+          <button onClick={() => onNavigate('contact')} className="group">
             <p className="text-gray-400 text-sm">Contact</p>
             <p className="text-cyan-400 font-extrabold text-2xl hover:text-cyan-300 transition-colors">BinaryGuard</p>
           </button>
+
           <div className="flex gap-4 mt-4">
             <a href="#" aria-label="Twitter" className="text-gray-300 hover:text-cyan-400 transition-colors">
               <Twitter size={22} />
@@ -97,6 +95,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               <Instagram size={22} />
             </a>
           </div>
+
           <a
             href="https://wa.me/12045045000"
             target="_blank"
@@ -114,16 +113,7 @@ export default function Footer({ onNavigate }: FooterProps) {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50
-                     flex h-14 w-14 items-center justify-center rounded-full
-                     border border-cyan-400/45
-                     bg-[#071224]/85 text-cyan-300
-                     shadow-[0_0_26px_rgba(34,211,238,0.38)]
-                     backdrop-blur-md
-                     transition-all duration-300
-                     hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-400
-                     hover:text-[#071224] hover:shadow-[0_0_38px_rgba(34,211,238,0.62)]
-                     focus:outline-none focus:ring-2 focus:ring-cyan-300/70 focus:ring-offset-2 focus:ring-offset-[#030d1f]"
+          className="fixed left-1/2 -translate-x-1/2 bottom-6 z-50 flex h-14 w-14 items-center justify-center rounded-full border border-cyan-400/45 bg-[#071224]/85 text-cyan-300 shadow-[0_0_26px_rgba(34,211,238,0.38)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-400 hover:text-[#071224] hover:shadow-[0_0_38px_rgba(34,211,238,0.62)] focus:outline-none focus:ring-2 focus:ring-cyan-300/70 focus:ring-offset-2 focus:ring-offset-[#030d1f]"
           aria-label="Scroll to top"
         >
           <ChevronUp size={24} strokeWidth={2.6} />
@@ -131,3 +121,4 @@ export default function Footer({ onNavigate }: FooterProps) {
       )}
     </footer>
   );
+}

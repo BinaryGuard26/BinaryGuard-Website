@@ -39,9 +39,9 @@ app.get("/api/health", (_req, res) => {
 
 app.post("/api/contact", async (req, res) => {
   try {
-    const { name, company, email, phone, subject, message } = req.body;
+    const { name, company, businessType, email, phone, subject, message } = req.body;
 
-    if (!name || !email || !subject || !message) {
+    if (!name || !email || !businessType || !subject || !message) {
       return res.status(400).json({
         success: false,
         message: "Required fields are missing.",
@@ -71,6 +71,7 @@ app.post("/api/contact", async (req, res) => {
 
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>Company:</strong> ${company || "N/A"}</p>
+                <p><strong>Business Type:</strong> ${businessType}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Phone:</strong> ${phone || "N/A"}</p>
                 <p><strong>Subject:</strong> ${subject}</p>

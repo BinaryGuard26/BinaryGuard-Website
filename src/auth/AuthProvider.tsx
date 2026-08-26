@@ -1,12 +1,9 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useMemo,
-  useState,
   type ReactNode,
 } from 'react';
-import keycloak from './keycloak';
 
 interface AuthContextValue {
   ready: boolean;
@@ -20,91 +17,43 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-let initialization: Promise<boolean> | null = null;
-
-function initializeKeycloak() {
-  if (initialization) {
-    return initialization;
-  }
-
-  const dashboardRequested =
-    window.location.pathname === '/dashboard' ||
-    window.location.pathname.startsWith('/dashboard/');
-
-  initialization = keycloak.init({
-    ...(dashboardRequested ? { onLoad: 'login-required' as const } : {}),
-    pkceMethod: 'S256',
-    checkLoginIframe: false,
-    redirectUri: `${window.location.origin}/dashboard`,
-  });
-
-  return initialization;
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [ready, setReady] = useState(false);
-  const [authenticated, setAuthenticated] = useState(false);
-
-  useEffect(() => {
-    let active = true;
-
-    initializeKeycloak()
-      .then((isAuthenticated) => {
-        if (!active) return;
-
-        setAuthenticated(isAuthenticated);
-        setReady(true);
-      })
-      .catch((error) => {
-        console.error('Keycloak initialization failed:', error);
-
-        if (active) {
-          setAuthenticated(false);
-          setReady(true);
-        }
-      });
-
-    keycloak.onAuthSuccess = () => setAuthenticated(true);
-    keycloak.onAuthLogout = () => setAuthenticated(false);
-    keycloak.onTokenExpired = () => {
-      void keycloak.updateToken(30).catch(() => {
-        setAuthenticated(false);
-        void keycloak.login({
-          redirectUri: `${window.location.origin}/dashboard`,
-        });
-      });
-    };
-
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  const roles = keycloak.realmAccess?.roles ?? [];
+  const roles: string[] = [];
 
   const value = useMemo<AuthContextValue>(
     () => ({
-      ready,
-      authenticated,
-      username:
-        typeof keycloak.tokenParsed?.preferred_username === 'string'
-          ? keycloak.tokenParsed.preferred_username
-          : undefined,
+      ready: true,
+
+      // The public website no longer owns or maintains an authenticated
+      // Keycloak session. Authentication is handled by the separate
+      // BinaryGuard auth gateway at login.binaryguard.ca.
+      authenticated: false,
+      username: undefined,
       roles,
-      hasRole: (role: string) => roles.includes(role),
-      login: () =>
-        keycloak.login({
-          redirectUri: `${window.location.origin}/dashboard`,
-        }),
-      logout: () =>
-        keycloak.logout({
-          redirectUri: `${window.location.origin}/`,
-        }),
+
+      hasRole: () => false,
+
+      // Any legacy component that still calls login() will be routed into
+      // the new independent BinaryGuard authentication flow.
+      login: async () => {
+        window.location.href = 'https://login.binaryguard.ca/login';
+      },
+
+      // The public website does not hold a secure login session anymore.
+      // Keep this fallback only for compatibility with any old component
+      // that may still call logout().
+      logout: async () => {
+        window.location.href = 'https://binaryguard.ca/';
+      },
     }),
-    [ready, authenticated, roles],
+    [],
   );
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export function useAuth() {

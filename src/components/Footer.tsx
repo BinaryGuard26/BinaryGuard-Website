@@ -54,7 +54,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             </li>
             <li className="flex items-start gap-2 text-gray-300">
               <Clock size={14} className="text-cyan-400 mt-0.5 shrink-0" />
-              <span><span className="font-semibold text-white">Support:</span> Available 7 days a week</span>
+              <span><span className="font-semibold text-white">Support:</span> During posted business hours</span>
             </li>
           </ul>
         </div>
@@ -64,15 +64,19 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div className="space-y-3 text-sm">
             <div>
               <p className="text-white font-semibold">Monday – Friday</p>
-              <p className="text-gray-400">10:00 AM – 7:00 PM</p>
+              <p className="text-gray-400">8:00 AM – 5:00 PM</p>
             </div>
             <div>
               <p className="text-white font-semibold">Saturday</p>
-              <p className="text-gray-400">11:00 AM – 6:00 PM</p>
+              <p className="text-gray-400">By Appointment 📅 Only</p>
             </div>
             <div>
               <p className="text-white font-semibold">Sunday</p>
-              <p className="text-gray-400">By Appointment</p>
+              <p className="text-gray-400">Closed</p>
+            </div>
+            <div>
+              <p className="text-white font-semibold">Canadian Statutory Holidays</p>
+              <p className="text-gray-400">Closed</p>
             </div>
           </div>
         </div>

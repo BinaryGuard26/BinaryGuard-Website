@@ -64,7 +64,9 @@ export default function Contact({ onNavigate }: ContactProps) {
     try {
       setStatus('loading');
 
-      const apiUrl = import.meta.env.VITE_CONTACT_API_URL || 'http://localhost:3001/api/contact';
+      // In DigitalOcean production, the API service should be routed under /api.
+      // VITE_CONTACT_API_URL remains available as an optional override.
+      const apiUrl = import.meta.env.VITE_CONTACT_API_URL || '/api/contact';
 
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -91,7 +93,7 @@ export default function Contact({ onNavigate }: ContactProps) {
       }
 
       if (!response.ok || data.success === false) {
-        throw new Error(data.message || 'Email failed');
+        throw new Error(data.message || `Contact request failed (${response.status})`);
       }
 
       setStatus('success');

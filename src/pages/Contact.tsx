@@ -11,15 +11,33 @@ interface ContactProps {
 interface ContactForm {
   name: string;
   company: string;
+  businessType: string;
   email: string;
   phone: string;
   subject: string;
   message: string;
 }
 
+const businessTypes = [
+  'Federal Government',
+  'Provincial Government',
+  'Municipality',
+  'School Division',
+  'University',
+  'Hospital',
+  'Residential',
+  'Retail Store',
+  'Department Store',
+  'Banks',
+  'Grocery Chain',
+  'Manufacturing Facility',
+  'Other',
+];
+
 const initialForm: ContactForm = {
   name: '',
   company: '',
+  businessType: '',
   email: '',
   phone: '',
   subject: '',
@@ -31,7 +49,7 @@ export default function Contact({ onNavigate }: ContactProps) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -39,7 +57,7 @@ export default function Contact({ onNavigate }: ContactProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!form.name || !form.email || !form.subject || !form.message) {
+    if (!form.name || !form.email || !form.businessType || !form.subject || !form.message) {
       return;
     }
 
@@ -56,6 +74,7 @@ export default function Contact({ onNavigate }: ContactProps) {
         body: JSON.stringify({
           name: form.name.trim(),
           company: form.company.trim(),
+          businessType: form.businessType,
           email: form.email.trim(),
           phone: form.phone.trim(),
           subject: form.subject.trim(),
@@ -187,6 +206,24 @@ export default function Contact({ onNavigate }: ContactProps) {
                         placeholder="Business or organization"
                       />
                     </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-gray-200 text-sm font-medium mb-2">Business Type <span className="text-red-400">*</span></label>
+                    <select
+                      name="businessType"
+                      value={form.businessType}
+                      onChange={handleChange}
+                      required
+                      className="w-full rounded-xl bg-white/95 text-gray-900 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                    >
+                      <option value="" disabled>Select business type</option>
+                      {businessTypes.map((businessType) => (
+                        <option key={businessType} value={businessType}>
+                          {businessType}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

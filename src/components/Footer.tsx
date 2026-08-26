@@ -22,6 +22,10 @@ export default function Footer({ onNavigate }: FooterProps) {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
+  const openCookieSettings = () => {
+    window.dispatchEvent(new Event('binaryguard:open-cookie-settings'));
+  };
+
   return (
     <footer className="bg-[#030d1f] border-t border-white/10 relative">
       <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -98,6 +102,22 @@ export default function Footer({ onNavigate }: FooterProps) {
             <a href="#" aria-label="Instagram" className="text-gray-300 hover:text-cyan-400 transition-colors">
               <Instagram size={22} />
             </a>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 border-t border-white/10 pt-4 text-xs">
+            <a href="/privacy" className="text-gray-400 hover:text-cyan-300 transition-colors">
+              Privacy Policy
+            </a>
+            <a href="/cookie-policy" className="text-gray-400 hover:text-cyan-300 transition-colors">
+              Cookie Policy
+            </a>
+            <button
+              type="button"
+              onClick={openCookieSettings}
+              className="text-gray-400 hover:text-cyan-300 transition-colors"
+            >
+              Cookie Settings
+            </button>
           </div>
 
           <a

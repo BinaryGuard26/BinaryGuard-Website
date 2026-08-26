@@ -44,7 +44,7 @@ export default function Support() {
           </a>
 
           <a
-            href="/"
+            href="https://login.binaryguard.ca/dashboard"
             className="inline-flex items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/10 px-4 py-2 text-sm font-semibold text-cyan-200 transition hover:bg-cyan-400/15"
           >
             <ArrowLeft size={16} />

@@ -110,6 +110,38 @@ const initialForm: ContactForm = {
   message: '',
 };
 
+function FeatureIcon({ type }: { type: 'teams' | 'outlook' | 'calendar' | 'email' }) {
+  if (type === 'teams') {
+    return (
+      <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-indigo-600 to-violet-500 text-sm font-black text-white shadow-[0_0_14px_rgba(124,58,237,.35)]">
+        T
+      </div>
+    );
+  }
+
+  if (type === 'outlook') {
+    return (
+      <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-blue-600 to-sky-400 text-sm font-black text-white shadow-[0_0_14px_rgba(37,99,235,.30)]">
+        O
+      </div>
+    );
+  }
+
+  if (type === 'calendar') {
+    return (
+      <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-blue-600 to-indigo-500 text-white shadow-[0_0_14px_rgba(37,99,235,.30)]">
+        <CalendarDays size={20} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-blue-600 to-indigo-500 text-white shadow-[0_0_14px_rgba(37,99,235,.30)]">
+      <Mail size={19} />
+    </div>
+  );
+}
+
 export default function Contact({ onNavigate }: ContactProps) {
   const [form, setForm] = useState<ContactForm>(initialForm);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -469,7 +501,26 @@ export default function Contact({ onNavigate }: ContactProps) {
                 </div>
               </div>
 
-              <div className="mt-6 border-t border-white/10 pt-5">
+              <div className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-white/10 pt-5 sm:grid-cols-4">
+                <div className="flex items-center gap-3 sm:border-r sm:border-white/10 sm:pr-3">
+                  <FeatureIcon type="teams" />
+                  <p className="text-[11px] leading-4 text-slate-200">Automatic Teams<br />Meeting Creation</p>
+                </div>
+                <div className="flex items-center gap-3 sm:border-r sm:border-white/10 sm:pr-3">
+                  <FeatureIcon type="outlook" />
+                  <p className="text-[11px] leading-4 text-slate-200">Calendar Invite<br />Sent Instantly</p>
+                </div>
+                <div className="flex items-center gap-3 sm:border-r sm:border-white/10 sm:pr-3">
+                  <FeatureIcon type="calendar" />
+                  <p className="text-[11px] leading-4 text-slate-200">Outlook Calendar<br />Synchronization</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <FeatureIcon type="email" />
+                  <p className="text-[11px] leading-4 text-slate-200">Email Confirmation<br />Included</p>
+                </div>
+              </div>
+
+              <div className="mt-5 border-t border-white/10 pt-4">
                 <p className="flex items-center justify-center gap-3 text-center text-sm text-slate-400">
                   <ShieldCheck size={18} className="shrink-0 text-slate-300" />
                   Confirmation and Teams meeting link will be emailed automatically.

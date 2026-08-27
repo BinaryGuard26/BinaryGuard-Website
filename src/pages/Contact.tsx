@@ -113,32 +113,54 @@ const initialForm: ContactForm = {
 function FeatureIcon({ type }: { type: 'teams' | 'outlook' | 'calendar' | 'email' }) {
   if (type === 'teams') {
     return (
-      <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-indigo-600 to-violet-500 text-sm font-black text-white shadow-[0_0_14px_rgba(124,58,237,.35)]">
-        T
-      </div>
+      <svg viewBox="0 0 48 48" className="h-9 w-9 shrink-0" aria-hidden="true">
+        <circle cx="34" cy="12" r="5" fill="#8B83F6" />
+        <circle cx="39" cy="20" r="4" fill="#6264A7" />
+        <path d="M27 17h12c2.2 0 4 1.8 4 4v12c0 4.4-3.6 8-8 8h-8V17z" fill="#6264A7" />
+        <path d="M20 14h11c2.2 0 4 1.8 4 4v15c0 5-4 9-9 9H20V14z" fill="#7B83EB" />
+        <rect x="5" y="17" width="22" height="22" rx="3" fill="#5059C9" />
+        <path d="M11 22h10v3h-3.5v10h-3V25H11v-3z" fill="white" />
+      </svg>
     );
   }
 
   if (type === 'outlook') {
     return (
-      <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-blue-600 to-sky-400 text-sm font-black text-white shadow-[0_0_14px_rgba(37,99,235,.30)]">
-        O
-      </div>
+      <svg viewBox="0 0 48 48" className="h-9 w-9 shrink-0" aria-hidden="true">
+        <rect x="17" y="8" width="24" height="31" rx="3" fill="#0A64C0" />
+        <rect x="20" y="11" width="18" height="25" rx="2" fill="#1976D2" />
+        <path d="M20 18l9 7 9-7v14H20V18z" fill="#29A8EA" />
+        <path d="M20 18l9 7 9-7" fill="none" stroke="#B9E5FF" strokeWidth="2" />
+        <rect x="5" y="14" width="20" height="24" rx="3" fill="#1264A3" />
+        <circle cx="15" cy="26" r="6" fill="#0B4F8A" />
+        <path d="M15 20.5c3.1 0 5.5 2.3 5.5 5.5s-2.4 5.5-5.5 5.5-5.5-2.3-5.5-5.5 2.4-5.5 5.5-5.5zm0 2.8c-1.5 0-2.6 1.1-2.6 2.7s1.1 2.7 2.6 2.7 2.6-1.1 2.6-2.7-1.1-2.7-2.6-2.7z" fill="white" />
+      </svg>
     );
   }
 
   if (type === 'calendar') {
     return (
-      <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-blue-600 to-indigo-500 text-white shadow-[0_0_14px_rgba(37,99,235,.30)]">
-        <CalendarDays size={20} />
-      </div>
+      <svg viewBox="0 0 48 48" className="h-9 w-9 shrink-0" aria-hidden="true">
+        <rect x="7" y="8" width="34" height="34" rx="5" fill="#0B5ED7" />
+        <rect x="10" y="15" width="28" height="23" rx="2" fill="#173B8C" />
+        <rect x="12" y="19" width="6" height="5" rx="1" fill="#63B3FF" />
+        <rect x="21" y="19" width="6" height="5" rx="1" fill="#63B3FF" />
+        <rect x="30" y="19" width="6" height="5" rx="1" fill="#63B3FF" />
+        <rect x="12" y="27" width="6" height="5" rx="1" fill="#63B3FF" />
+        <rect x="21" y="27" width="6" height="5" rx="1" fill="#63B3FF" />
+        <rect x="30" y="27" width="6" height="5" rx="1" fill="#63B3FF" />
+        <rect x="14" y="4" width="4" height="10" rx="2" fill="#9CCBFF" />
+        <rect x="30" y="4" width="4" height="10" rx="2" fill="#9CCBFF" />
+      </svg>
     );
   }
 
   return (
-    <div className="flex h-9 w-9 items-center justify-center rounded-md bg-gradient-to-br from-blue-600 to-indigo-500 text-white shadow-[0_0_14px_rgba(37,99,235,.30)]">
-      <Mail size={19} />
-    </div>
+    <svg viewBox="0 0 48 48" className="h-9 w-9 shrink-0" aria-hidden="true">
+      <circle cx="24" cy="24" r="20" fill="#0B5ED7" />
+      <rect x="12" y="15" width="24" height="18" rx="3" fill="#E9F5FF" />
+      <path d="M13.5 17l10.5 8 10.5-8" fill="none" stroke="#1264A3" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 }
 

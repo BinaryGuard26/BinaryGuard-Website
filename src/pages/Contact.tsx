@@ -9,7 +9,8 @@ import {
   CalendarDays,
   Video,
   ShieldCheck,
-  ExternalLink,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import Footer from '../components/Footer';
 
@@ -52,6 +53,53 @@ const consultationTypes = [
   'Project Discovery Meeting',
 ];
 
+const calendarCells = [
+  { day: 26, muted: true },
+  { day: 27, muted: true },
+  { day: 28, muted: true },
+  { day: 29, muted: true },
+  { day: 30, muted: true },
+  { day: 31, muted: true },
+  { day: 1 },
+  { day: 2 },
+  { day: 3 },
+  { day: 4 },
+  { day: 5 },
+  { day: 6 },
+  { day: 7 },
+  { day: 8 },
+  { day: 9 },
+  { day: 10 },
+  { day: 11 },
+  { day: 12 },
+  { day: 13 },
+  { day: 14 },
+  { day: 15, weekendAccent: true },
+  { day: 16 },
+  { day: 17 },
+  { day: 18 },
+  { day: 19 },
+  { day: 20 },
+  { day: 21 },
+  { day: 22, weekendAccent: true },
+  { day: 23 },
+  { day: 24 },
+  { day: 25 },
+  { day: 26 },
+  { day: 27 },
+  { day: 28 },
+  { day: 29, weekendAccent: true },
+  { day: 30 },
+  { day: 31 },
+  { day: 1, muted: true },
+  { day: 2, muted: true },
+  { day: 3, muted: true },
+  { day: 4, muted: true },
+  { day: 5, muted: true },
+];
+
+const availableTimes = ['10:00 AM', '1:30 PM', '3:00 PM'];
+
 const initialForm: ContactForm = {
   name: '',
   company: '',
@@ -65,8 +113,9 @@ const initialForm: ContactForm = {
 export default function Contact({ onNavigate }: ContactProps) {
   const [form, setForm] = useState<ContactForm>(initialForm);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [bookingBusinessType, setBookingBusinessType] = useState('School Division');
   const [consultationType, setConsultationType] = useState(consultationTypes[0]);
+  const [selectedDate, setSelectedDate] = useState(19);
+  const [selectedTime, setSelectedTime] = useState('10:00 AM');
 
   const bookingsUrl = String(import.meta.env.VITE_MICROSOFT_BOOKINGS_URL || '').trim();
 
@@ -128,8 +177,9 @@ export default function Contact({ onNavigate }: ContactProps) {
     if (!bookingsUrl) return;
 
     const url = new URL(bookingsUrl, window.location.origin);
-    url.searchParams.set('businessType', bookingBusinessType);
     url.searchParams.set('consultationType', consultationType);
+    url.searchParams.set('date', `2026-08-${String(selectedDate).padStart(2, '0')}`);
+    url.searchParams.set('time', selectedTime);
     window.open(url.toString(), '_blank', 'noopener,noreferrer');
   };
 
@@ -318,90 +368,117 @@ export default function Contact({ onNavigate }: ContactProps) {
               )}
             </div>
 
-            <div className="rounded-2xl border border-violet-400/25 bg-[#071427]/82 p-5 shadow-[0_18px_70px_rgba(0,0,0,.35)] backdrop-blur-md md:p-7">
-              <div className="mb-6 flex items-start gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-500 shadow-[0_0_30px_rgba(139,92,246,.25)]">
-                  <Video size={29} />
+            <div className="rounded-2xl border border-[#284a79] bg-[#071a34]/90 p-5 shadow-[0_18px_70px_rgba(0,0,0,.38)] backdrop-blur-md md:p-7">
+              <div className="mb-5 flex items-start gap-4">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-500 shadow-[0_0_30px_rgba(139,92,246,.28)]">
+                  <Video size={30} />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold">Book a Microsoft Teams Consultation</h2>
+                  <h2 className="text-[24px] font-bold leading-tight">Book a Microsoft Teams Consultation</h2>
                   <p className="mt-1 text-sm text-slate-400">
-                    Choose a convenient time to speak with one of our security and IT specialists.
+                    Choose a convenient time to speak with one of our security specialists.
                   </p>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-200">
-                    Business Type <span className="text-red-400">*</span>
-                  </label>
-                  <select
-                    value={bookingBusinessType}
-                    onChange={(e) => setBookingBusinessType(e.target.value)}
-                    className="w-full rounded-lg border border-violet-300/30 bg-[#071426] px-4 py-3 text-sm text-white outline-none focus:border-violet-400 focus:ring-1 focus:ring-violet-400"
-                  >
-                    {businessTypes.map((businessType) => (
-                      <option key={businessType} value={businessType}>{businessType}</option>
-                    ))}
-                  </select>
-                </div>
+              <select
+                value={consultationType}
+                onChange={(e) => setConsultationType(e.target.value)}
+                className="w-full rounded-md border border-[#375b8f] bg-[#081b35] px-4 py-3 text-sm text-white outline-none transition focus:border-violet-400 focus:ring-1 focus:ring-violet-400"
+              >
+                {consultationTypes.map((type) => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
+              </select>
 
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-slate-200">
-                    Consultation Type <span className="text-red-400">*</span>
-                  </label>
-                  <select
-                    value={consultationType}
-                    onChange={(e) => setConsultationType(e.target.value)}
-                    className="w-full rounded-lg border border-violet-300/30 bg-[#071426] px-4 py-3 text-sm text-white outline-none focus:border-violet-400 focus:ring-1 focus:ring-violet-400"
-                  >
-                    {consultationTypes.map((type) => (
-                      <option key={type} value={type}>{type}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+              <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-[1.08fr_.92fr]">
+                <div className="lg:border-r lg:border-white/20 lg:pr-5">
+                  <div className="mb-4 flex items-center justify-between">
+                    <button type="button" aria-label="Previous month" className="text-slate-300 transition hover:text-white">
+                      <ChevronLeft size={22} />
+                    </button>
+                    <p className="text-xl font-semibold">August 2026</p>
+                    <button type="button" aria-label="Next month" className="text-slate-300 transition hover:text-white">
+                      <ChevronRight size={22} />
+                    </button>
+                  </div>
 
-              <div className="mt-6 rounded-xl border border-white/10 bg-black/15 p-5">
-                <div className="flex items-center gap-3">
-                  <CalendarDays className="text-violet-300" size={26} />
-                  <div>
-                    <p className="font-semibold text-white">Microsoft Bookings</p>
-                    <p className="mt-1 text-sm leading-6 text-slate-400">
-                      Live availability, calendar selection, Teams meeting creation, and confirmation email are handled securely by Microsoft Bookings.
-                    </p>
+                  <div className="grid grid-cols-7 gap-y-2 text-center text-xs text-slate-300">
+                    {['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'].map((day) => (
+                      <div key={day} className="py-1 font-medium">{day}</div>
+                    ))}
+
+                    {calendarCells.map((cell, index) => {
+                      const isCurrentMonth = !cell.muted;
+                      const isSelected = isCurrentMonth && cell.day === selectedDate;
+
+                      return (
+                        <button
+                          type="button"
+                          key={`${cell.day}-${index}`}
+                          disabled={!isCurrentMonth}
+                          onClick={() => isCurrentMonth && setSelectedDate(cell.day)}
+                          className={`mx-auto flex h-8 w-8 items-center justify-center rounded-full text-sm transition ${
+                            isSelected
+                              ? 'bg-gradient-to-br from-violet-500 to-purple-600 font-bold text-white shadow-[0_0_18px_rgba(168,85,247,.45)]'
+                              : cell.muted
+                                ? 'cursor-default text-slate-600'
+                                : cell.weekendAccent
+                                  ? 'text-blue-400 hover:bg-white/5'
+                                  : 'text-slate-100 hover:bg-white/5'
+                          }`}
+                        >
+                          {cell.day}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
-                <div className="mt-5 grid grid-cols-2 gap-3 text-xs text-slate-300 sm:grid-cols-4">
-                  <div className="rounded-lg border border-white/10 bg-white/[0.035] p-3 text-center">Automatic Teams Meeting</div>
-                  <div className="rounded-lg border border-white/10 bg-white/[0.035] p-3 text-center">Calendar Invite</div>
-                  <div className="rounded-lg border border-white/10 bg-white/[0.035] p-3 text-center">Outlook Sync</div>
-                  <div className="rounded-lg border border-white/10 bg-white/[0.035] p-3 text-center">Email Confirmation</div>
+                <div>
+                  <p className="mb-4 text-center text-lg font-medium">Available Times</p>
+                  <div className="space-y-3">
+                    {availableTimes.map((time) => {
+                      const isSelected = selectedTime === time;
+                      return (
+                        <button
+                          type="button"
+                          key={time}
+                          onClick={() => setSelectedTime(time)}
+                          className={`w-full rounded-md border px-4 py-3 text-base font-medium transition ${
+                            isSelected
+                              ? 'border-violet-400 bg-violet-500/15 text-white shadow-[0_0_16px_rgba(139,92,246,.18)]'
+                              : 'border-violet-400/70 bg-[#081b35] text-white hover:bg-violet-500/10'
+                          }`}
+                        >
+                          {time}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={openBookings}
+                    disabled={!bookingsUrl}
+                    className="mt-5 flex w-full items-center justify-center gap-3 rounded-md bg-gradient-to-r from-violet-600 to-purple-500 px-4 py-3.5 text-base font-semibold text-white shadow-[0_0_22px_rgba(139,92,246,.28)] transition hover:from-violet-500 hover:to-purple-400 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    <CalendarDays size={20} />
+                    Continue Booking
+                  </button>
                 </div>
-
-                <button
-                  type="button"
-                  onClick={openBookings}
-                  disabled={!bookingsUrl}
-                  className="mt-6 flex w-full items-center justify-center gap-3 rounded-lg bg-gradient-to-r from-violet-600 to-indigo-600 py-3.5 font-semibold text-white transition hover:from-violet-500 hover:to-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <CalendarDays size={18} />
-                  Continue Booking
-                  <ExternalLink size={16} />
-                </button>
-
-                {!bookingsUrl && (
-                  <p className="mt-3 text-center text-xs leading-5 text-amber-300/90">
-                    Microsoft Bookings is ready to connect. Add the VITE_MICROSOFT_BOOKINGS_URL environment variable to enable this button.
-                  </p>
-                )}
               </div>
 
-              <div className="mt-5 flex items-start gap-3 border-t border-white/10 pt-5 text-sm text-slate-400">
-                <ShieldCheck size={18} className="mt-0.5 shrink-0 text-violet-300" />
-                <p>Confirmation and the Microsoft Teams meeting link will be emailed automatically by Microsoft Bookings.</p>
+              <div className="mt-6 border-t border-white/10 pt-5">
+                <p className="flex items-center justify-center gap-3 text-center text-sm text-slate-400">
+                  <ShieldCheck size={18} className="shrink-0 text-slate-300" />
+                  Confirmation and Teams meeting link will be emailed automatically.
+                </p>
+                {!bookingsUrl && (
+                  <p className="mt-3 text-center text-xs leading-5 text-amber-300/90">
+                    Add VITE_MICROSOFT_BOOKINGS_URL in DigitalOcean to enable Continue Booking.
+                  </p>
+                )}
               </div>
             </div>
           </div>

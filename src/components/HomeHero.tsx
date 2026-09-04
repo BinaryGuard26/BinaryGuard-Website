@@ -59,8 +59,8 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/hero-ops-dashboard.png')" }}
       />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,9,22,0.92)_0%,rgba(2,9,22,0.84)_28%,rgba(2,9,22,0.55)_54%,rgba(2,9,22,0.58)_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(0,180,255,.08),transparent_34%)]" />
+      <div className="absolute inset-0 bg-[rgba(2,9,22,0.20)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(0,180,255,.04),transparent_34%)]" />
 
       <div className="relative mx-auto max-w-[1536px] px-6 pt-12 lg:px-10 lg:pt-16 xl:px-12">
         <div className="min-h-[555px] flex items-center">

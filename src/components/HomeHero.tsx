@@ -152,11 +152,13 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
           </div>
 
           <div className="relative z-10 hidden xl:flex xl:justify-end">
-            <div className="w-full max-w-[520px] rounded-3xl border border-cyan-300/20 bg-[#041326]/45 p-5 shadow-[0_20px_70px_rgba(0,0,0,.22)] backdrop-blur-sm">
+            <div className="w-full max-w-[520px] rounded-3xl border border-cyan-300/20 bg-[#041326]/20 p-5 shadow-[0_20px_70px_rgba(0,0,0,.22)] backdrop-blur-sm">
               <div className="mb-2 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-[11px] font-bold tracking-[0.16em] text-cyan-300">TECHNOLOGY BRANDS</p>
-                  <h2 className="mt-1 text-xl font-bold text-white">3D Partner Carousel</h2>
+                  <p className="mt-1 max-w-[330px] text-sm leading-5 text-slate-300">
+                    Explore trusted technology partners supporting our security, networking, power, and infrastructure solutions.
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button

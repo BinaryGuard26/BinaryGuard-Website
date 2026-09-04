@@ -52,8 +52,8 @@ function MetricIcon({ index }: { index: number }) {
   ];
 
   return (
-    <div className="relative z-10 mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-200/55 bg-cyan-300/[0.12] shadow-[0_0_26px_rgba(34,211,238,.38),0_0_10px_rgba(255,255,255,.10),inset_0_1px_0_rgba(255,255,255,.18)] backdrop-blur-md transition duration-300 group-hover:border-white/75 group-hover:bg-white/25 group-hover:shadow-[0_0_24px_rgba(255,255,255,.55)]">
-      <svg viewBox="0 0 24 24" className="h-5 w-5 text-cyan-200 drop-shadow-[0_0_9px_rgba(34,211,238,.95)] transition duration-300 group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,.95)]" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <div className="relative z-10 mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-200/55 bg-cyan-300/[0.12] shadow-[0_0_26px_rgba(34,211,238,.38),0_0_10px_rgba(255,255,255,.10),inset_0_1px_0_rgba(255,255,255,.18)] backdrop-blur-md transition duration-300 group-hover:border-cyan-100/60 group-hover:bg-cyan-200/10 group-hover:shadow-[0_0_18px_rgba(34,211,238,.32)]">
+      <svg viewBox="0 0 24 24" className="h-5 w-5 text-cyan-200 drop-shadow-[0_0_9px_rgba(34,211,238,.95)] transition duration-300 group-hover:text-cyan-100 group-hover:drop-shadow-[0_0_7px_rgba(34,211,238,.75)]" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         {icons[index]}
       </svg>
     </div>
@@ -207,12 +207,12 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
 
             <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-5">
               {metrics.map((item, index) => (
-                <div key={item.value} className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.10] bg-white/[0.045] px-4 py-4 shadow-[0_10px_30px_rgba(0,0,0,.15),inset_1px_1px_0_rgba(255,255,255,.12),inset_-1px_-1px_0_rgba(0,0,0,.24)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-cyan-100/90 hover:bg-cyan-300 hover:shadow-[0_0_38px_rgba(34,211,238,.62),0_12px_34px_rgba(0,0,0,.22),inset_0_1px_0_rgba(255,255,255,.50)]">
-                  <div className="pointer-events-none absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/16 blur-2xl transition-all duration-300 group-hover:h-36 group-hover:w-36 group-hover:bg-white/28 group-hover:blur-3xl" />
+                <div key={item.value} className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.10] bg-white/[0.045] px-4 py-4 shadow-[0_10px_30px_rgba(0,0,0,.15),inset_1px_1px_0_rgba(255,255,255,.12),inset_-1px_-1px_0_rgba(0,0,0,.24)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-cyan-200/45 hover:bg-cyan-300/20 hover:shadow-[0_0_20px_rgba(34,211,238,.26),0_10px_28px_rgba(0,0,0,.18),inset_0_1px_0_rgba(255,255,255,.20)]">
+                  <div className="pointer-events-none absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/16 blur-2xl transition-all duration-300 group-hover:h-28 group-hover:w-28 group-hover:bg-cyan-200/18 group-hover:blur-3xl" />
                   <div className="relative z-10">
                     <MetricIcon index={index} />
-                    <p className="text-[18px] font-black leading-none text-cyan-300 drop-shadow-[0_0_8px_rgba(34,211,238,.35)] transition-colors duration-300 group-hover:text-[#03101d] group-hover:drop-shadow-none">{item.value}</p>
-                    <p className="mt-2 whitespace-pre-line text-[10px] leading-4 text-white/75 transition-colors duration-300 group-hover:text-[#062234]/85">{item.label}</p>
+                    <p className="text-[18px] font-black leading-none text-cyan-300 drop-shadow-[0_0_8px_rgba(34,211,238,.35)] transition-colors duration-300 group-hover:text-cyan-200">{item.value}</p>
+                    <p className="mt-2 whitespace-pre-line text-[10px] leading-4 text-white/75 transition-colors duration-300 group-hover:text-white/90">{item.label}</p>
                   </div>
                 </div>
               ))}

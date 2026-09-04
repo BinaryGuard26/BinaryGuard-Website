@@ -13,7 +13,7 @@ const metrics = [
 ];
 
 const sectors = [
-  ['GOVERNMENT', 'OF CANADA'],
+  ['GOVERNMENT', 'INSTITUTIONS'],
   ['EDUCATION', 'INSTITUTIONS'],
   ['HEALTHCARE', 'PROVIDERS'],
   ['COMMERCIAL', 'BUILDINGS'],

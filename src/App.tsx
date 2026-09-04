@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import Navbar, { type NavbarPage } from './components/Navbar';
 import CookieConsent from './components/CookieConsent';
+import CustomCursor from './components/CustomCursor';
 import HomeHero from './components/HomeHero';
 
 import Home from './pages/Home';
@@ -59,11 +60,10 @@ export default function App() {
     document.title = titles[currentPage];
   }, [currentPage, isPrivacy, isSupport, isCookiePolicy]);
 
-  // These pages are deliberately public and do not require authentication.
-  // Microsoft and customers must be able to open them directly.
   if (isPrivacy) {
     return (
       <>
+        <CustomCursor />
         <Privacy />
         <CookieConsent />
       </>
@@ -73,6 +73,7 @@ export default function App() {
   if (isSupport) {
     return (
       <>
+        <CustomCursor />
         <Support />
         <CookieConsent />
       </>
@@ -82,6 +83,7 @@ export default function App() {
   if (isCookiePolicy) {
     return (
       <>
+        <CustomCursor />
         <CookiePolicy />
         <CookieConsent />
       </>
@@ -93,6 +95,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#030d1f]">
+      <CustomCursor />
       <Navbar currentPage={navbarCurrentPage} onNavigate={navigate} />
 
       {currentPage === 'home' && (

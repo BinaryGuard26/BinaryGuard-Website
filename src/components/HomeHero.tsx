@@ -152,7 +152,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
           </div>
 
           <div className="relative z-10 hidden xl:flex xl:justify-end">
-            <div className="w-full max-w-[520px] bg-transparent p-5">
+            <div className="w-full max-w-[520px] rounded-3xl border border-cyan-300/20 bg-[#041326]/45 p-5 shadow-[0_20px_70px_rgba(0,0,0,.22)] backdrop-blur-sm">
               <div className="mb-2 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-[11px] font-bold tracking-[0.16em] text-cyan-300">TECHNOLOGY BRANDS</p>
@@ -163,7 +163,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
                     type="button"
                     aria-label="Show previous brand"
                     onClick={previousBrand}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-transparent text-xl text-white transition hover:text-cyan-300"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/25 text-xl text-white transition hover:border-cyan-300/60 hover:bg-cyan-300/10"
                   >
                     ‹
                   </button>
@@ -171,7 +171,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
                     type="button"
                     aria-label="Show next brand"
                     onClick={nextBrand}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-transparent text-xl text-white transition hover:text-cyan-300"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/25 text-xl text-white transition hover:border-cyan-300/60 hover:bg-cyan-300/10"
                   >
                     ›
                   </button>
@@ -188,6 +188,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
                 >
                   {brands.map((brand, index) => {
                     const angle = index * 45;
+                    const isActive = index === brandIndex;
                     return (
                       <a
                         key={brand.name}
@@ -195,25 +196,33 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
                         target="_blank"
                         rel="noreferrer noopener"
                         aria-label={`Open ${brand.name} website`}
-                        className="absolute left-0 top-0 flex h-[128px] w-[132px] flex-col items-center justify-center bg-transparent px-3 py-3 text-center transition-all duration-500 hover:scale-105"
+                        className={`absolute left-0 top-0 flex h-[128px] w-[132px] flex-col items-center justify-center rounded-2xl border px-3 py-3 text-center transition-all duration-500 ${
+                          isActive
+                            ? 'border-cyan-300/80 bg-[#0b233d]/95 shadow-[0_0_30px_rgba(34,211,238,.28)]'
+                            : 'border-white/15 bg-[#07182d]/88 shadow-[0_12px_30px_rgba(0,0,0,.24)]'
+                        }`}
                         style={{
                           transform: `rotateY(${angle}deg) translateZ(205px)`,
                           backfaceVisibility: 'hidden',
                         }}
                       >
-                        <img
-                          src={`https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128`}
-                          alt={`${brand.name} brand`}
-                          className="h-14 w-14 object-contain drop-shadow-[0_0_10px_rgba(255,255,255,.18)]"
-                          loading="lazy"
-                        />
-                        <span className="mt-3 text-[12px] font-extrabold tracking-[0.08em] text-white drop-shadow-[0_2px_5px_rgba(0,0,0,.65)]">
+                        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/95 p-2.5 shadow-sm">
+                          <img
+                            src={`https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128`}
+                            alt={`${brand.name} brand`}
+                            className="h-full w-full object-contain"
+                            loading="lazy"
+                          />
+                        </div>
+                        <span className="mt-3 text-[12px] font-extrabold tracking-[0.08em] text-white">
                           {brand.name}
                         </span>
                       </a>
                     );
                   })}
                 </div>
+
+                <div className="pointer-events-none absolute bottom-6 left-1/2 h-10 w-[300px] -translate-x-1/2 rounded-[50%] bg-cyan-400/10 blur-2xl" />
               </div>
 
               <div className="mt-1 flex items-center justify-center gap-1.5">

@@ -52,8 +52,8 @@ function MetricIcon({ index }: { index: number }) {
   ];
 
   return (
-    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,.18)] backdrop-blur-md">
-      <svg viewBox="0 0 24 24" className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <div className="relative z-10 mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-300/30 bg-cyan-300/[0.08] shadow-[0_0_20px_rgba(34,211,238,.18),inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-md">
+      <svg viewBox="0 0 24 24" className="h-5 w-5 text-cyan-300 drop-shadow-[0_0_7px_rgba(34,211,238,.55)]" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         {icons[index]}
       </svg>
     </div>
@@ -171,10 +171,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
         }
       `}</style>
 
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/hero-ops-dashboard.png')" }}
-      />
+      <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/hero-ops-dashboard.png')" }} />
       <div className="absolute inset-0 bg-[rgba(2,9,22,0.20)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(0,180,255,.04),transparent_34%)]" />
 
@@ -190,9 +187,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
               <span className="block">Enterprise-Grade</span>
               <span className="block">Physical Security,</span>
               <span className="mt-1 block text-cyan-400">IT &amp; Infrastructure</span>
-              <span className="block overflow-visible">
-                <span className="bg-solutions-motion">Solutions</span>
-              </span>
+              <span className="block overflow-visible"><span className="bg-solutions-motion">Solutions</span></span>
             </h1>
 
             <p className="mt-6 max-w-[560px] text-[16px] leading-7 text-slate-300">
@@ -202,34 +197,23 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <button
-                type="button"
-                onClick={() => onNavigate('contact')}
-                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-cyan-400 px-7 text-[13px] font-extrabold tracking-wide text-[#03101d] shadow-[0_0_28px_rgba(34,211,238,.20)] transition hover:bg-cyan-300"
-              >
-                GET FREE CONSULTATION
-                <ArrowIcon />
+              <button type="button" onClick={() => onNavigate('contact')} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-cyan-400 px-7 text-[13px] font-extrabold tracking-wide text-[#03101d] shadow-[0_0_28px_rgba(34,211,238,.20)] transition hover:bg-cyan-300">
+                GET FREE CONSULTATION <ArrowIcon />
               </button>
-
-              <button
-                type="button"
-                onClick={() => onNavigate('solutions')}
-                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/25 bg-black/10 px-7 text-[13px] font-bold tracking-wide text-white transition hover:border-cyan-400/60 hover:bg-cyan-400/10"
-              >
-                EXPLORE SOLUTIONS
-                <ArrowIcon />
+              <button type="button" onClick={() => onNavigate('solutions')} className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/25 bg-black/10 px-7 text-[13px] font-bold tracking-wide text-white transition hover:border-cyan-400/60 hover:bg-cyan-400/10">
+                EXPLORE SOLUTIONS <ArrowIcon />
               </button>
             </div>
 
             <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-5">
               {metrics.map((item, index) => (
-                <div
-                  key={item.value}
-                  className="group min-w-0 rounded-2xl border border-white/20 bg-white/[0.10] px-4 py-4 shadow-[0_8px_30px_rgba(0,0,0,.16),inset_0_1px_0_rgba(255,255,255,.14)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-white/35 hover:bg-white/[0.15]"
-                >
-                  <MetricIcon index={index} />
-                  <p className="text-[18px] font-black leading-none text-white">{item.value}</p>
-                  <p className="mt-2 whitespace-pre-line text-[10px] leading-4 text-white/75">{item.label}</p>
+                <div key={item.value} className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/20 bg-white/[0.10] px-4 py-4 shadow-[0_8px_30px_rgba(0,0,0,.16),inset_0_1px_0_rgba(255,255,255,.14)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-white/[0.15]">
+                  <div className="pointer-events-none absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/20 blur-2xl transition duration-300 group-hover:bg-cyan-300/30" />
+                  <div className="relative z-10">
+                    <MetricIcon index={index} />
+                    <p className="text-[18px] font-black leading-none text-white">{item.value}</p>
+                    <p className="mt-2 whitespace-pre-line text-[10px] leading-4 text-white/75">{item.label}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -239,85 +223,23 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
             <div className="w-full max-w-[520px] rounded-3xl bg-[#041326]/20 p-5 shadow-[0_20px_70px_rgba(0,0,0,.22)] backdrop-blur-sm">
               <div className="mb-2">
                 <p className="text-[11px] font-bold tracking-[0.16em] text-cyan-300">TECHNOLOGY BRANDS</p>
-                <p className="mt-1 max-w-[390px] text-sm leading-5 text-slate-300">
-                  Explore trusted technology partners supporting our security, networking, power, and infrastructure solutions.
-                </p>
+                <p className="mt-1 max-w-[390px] text-sm leading-5 text-slate-300">Explore trusted technology partners supporting our security, networking, power, and infrastructure solutions.</p>
               </div>
 
-              <div
-                className={`relative mx-auto h-[340px] w-full select-none overflow-hidden ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
-                style={{ perspective: '1100px', touchAction: 'pan-y' }}
-                onPointerDown={handlePointerDown}
-                onPointerMove={handlePointerMove}
-                onPointerUp={finishDrag}
-                onPointerCancel={finishDrag}
-              >
-                <button
-                  type="button"
-                  aria-label="Show previous brand"
-                  onPointerDown={(event) => event.stopPropagation()}
-                  onClick={previousBrand}
-                  className="absolute left-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/35 text-2xl text-white backdrop-blur-sm transition hover:border-cyan-300/60 hover:bg-cyan-300/10"
-                >
-                  ‹
-                </button>
+              <div className={`relative mx-auto h-[340px] w-full select-none overflow-hidden ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`} style={{ perspective: '1100px', touchAction: 'pan-y' }} onPointerDown={handlePointerDown} onPointerMove={handlePointerMove} onPointerUp={finishDrag} onPointerCancel={finishDrag}>
+                <button type="button" aria-label="Show previous brand" onPointerDown={(event) => event.stopPropagation()} onClick={previousBrand} className="absolute left-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/35 text-2xl text-white backdrop-blur-sm transition hover:border-cyan-300/60 hover:bg-cyan-300/10">‹</button>
+                <button type="button" aria-label="Show next brand" onPointerDown={(event) => event.stopPropagation()} onClick={nextBrand} className="absolute right-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/35 text-2xl text-white backdrop-blur-sm transition hover:border-cyan-300/60 hover:bg-cyan-300/10">›</button>
 
-                <button
-                  type="button"
-                  aria-label="Show next brand"
-                  onPointerDown={(event) => event.stopPropagation()}
-                  onClick={nextBrand}
-                  className="absolute right-2 top-1/2 z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/35 text-2xl text-white backdrop-blur-sm transition hover:border-cyan-300/60 hover:bg-cyan-300/10"
-                >
-                  ›
-                </button>
-
-                <div
-                  className={`absolute left-1/2 top-1/2 h-[128px] w-[132px] ease-out ${isDragging ? '' : 'transition-transform duration-700'}`}
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    transform: `translate(-50%, -50%) rotateY(${-brandIndex * 45 + dragRotation}deg)`,
-                  }}
-                >
+                <div className={`absolute left-1/2 top-1/2 h-[128px] w-[132px] ease-out ${isDragging ? '' : 'transition-transform duration-700'}`} style={{ transformStyle: 'preserve-3d', transform: `translate(-50%, -50%) rotateY(${-brandIndex * 45 + dragRotation}deg)` }}>
                   {brands.map((brand, index) => {
                     const angle = index * 45;
                     const isActive = index === brandIndex;
                     return (
-                      <a
-                        key={brand.name}
-                        href={brand.url}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        aria-label={`Open ${brand.name} website`}
-                        onClick={(event) => {
-                          if (suppressClick.current) {
-                            event.preventDefault();
-                            suppressClick.current = false;
-                          }
-                        }}
-                        draggable={false}
-                        className={`absolute left-0 top-0 flex h-[128px] w-[132px] flex-col items-center justify-center rounded-2xl border px-3 py-3 text-center transition-[border-color,background-color,box-shadow] duration-500 ${
-                          isActive
-                            ? 'border-cyan-300/90 bg-[#0b233d]/95 shadow-[0_0_34px_rgba(34,211,238,.34)]'
-                            : 'border-white/15 bg-[#07182d]/88 shadow-[0_12px_30px_rgba(0,0,0,.24)]'
-                        }`}
-                        style={{
-                          transform: `rotateY(${angle}deg) translateZ(${isActive ? 238 : 205}px) scale(${isActive ? 1.14 : 1})`,
-                          backfaceVisibility: 'hidden',
-                        }}
-                      >
+                      <a key={brand.name} href={brand.url} target="_blank" rel="noreferrer noopener" aria-label={`Open ${brand.name} website`} onClick={(event) => { if (suppressClick.current) { event.preventDefault(); suppressClick.current = false; } }} draggable={false} className={`absolute left-0 top-0 flex h-[128px] w-[132px] flex-col items-center justify-center rounded-2xl border px-3 py-3 text-center transition-[border-color,background-color,box-shadow] duration-500 ${isActive ? 'border-cyan-300/90 bg-[#0b233d]/95 shadow-[0_0_34px_rgba(34,211,238,.34)]' : 'border-white/15 bg-[#07182d]/88 shadow-[0_12px_30px_rgba(0,0,0,.24)]'}`} style={{ transform: `rotateY(${angle}deg) translateZ(${isActive ? 238 : 205}px) scale(${isActive ? 1.14 : 1})`, backfaceVisibility: 'hidden' }}>
                         <div className={`flex items-center justify-center rounded-xl bg-white/95 p-2.5 shadow-sm transition-all duration-500 ${isActive ? 'h-16 w-16' : 'h-14 w-14'}`}>
-                          <img
-                            src={`https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128`}
-                            alt={`${brand.name} brand`}
-                            className="h-full w-full select-none object-contain"
-                            loading="lazy"
-                            draggable={false}
-                          />
+                          <img src={`https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128`} alt={`${brand.name} brand`} className="h-full w-full select-none object-contain" loading="lazy" draggable={false} />
                         </div>
-                        <span className={`mt-3 font-extrabold tracking-[0.08em] text-white transition-all duration-500 ${isActive ? 'text-[13px] text-cyan-100' : 'text-[12px]'}`}>
-                          {brand.name}
-                        </span>
+                        <span className={`mt-3 font-extrabold tracking-[0.08em] text-white transition-all duration-500 ${isActive ? 'text-[13px] text-cyan-100' : 'text-[12px]'}`}>{brand.name}</span>
                       </a>
                     );
                   })}
@@ -328,40 +250,23 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
 
               <div className="mt-1 flex items-center justify-center gap-1.5">
                 {brands.map((brand, index) => (
-                  <button
-                    key={brand.name}
-                    type="button"
-                    aria-label={`Rotate to ${brand.name}`}
-                    onClick={() => {
-                      setDragRotation(0);
-                      setBrandIndex(index);
-                    }}
-                    className={`h-1.5 rounded-full transition-all ${index === brandIndex ? 'w-7 bg-cyan-300' : 'w-1.5 bg-white/25 hover:bg-white/50'}`}
-                  />
+                  <button key={brand.name} type="button" aria-label={`Rotate to ${brand.name}`} onClick={() => { setDragRotation(0); setBrandIndex(index); }} className={`h-1.5 rounded-full transition-all ${index === brandIndex ? 'w-7 bg-cyan-300' : 'w-1.5 bg-white/25 hover:bg-white/50'}`} />
                 ))}
               </div>
 
-              <p className="mt-3 text-center text-xs text-slate-400">
-                Drag the carousel or use the arrows to explore each technology brand.
-              </p>
+              <p className="mt-3 text-center text-xs text-slate-400">Drag the carousel or use the arrows to explore each technology brand.</p>
             </div>
           </div>
         </div>
       </div>
 
       <div className="relative z-10 border-t border-cyan-400/10 bg-[#061426]/95 px-6 py-5 backdrop-blur-md lg:px-10">
-        <p className="mb-5 text-center text-[11px] font-bold tracking-[0.14em] text-cyan-400">
-          TRUSTED BY ORGANIZATIONS ACROSS CANADA
-        </p>
-
+        <p className="mb-5 text-center text-[11px] font-bold tracking-[0.14em] text-cyan-400">TRUSTED BY ORGANIZATIONS ACROSS CANADA</p>
         <div className="mx-auto grid max-w-[1450px] grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6">
           {sectors.map(([line1, line2], index) => (
             <div key={line1} className="flex items-center gap-3 text-slate-400">
               <SectorIcon index={index} />
-              <div className="text-[10px] font-semibold leading-[1.25] tracking-wide sm:text-[11px]">
-                <p>{line1}</p>
-                <p>{line2}</p>
-              </div>
+              <div className="text-[10px] font-semibold leading-[1.25] tracking-wide sm:text-[11px]"><p>{line1}</p><p>{line2}</p></div>
             </div>
           ))}
         </div>

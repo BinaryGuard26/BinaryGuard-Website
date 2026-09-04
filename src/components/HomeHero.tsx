@@ -190,7 +190,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
 
             <p className="mt-6 max-w-[560px] text-[16px] leading-7 text-slate-300">
               BinaryGuard delivers integrated physical security and IT solutions that improve visibility,
-              resilience, and operational control—designed for businesses that need dependable systems
+              resilience, and operational control designed for businesses that need dependable systems
               and a professional long-term partner.
             </p>
 

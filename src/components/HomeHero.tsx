@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type HeroPage = 'contact' | 'solutions';
 
@@ -79,16 +79,11 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
     return () => window.clearInterval(timer);
   }, []);
 
-  const visibleBrands = useMemo(
-    () => Array.from({ length: 4 }, (_, offset) => brands[(brandIndex + offset) % brands.length]),
-    [brandIndex],
-  );
-
-  const previousBrands = () => {
+  const previousBrand = () => {
     setBrandIndex((current) => (current - 1 + brands.length) % brands.length);
   };
 
-  const nextBrands = () => {
+  const nextBrand = () => {
     setBrandIndex((current) => (current + 1) % brands.length);
   };
 
@@ -157,69 +152,94 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
           </div>
 
           <div className="relative z-10 hidden xl:flex xl:justify-end">
-            <div className="w-full max-w-[500px] rounded-3xl border border-cyan-300/25 bg-[#041326]/70 p-5 shadow-[0_20px_70px_rgba(0,0,0,.28)] backdrop-blur-md">
-              <div className="mb-4 flex items-center justify-between gap-4">
+            <div className="w-full max-w-[520px] rounded-3xl border border-cyan-300/20 bg-[#041326]/45 p-5 shadow-[0_20px_70px_rgba(0,0,0,.22)] backdrop-blur-sm">
+              <div className="mb-2 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-[11px] font-bold tracking-[0.16em] text-cyan-300">TECHNOLOGY BRANDS</p>
-                  <h2 className="mt-1 text-xl font-bold text-white">Trusted platforms we work with</h2>
+                  <h2 className="mt-1 text-xl font-bold text-white">3D Partner Carousel</h2>
                 </div>
-
                 <div className="flex items-center gap-2">
                   <button
                     type="button"
-                    aria-label="Show previous brands"
-                    onClick={previousBrands}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/20 text-white transition hover:border-cyan-300/60 hover:bg-cyan-300/10"
+                    aria-label="Show previous brand"
+                    onClick={previousBrand}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/25 text-xl text-white transition hover:border-cyan-300/60 hover:bg-cyan-300/10"
                   >
                     ‹
                   </button>
                   <button
                     type="button"
-                    aria-label="Show next brands"
-                    onClick={nextBrands}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/20 text-white transition hover:border-cyan-300/60 hover:bg-cyan-300/10"
+                    aria-label="Show next brand"
+                    onClick={nextBrand}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/25 text-xl text-white transition hover:border-cyan-300/60 hover:bg-cyan-300/10"
                   >
                     ›
                   </button>
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                {visibleBrands.map((brand) => (
-                  <a
-                    key={`${brandIndex}-${brand.name}`}
-                    href={brand.url}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="group flex min-h-[116px] flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081a31]/78 px-4 py-4 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/55 hover:bg-[#0a213b]/90 hover:shadow-[0_12px_28px_rgba(34,211,238,.12)]"
-                    aria-label={`Open ${brand.name} website`}
-                  >
-                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/95 p-2.5 shadow-sm">
-                      <img
-                        src={`https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128`}
-                        alt={`${brand.name} brand`}
-                        className="h-full w-full object-contain"
-                        loading="lazy"
-                      />
-                    </div>
-                    <span className="mt-3 text-sm font-extrabold tracking-[0.08em] text-white group-hover:text-cyan-300">
-                      {brand.name}
-                    </span>
-                  </a>
-                ))}
+              <div className="relative mx-auto h-[340px] w-full overflow-hidden" style={{ perspective: '1100px' }}>
+                <div
+                  className="absolute left-1/2 top-1/2 h-[128px] w-[132px] transition-transform duration-700 ease-out"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transform: `translate(-50%, -50%) rotateY(${-brandIndex * 45}deg)`,
+                  }}
+                >
+                  {brands.map((brand, index) => {
+                    const angle = index * 45;
+                    const isActive = index === brandIndex;
+                    return (
+                      <a
+                        key={brand.name}
+                        href={brand.url}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        aria-label={`Open ${brand.name} website`}
+                        className={`absolute left-0 top-0 flex h-[128px] w-[132px] flex-col items-center justify-center rounded-2xl border px-3 py-3 text-center transition-all duration-500 ${
+                          isActive
+                            ? 'border-cyan-300/80 bg-[#0b233d]/95 shadow-[0_0_30px_rgba(34,211,238,.28)]'
+                            : 'border-white/15 bg-[#07182d]/88 shadow-[0_12px_30px_rgba(0,0,0,.24)]'
+                        }`}
+                        style={{
+                          transform: `rotateY(${angle}deg) translateZ(205px)`,
+                          backfaceVisibility: 'hidden',
+                        }}
+                      >
+                        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/95 p-2.5 shadow-sm">
+                          <img
+                            src={`https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128`}
+                            alt={`${brand.name} brand`}
+                            className="h-full w-full object-contain"
+                            loading="lazy"
+                          />
+                        </div>
+                        <span className="mt-3 text-[12px] font-extrabold tracking-[0.08em] text-white">
+                          {brand.name}
+                        </span>
+                      </a>
+                    );
+                  })}
+                </div>
+
+                <div className="pointer-events-none absolute bottom-6 left-1/2 h-10 w-[300px] -translate-x-1/2 rounded-[50%] bg-cyan-400/10 blur-2xl" />
               </div>
 
-              <div className="mt-4 flex items-center justify-center gap-1.5">
+              <div className="mt-1 flex items-center justify-center gap-1.5">
                 {brands.map((brand, index) => (
                   <button
                     key={brand.name}
                     type="button"
-                    aria-label={`Show ${brand.name}`}
+                    aria-label={`Rotate to ${brand.name}`}
                     onClick={() => setBrandIndex(index)}
                     className={`h-1.5 rounded-full transition-all ${index === brandIndex ? 'w-7 bg-cyan-300' : 'w-1.5 bg-white/25 hover:bg-white/50'}`}
                   />
                 ))}
               </div>
+
+              <p className="mt-3 text-center text-xs text-slate-400">
+                Select a brand or use the arrows to rotate the carousel.
+              </p>
             </div>
           </div>
         </div>

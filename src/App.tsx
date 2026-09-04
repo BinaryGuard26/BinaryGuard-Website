@@ -98,7 +98,15 @@ export default function App() {
       {currentPage === 'home' && (
         <>
           <HomeHero onNavigate={navigate} />
-          <div className="[&>div>section:first-child]:hidden">
+          <style>{`
+            .home-page-content > div > section:nth-of-type(5) > div > div {
+              grid-template-columns: 1fr !important;
+            }
+            .home-page-content > div > section:nth-of-type(5) > div > div > div:first-child {
+              display: none !important;
+            }
+          `}</style>
+          <div className="home-page-content [&>div>section:first-child]:hidden">
             <Home onNavigate={navigate} />
           </div>
         </>

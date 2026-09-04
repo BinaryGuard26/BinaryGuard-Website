@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import Navbar, { type NavbarPage } from './components/Navbar';
 import CookieConsent from './components/CookieConsent';
+import HomeHero from './components/HomeHero';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -94,7 +95,14 @@ export default function App() {
     <div className="min-h-screen bg-[#030d1f]">
       <Navbar currentPage={navbarCurrentPage} onNavigate={navigate} />
 
-      {currentPage === 'home' && <Home onNavigate={navigate} />}
+      {currentPage === 'home' && (
+        <>
+          <HomeHero onNavigate={navigate} />
+          <div className="[&>div>section:first-child]:hidden">
+            <Home onNavigate={navigate} />
+          </div>
+        </>
+      )}
       {currentPage === 'about' && <About onNavigate={navigate} />}
       {currentPage === 'solutions' && <Solutions onNavigate={navigate} />}
       {currentPage === 'services' && <Services onNavigate={navigate} />}

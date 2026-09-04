@@ -43,14 +43,21 @@ function ArrowIcon() {
 }
 
 function MetricIcon({ index }: { index: number }) {
-  const paths = [
-    <path key="a" d="M12 3l7 3v5c0 5-3.2 8.2-7 10-3.8-1.8-7-5-7-10V6l7-3z" stroke="currentColor" strokeWidth="1.7" fill="none" />,
-    <path key="b" d="M12 5v7l4 2M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="currentColor" strokeWidth="1.7" fill="none" />,
-    <path key="c" d="M13 2L5 14h6l-1 8 8-12h-6l1-8z" stroke="currentColor" strokeWidth="1.7" fill="none" strokeLinejoin="round" />,
-    <path key="d" d="M12 3l7 3v5c0 5-3.2 8.2-7 10-3.8-1.8-7-5-7-10V6l7-3z" stroke="currentColor" strokeWidth="1.7" fill="none" />,
-    <path key="e" d="M12 21s6-5.3 6-11a6 6 0 10-12 0c0 5.7 6 11 6 11zM12 12a2 2 0 100-4 2 2 0 000 4z" stroke="currentColor" strokeWidth="1.7" fill="none" />,
+  const icons = [
+    <path key="shield" d="M12 3.2 19 6v5.2c0 4.5-2.8 7.6-7 9.8-4.2-2.2-7-5.3-7-9.8V6l7-2.8Z" />,
+    <g key="clock"><circle cx="12" cy="12" r="8.3" /><path d="M12 7.8v4.7l3.2 2" /></g>,
+    <path key="bolt" d="M13.2 2.8 6.5 13h5l-.7 8.2 6.7-10.3h-5l.7-8.1Z" />,
+    <g key="availability"><path d="M12 3.2 19 6v5.2c0 4.5-2.8 7.6-7 9.8-4.2-2.2-7-5.3-7-9.8V6l7-2.8Z" /><path d="m8.8 12 2.1 2.1 4.5-4.5" /></g>,
+    <g key="location"><path d="M12 21s6-5.1 6-11a6 6 0 1 0-12 0c0 5.9 6 11 6 11Z" /><circle cx="12" cy="10" r="2.1" /></g>,
   ];
-  return <svg viewBox="0 0 24 24" className="mb-3 h-7 w-7 text-cyan-400" aria-hidden="true">{paths[index]}</svg>;
+
+  return (
+    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,.18)] backdrop-blur-md">
+      <svg viewBox="0 0 24 24" className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        {icons[index]}
+      </svg>
+    </div>
+  );
 }
 
 function SectorIcon({ index }: { index: number }) {
@@ -214,15 +221,15 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
               </button>
             </div>
 
-            <div className="mt-12 grid grid-cols-2 gap-y-7 sm:grid-cols-5 sm:gap-y-0">
+            <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-5">
               {metrics.map((item, index) => (
                 <div
                   key={item.value}
-                  className={`min-w-0 pr-3 sm:px-4 ${index === 0 ? 'sm:pl-0' : 'sm:border-l sm:border-white/15'}`}
+                  className="group min-w-0 rounded-2xl border border-white/20 bg-white/[0.10] px-4 py-4 shadow-[0_8px_30px_rgba(0,0,0,.16),inset_0_1px_0_rgba(255,255,255,.14)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-white/35 hover:bg-white/[0.15]"
                 >
                   <MetricIcon index={index} />
-                  <p className="text-[20px] font-black leading-none text-cyan-400">{item.value}</p>
-                  <p className="mt-2 whitespace-pre-line text-[11px] leading-4 text-slate-300">{item.label}</p>
+                  <p className="text-[18px] font-black leading-none text-white">{item.value}</p>
+                  <p className="mt-2 whitespace-pre-line text-[10px] leading-4 text-white/75">{item.label}</p>
                 </div>
               ))}
             </div>

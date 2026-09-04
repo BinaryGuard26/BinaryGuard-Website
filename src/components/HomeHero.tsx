@@ -52,8 +52,8 @@ function MetricIcon({ index }: { index: number }) {
   ];
 
   return (
-    <div className="relative z-10 mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-300/30 bg-cyan-300/[0.08] shadow-[0_0_20px_rgba(34,211,238,.18),inset_0_1px_0_rgba(255,255,255,.12)] backdrop-blur-md">
-      <svg viewBox="0 0 24 24" className="h-5 w-5 text-cyan-300 drop-shadow-[0_0_7px_rgba(34,211,238,.55)]" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <div className="relative z-10 mb-4 flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-200/55 bg-cyan-300/[0.12] shadow-[0_0_26px_rgba(34,211,238,.38),0_0_10px_rgba(255,255,255,.10),inset_0_1px_0_rgba(255,255,255,.18)] backdrop-blur-md">
+      <svg viewBox="0 0 24 24" className="h-5 w-5 text-cyan-200 drop-shadow-[0_0_9px_rgba(34,211,238,.95)]" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         {icons[index]}
       </svg>
     </div>
@@ -211,7 +211,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
                   <div className="pointer-events-none absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/20 blur-2xl transition duration-300 group-hover:bg-cyan-300/30" />
                   <div className="relative z-10">
                     <MetricIcon index={index} />
-                    <p className="text-[18px] font-black leading-none text-white">{item.value}</p>
+                    <p className="text-[18px] font-black leading-none text-cyan-300 drop-shadow-[0_0_8px_rgba(34,211,238,.35)]">{item.value}</p>
                     <p className="mt-2 whitespace-pre-line text-[10px] leading-4 text-white/75">{item.label}</p>
                   </div>
                 </div>

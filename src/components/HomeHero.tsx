@@ -207,8 +207,8 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
 
             <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-5">
               {metrics.map((item, index) => (
-                <div key={item.value} className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/20 bg-white/[0.10] px-4 py-4 shadow-[0_8px_30px_rgba(0,0,0,.16),inset_0_1px_0_rgba(255,255,255,.14)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-white/[0.15]">
-                  <div className="pointer-events-none absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/20 blur-2xl transition duration-300 group-hover:bg-cyan-300/30" />
+                <div key={item.value} className="group relative min-w-0 overflow-hidden rounded-2xl border border-white/[0.10] bg-white/[0.045] px-4 py-4 shadow-[0_10px_30px_rgba(0,0,0,.15),inset_1px_1px_0_rgba(255,255,255,.12),inset_-1px_-1px_0_rgba(0,0,0,.24)] backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-cyan-300/30 hover:bg-white/[0.07]">
+                  <div className="pointer-events-none absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-300/16 blur-2xl transition duration-300 group-hover:bg-cyan-300/24" />
                   <div className="relative z-10">
                     <MetricIcon index={index} />
                     <p className="text-[18px] font-black leading-none text-cyan-300 drop-shadow-[0_0_8px_rgba(34,211,238,.35)]">{item.value}</p>

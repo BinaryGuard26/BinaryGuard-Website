@@ -55,21 +55,17 @@ function SectorIcon({ index }: { index: number }) {
 export default function HomeHero({ onNavigate }: HomeHeroProps) {
   return (
     <section className="relative overflow-hidden bg-[#020916] pt-[73px] text-white">
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/binaryGuard-operations.jpg"
-          alt="BinaryGuard security operations centre"
-          className="h-full w-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-[#020916]/45" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#020916]/98 via-[#020916]/82 to-[#020916]/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#020916]/90 via-transparent to-[#020916]/25" />
-      </div>
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/hero-ops-dashboard.png')" }}
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,9,22,0.92)_0%,rgba(2,9,22,0.84)_28%,rgba(2,9,22,0.55)_54%,rgba(2,9,22,0.58)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(0,180,255,.08),transparent_34%)]" />
 
-      <div className="relative z-10 mx-auto max-w-[1536px] px-6 pt-12 lg:px-10 lg:pt-16 xl:px-12">
+      <div className="relative mx-auto max-w-[1536px] px-6 pt-12 lg:px-10 lg:pt-16 xl:px-12">
         <div className="min-h-[555px] flex items-center">
           <div className="relative z-10 max-w-[760px] pb-10 lg:pb-12">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/35 bg-[#020916]/55 px-4 py-2 text-[12px] font-bold tracking-[0.13em] text-cyan-300 backdrop-blur-sm">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/35 bg-cyan-400/[0.04] px-4 py-2 text-[12px] font-bold tracking-[0.13em] text-cyan-300">
               <span className="h-2 w-2 rounded-full bg-cyan-400" />
               MODERN SECURITY &amp; IT PARTNER
             </div>
@@ -81,7 +77,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
               <span className="block text-cyan-400">Solutions</span>
             </h1>
 
-            <p className="mt-6 max-w-[560px] text-[16px] leading-7 text-slate-200">
+            <p className="mt-6 max-w-[560px] text-[16px] leading-7 text-slate-300">
               BinaryGuard delivers integrated physical security and IT solutions that improve visibility,
               resilience, and operational control—designed for businesses that need dependable systems
               and a professional long-term partner.
@@ -100,7 +96,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
               <button
                 type="button"
                 onClick={() => onNavigate('solutions')}
-                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/30 bg-[#020916]/40 px-7 text-[13px] font-bold tracking-wide text-white backdrop-blur-sm transition hover:border-cyan-400/60 hover:bg-cyan-400/10"
+                className="inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-white/25 bg-black/10 px-7 text-[13px] font-bold tracking-wide text-white transition hover:border-cyan-400/60 hover:bg-cyan-400/10"
               >
                 EXPLORE SOLUTIONS
                 <ArrowIcon />
@@ -115,7 +111,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
                 >
                   <MetricIcon index={index} />
                   <p className="text-[20px] font-black leading-none text-cyan-400">{item.value}</p>
-                  <p className="mt-2 whitespace-pre-line text-[11px] leading-4 text-slate-200">{item.label}</p>
+                  <p className="mt-2 whitespace-pre-line text-[11px] leading-4 text-slate-300">{item.label}</p>
                 </div>
               ))}
             </div>

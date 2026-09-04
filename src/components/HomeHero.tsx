@@ -130,9 +130,10 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
     <section className="relative overflow-hidden bg-[#020916] pt-[73px] text-white">
       <style>{`
         @keyframes bgSolutionsFloat {
-          0%, 100% { transform: translate3d(0, 0, 0); }
-          35% { transform: translate3d(8px, -2px, 0); }
-          70% { transform: translate3d(2px, 2px, 0); }
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          30% { transform: translate3d(14px, -3px, 0) scale(1.025); }
+          60% { transform: translate3d(4px, 3px, 0) scale(1.01); }
+          82% { transform: translate3d(10px, -1px, 0) scale(1.02); }
         }
 
         @keyframes bgSolutionsShine {
@@ -141,27 +142,56 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
         }
 
         @keyframes bgSolutionsGlow {
-          0%, 100% { filter: drop-shadow(0 0 0 rgba(34,211,238,0)); }
-          50% { filter: drop-shadow(0 0 16px rgba(34,211,238,.30)); }
+          0%, 100% { filter: drop-shadow(0 0 4px rgba(255,255,255,.18)) drop-shadow(0 0 10px rgba(34,211,238,.12)); }
+          50% { filter: drop-shadow(0 0 12px rgba(255,255,255,.48)) drop-shadow(0 0 24px rgba(34,211,238,.38)); }
+        }
+
+        @keyframes bgSolutionsHalo {
+          0%, 100% { opacity: .28; transform: translate(-50%, -50%) scale(.92); }
+          50% { opacity: .72; transform: translate(-50%, -50%) scale(1.08); }
+        }
+
+        .bg-solutions-wrap {
+          position: relative;
+          display: inline-block;
+          isolation: isolate;
+        }
+
+        .bg-solutions-wrap::before {
+          content: '';
+          position: absolute;
+          left: 50%;
+          top: 54%;
+          width: 118%;
+          height: 86%;
+          transform: translate(-50%, -50%);
+          border-radius: 999px;
+          background: radial-gradient(ellipse at center, rgba(255,255,255,.52) 0%, rgba(255,255,255,.22) 32%, rgba(255,255,255,.07) 55%, transparent 76%);
+          filter: blur(18px);
+          z-index: -1;
+          pointer-events: none;
+          animation: bgSolutionsHalo 3.2s ease-in-out infinite;
         }
 
         .bg-solutions-motion {
+          position: relative;
           display: inline-block;
           color: transparent;
-          background-image: linear-gradient(100deg, #22d3ee 0%, #22d3ee 34%, #ffffff 48%, #67e8f9 58%, #22d3ee 72%, #22d3ee 100%);
+          background-image: linear-gradient(100deg, #22d3ee 0%, #22d3ee 30%, #ffffff 47%, #ffffff 52%, #67e8f9 62%, #22d3ee 78%, #22d3ee 100%);
           background-size: 220% 100%;
           background-clip: text;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
-          animation: bgSolutionsFloat 4.6s ease-in-out infinite, bgSolutionsShine 3.4s linear infinite, bgSolutionsGlow 4.6s ease-in-out infinite;
+          animation: bgSolutionsFloat 3.8s ease-in-out infinite, bgSolutionsShine 2.7s linear infinite, bgSolutionsGlow 3.2s ease-in-out infinite;
           will-change: transform, background-position, filter;
         }
 
         @media (prefers-reduced-motion: reduce) {
-          .bg-solutions-motion {
+          .bg-solutions-motion,
+          .bg-solutions-wrap::before {
             animation: none;
-            background-position: 50% 50%;
           }
+          .bg-solutions-motion { background-position: 50% 50%; }
         }
       `}</style>
 
@@ -185,7 +215,9 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
               <span className="block">Physical Security,</span>
               <span className="mt-1 block text-cyan-400">IT &amp; Infrastructure</span>
               <span className="block overflow-visible">
-                <span className="bg-solutions-motion">Solutions</span>
+                <span className="bg-solutions-wrap">
+                  <span className="bg-solutions-motion">Solutions</span>
+                </span>
               </span>
             </h1>
 

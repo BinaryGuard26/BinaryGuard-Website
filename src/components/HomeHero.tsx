@@ -1,3 +1,5 @@
+import { useEffect, useMemo, useState } from 'react';
+
 type HeroPage = 'contact' | 'solutions';
 
 interface HomeHeroProps {
@@ -19,6 +21,17 @@ const sectors = [
   ['COMMERCIAL', 'BUILDINGS'],
   ['RETAIL', 'BUSINESSES'],
   ['INDUSTRIAL', 'FACILITIES'],
+];
+
+const brands = [
+  { name: 'Cisco', domain: 'cisco.com', url: 'https://www.cisco.com/' },
+  { name: 'AXIS', domain: 'axis.com', url: 'https://www.axis.com/' },
+  { name: 'UNIFI', domain: 'ui.com', url: 'https://www.ui.com/' },
+  { name: 'BOSCH', domain: 'boschsecurity.com', url: 'https://www.boschsecurity.com/' },
+  { name: 'APC', domain: 'se.com', url: 'https://www.se.com/ca/en/brands/apc/' },
+  { name: 'Cyberlink', domain: 'cyberlink.com', url: 'https://www.cyberlink.com/' },
+  { name: '2N', domain: '2n.com', url: 'https://www.2n.com/en-US/' },
+  { name: 'TRIPP-LITE', domain: 'tripplite.eaton.com', url: 'https://tripplite.eaton.com/' },
 ];
 
 function ArrowIcon() {
@@ -53,6 +66,32 @@ function SectorIcon({ index }: { index: number }) {
 }
 
 export default function HomeHero({ onNavigate }: HomeHeroProps) {
+  const [brandIndex, setBrandIndex] = useState(0);
+
+  useEffect(() => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    const timer = window.setInterval(() => {
+      setBrandIndex((current) => (current + 1) % brands.length);
+    }, 3200);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const visibleBrands = useMemo(
+    () => Array.from({ length: 4 }, (_, offset) => brands[(brandIndex + offset) % brands.length]),
+    [brandIndex],
+  );
+
+  const previousBrands = () => {
+    setBrandIndex((current) => (current - 1 + brands.length) % brands.length);
+  };
+
+  const nextBrands = () => {
+    setBrandIndex((current) => (current + 1) % brands.length);
+  };
+
   return (
     <section className="relative overflow-hidden bg-[#020916] pt-[73px] text-white">
       <div
@@ -63,7 +102,7 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(0,180,255,.04),transparent_34%)]" />
 
       <div className="relative mx-auto max-w-[1536px] px-6 pt-12 lg:px-10 lg:pt-16 xl:px-12">
-        <div className="min-h-[555px] flex items-center">
+        <div className="grid min-h-[555px] items-center gap-8 xl:grid-cols-[0.95fr_0.65fr]">
           <div className="relative z-10 max-w-[760px] pb-10 lg:pb-12">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/35 bg-cyan-400/[0.04] px-4 py-2 text-[12px] font-bold tracking-[0.13em] text-cyan-300">
               <span className="h-2 w-2 rounded-full bg-cyan-400" />
@@ -114,6 +153,73 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
                   <p className="mt-2 whitespace-pre-line text-[11px] leading-4 text-slate-300">{item.label}</p>
                 </div>
               ))}
+            </div>
+          </div>
+
+          <div className="relative z-10 hidden xl:flex xl:justify-end">
+            <div className="w-full max-w-[500px] rounded-3xl border border-cyan-300/25 bg-[#041326]/70 p-5 shadow-[0_20px_70px_rgba(0,0,0,.28)] backdrop-blur-md">
+              <div className="mb-4 flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-[11px] font-bold tracking-[0.16em] text-cyan-300">TECHNOLOGY BRANDS</p>
+                  <h2 className="mt-1 text-xl font-bold text-white">Trusted platforms we work with</h2>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    aria-label="Show previous brands"
+                    onClick={previousBrands}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/20 text-white transition hover:border-cyan-300/60 hover:bg-cyan-300/10"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Show next brands"
+                    onClick={nextBrands}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/20 text-white transition hover:border-cyan-300/60 hover:bg-cyan-300/10"
+                  >
+                    ›
+                  </button>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                {visibleBrands.map((brand) => (
+                  <a
+                    key={`${brandIndex}-${brand.name}`}
+                    href={brand.url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="group flex min-h-[116px] flex-col items-center justify-center rounded-2xl border border-white/10 bg-[#081a31]/78 px-4 py-4 text-center transition duration-300 hover:-translate-y-1 hover:border-cyan-300/55 hover:bg-[#0a213b]/90 hover:shadow-[0_12px_28px_rgba(34,211,238,.12)]"
+                    aria-label={`Open ${brand.name} website`}
+                  >
+                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/95 p-2.5 shadow-sm">
+                      <img
+                        src={`https://www.google.com/s2/favicons?domain=${brand.domain}&sz=128`}
+                        alt={`${brand.name} brand`}
+                        className="h-full w-full object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                    <span className="mt-3 text-sm font-extrabold tracking-[0.08em] text-white group-hover:text-cyan-300">
+                      {brand.name}
+                    </span>
+                  </a>
+                ))}
+              </div>
+
+              <div className="mt-4 flex items-center justify-center gap-1.5">
+                {brands.map((brand, index) => (
+                  <button
+                    key={brand.name}
+                    type="button"
+                    aria-label={`Show ${brand.name}`}
+                    onClick={() => setBrandIndex(index)}
+                    className={`h-1.5 rounded-full transition-all ${index === brandIndex ? 'w-7 bg-cyan-300' : 'w-1.5 bg-white/25 hover:bg-white/50'}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>

@@ -58,8 +58,8 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(0,180,255,.10),transparent_34%),linear-gradient(180deg,#020916_0%,#020916_66%,#041426_100%)]" />
 
       <div className="relative mx-auto max-w-[1536px] px-6 pt-12 lg:px-10 lg:pt-16 xl:px-12">
-        <div className="grid min-h-[555px] grid-cols-1 items-center gap-8 lg:grid-cols-[0.82fr_1.18fr]">
-          <div className="relative z-10 max-w-[610px] pb-10 lg:pb-12">
+        <div className="min-h-[555px] flex items-center">
+          <div className="relative z-10 max-w-[760px] pb-10 lg:pb-12">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/35 bg-cyan-400/[0.04] px-4 py-2 text-[12px] font-bold tracking-[0.13em] text-cyan-300">
               <span className="h-2 w-2 rounded-full bg-cyan-400" />
               MODERN SECURITY &amp; IT PARTNER
@@ -109,17 +109,6 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
                   <p className="mt-2 whitespace-pre-line text-[11px] leading-4 text-slate-300">{item.label}</p>
                 </div>
               ))}
-            </div>
-          </div>
-
-          <div className="relative hidden min-h-[555px] lg:block">
-            <div className="absolute inset-y-0 -right-8 left-0 overflow-hidden">
-              <img
-                src="/binaryGuard-operations.jpg"
-                alt="Security operations dashboard and monitoring workstation"
-                className="h-full w-full object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#020916] via-[#020916]/15 to-transparent" />
             </div>
           </div>
         </div>

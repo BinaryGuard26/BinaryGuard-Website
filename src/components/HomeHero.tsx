@@ -128,6 +128,43 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
 
   return (
     <section className="relative overflow-hidden bg-[#020916] pt-[73px] text-white">
+      <style>{`
+        @keyframes bgSolutionsFloat {
+          0%, 100% { transform: translate3d(0, 0, 0); }
+          35% { transform: translate3d(8px, -2px, 0); }
+          70% { transform: translate3d(2px, 2px, 0); }
+        }
+
+        @keyframes bgSolutionsShine {
+          0% { background-position: 180% 50%; }
+          100% { background-position: -80% 50%; }
+        }
+
+        @keyframes bgSolutionsGlow {
+          0%, 100% { filter: drop-shadow(0 0 0 rgba(34,211,238,0)); }
+          50% { filter: drop-shadow(0 0 16px rgba(34,211,238,.30)); }
+        }
+
+        .bg-solutions-motion {
+          display: inline-block;
+          color: transparent;
+          background-image: linear-gradient(100deg, #22d3ee 0%, #22d3ee 34%, #ffffff 48%, #67e8f9 58%, #22d3ee 72%, #22d3ee 100%);
+          background-size: 220% 100%;
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: bgSolutionsFloat 4.6s ease-in-out infinite, bgSolutionsShine 3.4s linear infinite, bgSolutionsGlow 4.6s ease-in-out infinite;
+          will-change: transform, background-position, filter;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .bg-solutions-motion {
+            animation: none;
+            background-position: 50% 50%;
+          }
+        }
+      `}</style>
+
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/hero-ops-dashboard.png')" }}
@@ -147,7 +184,9 @@ export default function HomeHero({ onNavigate }: HomeHeroProps) {
               <span className="block">Enterprise-Grade</span>
               <span className="block">Physical Security,</span>
               <span className="mt-1 block text-cyan-400">IT &amp; Infrastructure</span>
-              <span className="block text-cyan-400">Solutions</span>
+              <span className="block overflow-visible">
+                <span className="bg-solutions-motion">Solutions</span>
+              </span>
             </h1>
 
             <p className="mt-6 max-w-[560px] text-[16px] leading-7 text-slate-300">
